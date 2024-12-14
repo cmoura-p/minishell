@@ -1,0 +1,31 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   free_funcs.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cmoura-p <cmoura-p@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/28 18:42:59 by joseoliv          #+#    #+#             */
+/*   Updated: 2024/12/12 22:02:12 by cmoura-p         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../include/minishell.h"
+
+void	free_necessary(char	**line, t_minishell **bash)
+{
+	(void) bash;
+	free(*line);
+	*line = NULL;
+	//free_minishell(bash);
+}
+
+void	ft_clear_all(t_minishell **bash, char	**line)
+{
+	(void) bash;
+	free(*line);
+	//free_minishell(bash);
+	rl_clear_history();
+	ft_printf("%s", SUCCESS_EXIT);
+	exit(EXIT_SUCCESS);
+}
