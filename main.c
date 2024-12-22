@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/15 11:57:24 by cmoura-p          #+#    #+#             */
-/*   Updated: 2024/12/17 19:37:31 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2024/12/18 23:53:14 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ int	main(int ac, char **av, char **envp)
 
 	if (ac != 1)
 	{
-		ft_printf("Minishell: command not allowed -> %s \n", av[1]);
-		exit(0);
+		ft_printf("Minishell: argument is not allowed -> %s \n", av[1]);  // tem que ser na saida padrao de erro? (STDERR_FILENO)
+		exit(0);  //return com mensagem de erro
 	}
 	cmd_line = NULL;
 	prompt = NULL;
