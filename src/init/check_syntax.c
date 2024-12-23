@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 19:47:42 by cmoura-p          #+#    #+#             */
-/*   Updated: 2024/12/23 10:41:59 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2024/12/23 17:09:50 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ static int	err_special_char(char *line)
 	char	*special;
 	int		i;
 
-	special = "();&!*\\";
+	special = "();&!*\\";		// verificar manual do bash
 	i = 0;
 	while (line[i])
 	{

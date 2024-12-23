@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 13:42:58 by cmoura-p          #+#    #+#             */
-/*   Updated: 2024/12/23 10:05:22 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2024/12/23 16:50:30 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	get_prompt(char **prompt)
 {
 	char	*pwd;
 
-	pwd = getenv("PWD");
+	pwd = getenv("PWD");	//verificar se getenv faz malloc
 	if (!pwd)
 		pwd = "erro pwd ";
 	*prompt = ft_strjoin(pwd, ": ");
@@ -25,7 +25,6 @@ void	get_prompt(char **prompt)
 }
 t_minishell	*init_data(char **envp, char **prompt)
 {
-	(void)envp;			// por enquanto
 	t_minishell		*bash;
 
 	init_signals();

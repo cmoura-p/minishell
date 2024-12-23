@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/15 11:57:24 by cmoura-p          #+#    #+#             */
-/*   Updated: 2024/12/23 10:51:34 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2024/12/23 16:52:30 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	main(int ac, char **av, char **envp)
 		if ((init_bash(minishell, prompt)))
 		{
 			if (minishell->cmd_line[0] != '\0')
-				ft_printf("%s \n", minishell->cmd_line);	// aqui vai o parsing
+				ft_printf("%s \n", minishell->cmd_line);	// aqui vai o tokenizer
 		}
 		else
 			if (!minishell->cmd_line)

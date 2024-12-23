@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 11:44:44 by cmoura-p          #+#    #+#             */
-/*   Updated: 2024/12/23 12:31:35 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2024/12/23 17:16:21 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ int			handle_blank(char *line, int i, t_minishell *bash)
 
 void	tokens(char *line, t_minishell *bash, int i)
 {
+// *line = bash->cmd_line e nao lembro o pq do i como parametro
 	(void)bash;
 	while (line[i])
 	{
