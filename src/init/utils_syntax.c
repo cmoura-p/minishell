@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 11:34:58 by cmoura-p          #+#    #+#             */
-/*   Updated: 2024/12/12 12:16:45 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2024/12/22 23:10:22 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,9 @@ int	btw_quotes(char *line, int i)
 		i++;
 	return (i);
 }
-// aqui vao entrar todas as funcoes adicionais para
-// verificacao de erros de syntaxe
+int	skip_blank(char *line, int i)
+{
+	while (line[i] && (line[i] == ' ' || line[i] == '\t'))
+		i++;
+	return (i);
+}

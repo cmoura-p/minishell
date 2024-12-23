@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 10:51:43 by cmoura-p          #+#    #+#             */
-/*   Updated: 2024/12/21 23:48:02 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2024/12/23 01:09:15 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,18 +90,20 @@ typedef struct s_exec
 }					t_exec;
 
 //init
-t_minishell	*init_data(char **envp, char **prompt);
+void		init_data(t_minishell **bash, char **envp, char **prompt);
 void		init_signals();
 void		signal_handler(int signum);
-int			init_bash(char **cmd_line, char *prompt);
+int			init_bash(t_minishell *minishell, char *prompt);
+//char		load_envp(t_minishell *bash, char **envp);
 char		*check_syntax(char *line);
 int			btw_quotes(char *line, int i);
+int			skip_blank(char *line, int i);
 
 //parsing
 void		parsing(t_minishell *bash);
 
 //free_memory
-void		ft_clear_all(t_minishell **bash, char	**line);
-void		free_necessary(char	**line, t_minishell **bash);
+void		free_it_all(t_minishell **bash);
+void		free_line(t_minishell **bash);
 
 #endif

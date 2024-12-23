@@ -6,13 +6,13 @@
 /*   By: cmoura-p <cmoura-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 19:47:42 by cmoura-p          #+#    #+#             */
-/*   Updated: 2024/12/12 12:15:53 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2024/12/23 00:09:27 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-// incluir funcaode caracteres especiais
+// incluir funcaode caracteres especiais ?
 
 static int	err_quotes(char *line)
 {
@@ -21,7 +21,7 @@ static int	err_quotes(char *line)
 
 	while (line[i])
 	{
-		if ((line[i] == '\'' || line[i] == '"') && quote == 0)
+		if ((line[i] == '\'' || line[i] == '\"') && quote == 0)
 			quote = line[i]; 			// Aspas abertas
 		else if (line[i] == quote)
 			quote = 0; 					// Aspas fechadas
@@ -37,59 +37,55 @@ static int	err_quotes(char *line)
 static int	err_pipes(char *line)
 {
 	int		i;
-	int		is_pipe;
 
 	i = 0;
-	is_pipe = 0;
+	if (line[i] == '|')
+		return (1);
 	while (line[i])
 	{
-		if (line[i] == '\'' || line[i] == '"')
+		if (line[i] == '\'' || line[i] == '\"')
 			i = btw_quotes(line, i);
 		else
 		{
 			if (line[i] == '|')
 			{
-				if (is_pipe)
+				i = skip_blank(line, i + 1);
+				if (line[i] == '\0' || line[i] == '|')
 					return (1);
-				is_pipe = 1;
 			}
-			else
-				is_pipe = 0;
 			i++;
 		}
 	}
-	if (is_pipe)
-		return (1);
 	return (0);
 }
 static int	err_redir(char *line)
 {
 	int		i;
-	int		is_redir;
 
 	i = 0;
-	is_redir = 0;
 	while (line[i])
 	{
-		if (line[i] == '\'' || line[i] == '"')
+		if (line[i] == '\'' || line[i] == '\"')
 			i = btw_quotes(line, i);
 		else
 		{
-			if (line[i] == '>' || line[i] == '<')
+			if (line[i] == '<' || line[i] == '>')
 			{
-				if (is_redir)
+				if (line[i + 1] == line[i])
+					i++;
+				i = skip_blank(line, i + 1);
+				if (line[i] == '\0' || line[i] == '|')
 					return (1);
-				is_redir = 1;
+				else if (line[i] == '<' || line[i] == '>')
+					return (1);
 			}
 			else
-				is_redir = 0;
-			i++;
+				i++;
 		}
 	}
-	if (is_redir)
-		return (1);
 	return (0);
 }
+
 char	*check_syntax(char *cmd_line)
 {
 	if (!cmd_line)
@@ -97,6 +93,11 @@ char	*check_syntax(char *cmd_line)
 	cmd_line = ft_strtrim(cmd_line, " ");
 	if (err_quotes(cmd_line))
 		return(NULL);
+	if (cmd_line[0] == '|')
+	{
+		ft_printf("Syntax error: wrong use of pipes\n");
+		return (NULL);
+	}
 	if (err_pipes(cmd_line))
 	{
 		ft_printf("Syntax error: wrong use of pipes\n");

@@ -6,25 +6,22 @@
 /*   By: cmoura-p <cmoura-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 19:44:40 by cmoura-p          #+#    #+#             */
-/*   Updated: 2024/12/17 19:44:44 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2024/12/22 00:17:53 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void	free_necessary(char	**line, t_minishell **bash)
+void	free_line(t_minishell **bash)
 {
 	(void) bash;
-	free(*line);
-	*line = NULL;
-	//free_minishell(bash);
+	// free
 }
 
-void	ft_clear_all(t_minishell **bash, char	**line)
+void	free_it_all(t_minishell **bash)
 {
 	(void) bash;
-	free(*line);
-	//free_minishell(bash);
+	// free
 	rl_clear_history();
 	ft_printf("%s", SUCCESS_EXIT);
 	exit(EXIT_SUCCESS);

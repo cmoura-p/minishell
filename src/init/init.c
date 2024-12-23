@@ -6,39 +6,44 @@
 /*   By: cmoura-p <cmoura-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 13:42:58 by cmoura-p          #+#    #+#             */
-/*   Updated: 2024/12/18 19:11:19 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2024/12/23 01:10:27 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-t_minishell	*init_data(char **envp, char **prompt)
+void	get_prompt(char **prompt)
 {
-	t_minishell	*bash;
-	char		*pwd;
-	(void)envp;			// por enquanto
+	char	*pwd;
 
-	bash = ft_calloc(sizeof(t_minishell), 1);
-	if (!bash)
-		exit(1);
-	init_signals();
 	pwd = getenv("PWD");
 	if (!pwd)
 		pwd = "erro pwd ";
 	*prompt = ft_strjoin(pwd, ": ");
-	if (!(prompt))
+	if (!(*prompt))
 		*prompt = pwd;
-	// inicializa a struct do minishell
-	return (bash);
 }
-
-int	init_bash(char **cmd_line, char *prompt)
+void 	init_data(t_minishell **bash, char **envp, char **prompt)
 {
-	*cmd_line = readline(prompt);
-	if (!(*cmd_line))
+	(void)envp;			// por enquanto
+
+	init_signals();
+	get_prompt(prompt);
+	*bash = ft_calloc(sizeof(t_minishell), 1);
+	if (!(*bash))
+		exit(1);
+	(*bash)->fd_in = STDIN_FILENO;
+	(*bash)->fd_out = STDOUT_FILENO;
+}
+int	init_bash(t_minishell *minishell, char *prompt)
+{
+	if (!minishell || !prompt)
 		return (0);
-	add_history(*cmd_line);
-	if (!(check_syntax(*cmd_line)))
+	minishell->cmd_line = readline(prompt);
+	if (!(minishell->cmd_line))
+		return (0);
+	add_history(minishell->cmd_line);
+	if (!(check_syntax(minishell->cmd_line)))
 		return (0);
 	return (1);
 }
