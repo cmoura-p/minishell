@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 13:42:58 by cmoura-p          #+#    #+#             */
-/*   Updated: 2024/12/23 01:10:27 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2024/12/23 10:05:22 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,17 +23,20 @@ void	get_prompt(char **prompt)
 	if (!(*prompt))
 		*prompt = pwd;
 }
-void 	init_data(t_minishell **bash, char **envp, char **prompt)
+t_minishell	*init_data(char **envp, char **prompt)
 {
 	(void)envp;			// por enquanto
+	t_minishell		*bash;
 
 	init_signals();
 	get_prompt(prompt);
-	*bash = ft_calloc(sizeof(t_minishell), 1);
-	if (!(*bash))
+	bash = ft_calloc(sizeof(t_minishell), 1);
+	if (!bash)
 		exit(1);
-	(*bash)->fd_in = STDIN_FILENO;
-	(*bash)->fd_out = STDOUT_FILENO;
+	bash->fd_in = STDIN_FILENO;
+	bash->fd_out = STDOUT_FILENO;
+	bash->envp = load_envp(envp);
+	return (bash);
 }
 int	init_bash(t_minishell *minishell, char *prompt)
 {

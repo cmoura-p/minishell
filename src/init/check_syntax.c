@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 19:47:42 by cmoura-p          #+#    #+#             */
-/*   Updated: 2024/12/23 00:09:27 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2024/12/23 10:41:59 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,29 @@ static int	err_redir(char *line)
 	}
 	return (0);
 }
+static int	err_special_char(char *line)
+{
+	char	*special;
+	int		i;
+
+	special = "();&!*\\";
+	i = 0;
+	while (line[i])
+	{
+		if (line[i] == '\'' || line[i] == '\"')
+			i = btw_quotes(line, i);
+		else
+		{
+			if (ft_strchr(special, line[i]))
+			{
+				ft_printf("Syntax error: unexpected special char '%c'\n", line[i]);
+				return (1);
+			}
+		}
+		i++;
+	}
+	return (0);
+}
 
 char	*check_syntax(char *cmd_line)
 {
@@ -93,11 +116,6 @@ char	*check_syntax(char *cmd_line)
 	cmd_line = ft_strtrim(cmd_line, " ");
 	if (err_quotes(cmd_line))
 		return(NULL);
-	if (cmd_line[0] == '|')
-	{
-		ft_printf("Syntax error: wrong use of pipes\n");
-		return (NULL);
-	}
 	if (err_pipes(cmd_line))
 	{
 		ft_printf("Syntax error: wrong use of pipes\n");
@@ -108,6 +126,8 @@ char	*check_syntax(char *cmd_line)
 		ft_printf("Syntax error: wrong use of redirection\n");
 		return (NULL);
 	}
+	if (err_special_char(cmd_line))
+		return(NULL);
 	return (cmd_line);
 }
 

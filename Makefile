@@ -6,7 +6,7 @@
 #    By: cmoura-p <cmoura-p@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/16 21:43:02 by cmoura-p          #+#    #+#              #
-#    Updated: 2024/12/23 01:11:05 by cmoura-p         ###   ########.fr        #
+#    Updated: 2024/12/23 12:34:54 by cmoura-p         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,8 +23,9 @@ SRC =		main.c \
 			src/init/handle_signals.c \
 			src/init/init.c \
 			src/init/check_syntax.c \
-			src/init/utils_syntax.c \
+			src/init/utils_init.c \
 			src/clear/free_funcs.c \
+			src/tokenizer/tokens.c \
 			src/parser/parsing.c
 
 OBJ_DIR = ./obj
@@ -39,7 +40,8 @@ $(NAME): $(OBJS) $(LIBFT)
 	@$(CC) -o $@ $(OBJS) $(LIBFT) $(READLINE_FLAG)
 
 # Regra para compilar arquivos fonte em arquivos objeto
-$(OBJ_DIR)/%.o: %.c | $(OBJ_DIR)/src/init $(OBJ_DIR)/src/clear $(OBJ_DIR)/src/parser
+$(OBJ_DIR)/%.o: %.c | $(OBJ_DIR)/src/init $(OBJ_DIR)/src/clear $(OBJ_DIR)/src/parser \
+						$(OBJ_DIR)/src/tokenizer
 	@$(CC) $(CFLAGS) -c $< -o $@
 
 # Regras para criar subdiretórios necessários no OBJ_DIR
@@ -47,6 +49,9 @@ $(OBJ_DIR)/src/init:
 	@mkdir -p $@
 
 $(OBJ_DIR)/src/clear:
+	@mkdir -p $@
+
+$(OBJ_DIR)/src/tokenizer:
 	@mkdir -p $@
 
 $(OBJ_DIR)/src/parser:

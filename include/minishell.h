@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 10:51:43 by cmoura-p          #+#    #+#             */
-/*   Updated: 2024/12/23 01:09:15 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2024/12/23 12:31:48 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,10 @@ enum e_type
 	REDIR_OUT,			// >
 	REDIR_APP,	 		// >>
 	HEREDOC,			// <<
-	S_QUOTE,			//	'
-	D_QUOTE,			//	"
-	NADA,				//NULL
+	S_QUOTE,			// '
+	D_QUOTE,			// "
+	DOLLAR,				// $
+	NADA,				// NULL
 };
 
 typedef struct s_token
@@ -90,14 +91,27 @@ typedef struct s_exec
 }					t_exec;
 
 //init
-void		init_data(t_minishell **bash, char **envp, char **prompt);
+t_minishell	*init_data(char **envp, char **prompt);
 void		init_signals();
 void		signal_handler(int signum);
 int			init_bash(t_minishell *minishell, char *prompt);
-//char		load_envp(t_minishell *bash, char **envp);
+char		**load_envp(char **envp);
 char		*check_syntax(char *line);
 int			btw_quotes(char *line, int i);
 int			skip_blank(char *line, int i);
+
+//token
+void		tokens(char *line, t_minishell *bash, int i);
+int			token_s_quote(char *line, int i, t_minishell *bash);
+int			token_d_quote(char *line, int i, t_minishell *bash);
+int			token_pipe(char *line, int i, t_minishell *bash);
+int			token_dollar(char *line, int i, t_minishell *bash);
+int			token_redir_app(char *line, int i, t_minishell *bash);
+int			token_redir_in(char *line, int i, t_minishell *bash);
+int			token_redir_out(char *line, int i, t_minishell *bash);
+int			token_heredoc(char *line, int i, t_minishell *bash);
+int			token_word(char *line, int i, t_minishell *bash);
+int			handle_blank(char *line, int i, t_minishell *bash);
 
 //parsing
 void		parsing(t_minishell *bash);

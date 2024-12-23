@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/15 11:57:24 by cmoura-p          #+#    #+#             */
-/*   Updated: 2024/12/23 01:08:59 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2024/12/23 10:51:34 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,7 @@ int	main(int ac, char **av, char **envp)
 		ft_printf("Minishell: argument is not allowed -> %s \n", av[1]);  // tem que ser na saida padrao de erro? (STDERR_FILENO)
 		exit(0);  //return com mensagem de erro
 	}
-	prompt = NULL;
-	init_data(&minishell, envp, &prompt);
+	minishell = init_data(envp, &prompt);
 	while (1)
 	{
 		if ((init_bash(minishell, prompt)))
