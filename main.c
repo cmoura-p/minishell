@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/15 11:57:24 by cmoura-p          #+#    #+#             */
-/*   Updated: 2024/12/23 16:52:30 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/01/04 21:08:11 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,16 +26,17 @@ int	main(int ac, char **av, char **envp)
 	minishell = init_data(envp, &prompt);
 	while (1)
 	{
-		if ((init_bash(minishell, prompt)))
+		if (init_bash(minishell, prompt))
 		{
 			if (minishell->cmd_line[0] != '\0')
-				ft_printf("%s \n", minishell->cmd_line);	// aqui vai o tokenizer
+				run(minishell);
 		}
 		else
 			if (!minishell->cmd_line)
 				break;
-		free_line(&minishell);
+		if (minishell->cmd_line)
+			free(minishell->cmd_line);
 	}
-	free_it_all(&minishell);
+	free_to_quit(minishell, prompt);
 	return (0);
 }

@@ -1,31 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strchr.c                                        :+:      :+:    :+:   */
+/*   run.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cmoura-p <cmoura-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/28 17:26:34 by cmoura-p          #+#    #+#             */
-/*   Updated: 2024/12/28 17:26:35 by cmoura-p         ###   ########.fr       */
+/*   Created: 2025/01/03 23:00:17 by cmoura-p          #+#    #+#             */
+/*   Updated: 2025/01/05 22:17:21 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../include/minishell.h"
 
-#include "../libft.h"
-
-char	*ft_strchr(const char *s, int c)
+void	run(t_minishell *bash)
 {
-	int	i;
-
-	i = 0;
-	while (s[i])
-	{
-		if (s[i] == (char)c)
-			return (((char *)s) + i);
-		i++;
-	}
-	if ((char)c == '\0')
-		return ((char *)s + i);
-	return (NULL);
+	ft_printf("%s \n", bash->cmd_line);
+	tokenizer(bash);
+	print_token_list(bash->token);
+	free_to_restart(bash);
 }
-

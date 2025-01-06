@@ -1,31 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strchr.c                                        :+:      :+:    :+:   */
+/*   ft_strcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmoura-p <cmoura-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mde-souz <mde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/28 17:26:34 by cmoura-p          #+#    #+#             */
-/*   Updated: 2024/12/28 17:26:35 by cmoura-p         ###   ########.fr       */
+/*   Created: 2024/06/21 17:53:27 by mde-souz          #+#    #+#             */
+/*   Updated: 2024/07/08 16:57:13 by mde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
-#include "../libft.h"
-
-char	*ft_strchr(const char *s, int c)
+char	*ft_strcpy(char *dest, char *src)
 {
 	int	i;
 
 	i = 0;
-	while (s[i])
+	while (src[i])
 	{
-		if (s[i] == (char)c)
-			return (((char *)s) + i);
+		dest[i] = src[i];
 		i++;
 	}
-	if ((char)c == '\0')
-		return ((char *)s + i);
-	return (NULL);
+	dest[i] = '\0';
+	return (dest);
 }
-

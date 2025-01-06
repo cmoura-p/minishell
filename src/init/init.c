@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 13:42:58 by cmoura-p          #+#    #+#             */
-/*   Updated: 2024/12/23 16:50:30 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/01/04 21:01:24 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	get_prompt(char **prompt)
 {
 	char	*pwd;
 
-	pwd = getenv("PWD");	//verificar se getenv faz malloc
+	pwd = getenv("PWD");	//verificar se getenv faz malloc  (NAUM FAZ)
 	if (!pwd)
 		pwd = "erro pwd ";
 	*prompt = ft_strjoin(pwd, ": ");
@@ -42,9 +42,12 @@ int	init_bash(t_minishell *minishell, char *prompt)
 	if (!minishell || !prompt)
 		return (0);
 	minishell->cmd_line = readline(prompt);
-	if (!(minishell->cmd_line))
+	if ((minishell->cmd_line == NULL) || (*(minishell->cmd_line) == '\0'))
 		return (0);
 	add_history(minishell->cmd_line);
+	minishell->cmd_line = ft_minitrim(minishell->cmd_line);
+	if (!minishell->cmd_line)
+		return (0);
 	if (!(check_syntax(minishell->cmd_line)))
 		return (0);
 	return (1);

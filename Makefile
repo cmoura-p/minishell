@@ -6,7 +6,7 @@
 #    By: cmoura-p <cmoura-p@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/16 21:43:02 by cmoura-p          #+#    #+#              #
-#    Updated: 2024/12/23 12:34:54 by cmoura-p         ###   ########.fr        #
+#    Updated: 2025/01/05 21:10:38 by cmoura-p         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,14 +24,22 @@ SRC =		main.c \
 			src/init/init.c \
 			src/init/check_syntax.c \
 			src/init/utils_init.c \
+			src/run.c \
 			src/clear/free_funcs.c \
-			src/tokenizer/tokens.c \
+			src/tokenizer/tokenizer.c \
+			src/tokenizer/tokenizer_quotes.c \
+			src/tokenizer/tokenizer_metachar.c \
+			src/tokenizer/tokenizer_redir.c \
+			src/tokenizer/tokenizer_word.c \
+			src/tokenizer/utils_tokenizer.c \
+			src/tokenizer/token_prints.c \
 			src/parser/parsing.c
 
 OBJ_DIR = ./obj
 OBJS = $(addprefix $(OBJ_DIR)/, $(SRC:.c=.o))
 
-VALGRIND_FLAGS = --quiet --leak-check=full --show-leak-kinds=all --track-fds=yes --trace-children=yes --gen-suppressions=all
+VALGRIND_FLAGS = 	--quiet --leak-check=full --show-leak-kinds=all --track-fds=yes \
+					--trace-children=yes --gen-suppressions=all
 VALGRIND_SUPP = --suppressions=readline.supp
 
 all: $(NAME)
@@ -64,6 +72,10 @@ $(LIBFT):
 	@make -C $(LIBFT_DIR) -s
 
 valgrind: all
+	@echo "Executando Valgrind com:"
+	@echo "FLAGS: $(VALGRIND_FLAGS)"
+	@echo "SUPPRESSIONS: $(VALGRIND_SUPP)"
+	@echo "BINÁRIO: ./$(NAME)"
 	valgrind $(VALGRIND_FLAGS) $(VALGRIND_SUPP) ./$(NAME)
 
 clean:
@@ -75,4 +87,6 @@ fclean: clean
 	@make fclean -C $(LIBFT_DIR) -s
 
 re: fclean all
+
+.PHONY: all clean fclean re
 

@@ -1,31 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strchr.c                                        :+:      :+:    :+:   */
+/*   tokenizer_word.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cmoura-p <cmoura-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/28 17:26:34 by cmoura-p          #+#    #+#             */
-/*   Updated: 2024/12/28 17:26:35 by cmoura-p         ###   ########.fr       */
+/*   Created: 2025/01/03 16:44:48 by cmoura-p          #+#    #+#             */
+/*   Updated: 2025/01/05 20:55:54 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../../include/minishell.h"
 
-#include "../libft.h"
-
-char	*ft_strchr(const char *s, int c)
+int	tokenizer_word(char *line, int i, t_minishell *bash)
 {
-	int	i;
+	int j;
+	char *word;
 
-	i = 0;
-	while (s[i])
-	{
-		if (s[i] == (char)c)
-			return (((char *)s) + i);
+	j = i;
+	while (line[i] && ft_isword(line[i]))
 		i++;
-	}
-	if ((char)c == '\0')
-		return ((char *)s + i);
-	return (NULL);
+	word = ft_substr(line, j, i - j);
+	if (!word)				// verificar o retorno no erro
+		return (0);			// do malloc no substr
+	add_tokenlst(&bash, word, WORD, NO_QUOTE);
+	return (i - 1);
 }
-

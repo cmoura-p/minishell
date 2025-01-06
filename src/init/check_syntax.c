@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 19:47:42 by cmoura-p          #+#    #+#             */
-/*   Updated: 2024/12/23 17:09:50 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2024/12/28 16:21:41 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,6 @@ char	*check_syntax(char *cmd_line)
 {
 	if (!cmd_line)
 		return (0);
-	cmd_line = ft_strtrim(cmd_line, " ");
 	if (err_quotes(cmd_line))
 		return(NULL);
 	if (err_pipes(cmd_line))
