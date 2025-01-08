@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 10:51:43 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/01/05 22:18:09 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/01/06 18:18:44 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,8 +89,9 @@ typedef struct s_redir
 {
 	enum e_type		type;
 	char 			*file_name;
-	void			*next;
+	int				fd;
 	int				id;
+	void			*next;
 }					t_redir;
 
 typedef struct s_exec
