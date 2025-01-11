@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 19:47:42 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/01/08 12:06:19 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/01/08 19:21:00 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,11 @@ static int	err_pipes(char *line)
 		{
 			if (line[i] == '|')
 			{
-				i = skip_blank(line, i + 1)-1;
+				i = skip_blank(line, i + 1);
 				if (line[i] == '\0' || line[i] == '|')
 					return (1);
+				else
+					i--;
 			}
 			i++;
 		}

@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 17:00:13 by dramos-j          #+#    #+#             */
-/*   Updated: 2025/01/05 22:17:05 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/01/09 19:04:46 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,6 @@ const char	*get_token_type_str(enum e_type type)
 		return ("Word");
 	else if (type == BLANK)
 		return ("Blank");
-	else if (type == ENVP)
-		return ("Envp");
 	else if (type == PIPE)
 		return ("Pipe");
 	else if (type == REDIR_IN)
@@ -54,8 +52,8 @@ const char	*get_token_type_str(enum e_type type)
 		return ("Exp exit code");
 	else if (type == EXP_ENVP)
 		return ("Exp var");
-	else if (type == NADA)
-		return ("Null");
+	else if (type == BUILTIN)
+		return ("Built-ins");
 	else
 		return ("Unknown");
 }

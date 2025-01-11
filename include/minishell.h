@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 10:51:43 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/01/06 18:18:44 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/01/11 11:31:31 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ enum e_type
 {
 	BLANK,				// blank space
 	WORD,				// command
-	ENVP,				// environment
 	FILE_NAME,			// file
 	PIPE,				// |
 	REDIR_IN,			// <
@@ -40,7 +39,7 @@ enum e_type
 	D_QUOTE,			// "
 	EXP_EXIT,			// $?
 	EXP_ENVP,			// $
-	NADA,				// NULL
+	BUILTIN,			// built-in
 };
 
 enum	e_status
@@ -50,10 +49,22 @@ enum	e_status
 	DOUBLE_Q,
 };
 
+enum	e_builtins
+{
+	ECHO,
+	CD,
+	PWD,
+	EXPORT,
+	UNSET,
+	ENV,
+	EXIT,
+};
+
 typedef struct s_token
 {
 	enum e_type		type;
 	enum e_status	status;
+//	enum e_builtins	btin;
 	int				i;
 	char			*name;
 	int				expand;
@@ -61,15 +72,24 @@ typedef struct s_token
 	struct s_token	*next;
 }					t_token;
 
+typedef struct s_heredoc
+{
+	int					i;
+	int					fd_heredoc;
+	char				*heredoc_path;
+	char				*eo_heredoc;
+	struct s_heredoc	*next;
+}	t_heredoc;
+
 typedef struct s_minishell
 {
 	char			*cmd_line;
 	char			**envp;
-	char			*heredoc;
+	t_heredoc		*heredoc;
 	t_token			*token;
-	void			*root;			//?
-	char			*path;			//?
-	int				exit_status;	//?
+	void			*root;
+	char			*path;
+	int				exit_status;
 	int				fd_in;			//?
 	int				fd_out;			//?
 	int				pid;			//?
@@ -139,6 +159,12 @@ void		print_token_list(t_token *token);
 
 //parsing
 void		parsing(t_minishell *bash);
+void		jointokens(t_minishell *bash);
+void		joinnext(t_token **token, char *name);
+void		joinprev(t_token **token, char *name);
+void		expandwords(t_minishell *bash);
+int			valid_envp_char(char s);
+char		*envp_name(char *name);
 
 //free
 void		free_to_quit(t_minishell *bash, char *prompt);

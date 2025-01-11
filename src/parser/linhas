@@ -1,0 +1,4 @@
+disp *aux
+disp *aux->next
+disp *aux->next->next
+disp *aux->next->next->next
