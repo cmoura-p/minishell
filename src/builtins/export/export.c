@@ -6,71 +6,42 @@
 /*   By: brendon <brendon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 16:40:41 by brendon           #+#    #+#             */
-/*   Updated: 2025/01/09 18:44:26 by brendon          ###   ########.fr       */
+/*   Updated: 2025/01/14 17:40:10 by brendon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
+void	ft_freeexponode(t_expo *node)
+{
+	free(node->name);
+	free(node->value);
+	free(node);
+}
+
+void	ft_exponew(t_expo **new, char *name, char *value)
+{
+	*new = malloc(sizeof(t_expo));
+	if (!*new)
+		return ;
+	(*new)->name = ft_strdup(name);
+	if (value)
+		(*new)->value = ft_strdup(value);
+	else
+		(*new)->value = NULL;
+	(*new)->next = NULL;
+}
+
 void	ft_export_print(t_expo *export)
 {
-	t_expo	*tmp;
-
-	tmp = export;
-	while (tmp)
+	while (export)
 	{
-		if (tmp->value)
-			ft_printf("declare -x %s=\"%s\"\n", tmp->name, tmp->value);
+		if (export->value)
+			ft_printf("declare -x %s=\"%s\"\n", export->name, export->value);
 		else
-			ft_printf("declare -x %s\n", tmp->name);
-		tmp = tmp->next;
+			ft_printf("declare -x %s\n", export->name);
+		export = export->next;
 	}
-}
-
-t_expo	*ft_exponew(char *name, char *value)
-{
-	t_expo	*new;
-
-	new = malloc(sizeof(t_expo));
-	if (!new)
-		return (NULL);
-	new->name = ft_strdup(name);
-	if (!new->name)
-	{
-		free(new);
-		return (NULL);
-	}
-	if (value)
-	{
-		new->value = ft_strdup(value);
-		if (!new->value)
-		{
-			free(new->name);
-			free(new);
-			return (NULL);
-		}
-	}
-	else
-		new->value = NULL;
-	new->next = NULL;
-	return (new);
-}
-
-void	ft_expoadd_back(t_expo **lst, t_expo *new)
-{
-	t_expo	*tmp;
-
-	if (!new)
-		return ;
-	if (!*lst)
-	{
-		*lst = new;
-		return ;
-	}
-	tmp = *lst;
-	while (tmp->next)
-		tmp = tmp->next;
-	tmp->next = new;
 }
 
 int	ft_validarg(char *arg)
@@ -94,7 +65,7 @@ int	ft_validarg(char *arg)
 	return (1);
 }
 
-void	ft_export(t_expo *export, char **args)
+void	ft_export(t_minishell *minishell, t_expo *export, char **args)
 {
 	int	i;
 	int	j;
@@ -114,10 +85,11 @@ void	ft_export(t_expo *export, char **args)
 			if (args[i][j] == '=')
 			{
 				args[i][j] = '\0';
-				ft_expoadd_back(&export, ft_exponew(args[i], args[i][j + 1]));
+				ft_expoinsert(&export, ft_exponew(args[i], args[i][j + 1]));
+				ft_envadd(minishell->env, ft_envnew(args[i], args[i][j + 1]));
 			}
 			else
-				ft_expoadd_back(&export, ft_exponew(args[i], NULL));
+				ft_expoinsert(&export, ft_exponew(args[i], NULL));
 		}
 	}
 }
