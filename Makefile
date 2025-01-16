@@ -6,7 +6,7 @@
 #    By: cmoura-p <cmoura-p@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/16 21:43:02 by cmoura-p          #+#    #+#              #
-#    Updated: 2025/01/11 11:25:50 by cmoura-p         ###   ########.fr        #
+#    Updated: 2025/01/14 22:27:03 by cmoura-p         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,6 +24,7 @@ SRC =		main.c \
 			src/init/init.c \
 			src/init/check_syntax.c \
 			src/init/utils_init.c \
+			src/init/utils_envp.c \
 			src/run.c \
 			src/clear/free_funcs.c \
 			src/tokenizer/tokenizer.c \

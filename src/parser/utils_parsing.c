@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 21:39:01 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/01/11 19:27:31 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/01/15 22:22:11 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void joinnext(t_token **token, char *name)
 	aux_next = (*token)->next;
 	aux->name = name;
 	aux->status = aux_next->status;
+	aux->type = aux->next->type;
 	aux->next = aux_next->next;
 	if (aux_next->next != NULL)
 		aux_next->next->prev = aux_next->prev;

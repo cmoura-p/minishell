@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 10:51:43 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/01/11 11:31:31 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/01/15 21:14:00 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 enum e_type
 {
 	BLANK,				// blank space
-	WORD,				// command
+	WORD,				// geral
 	FILE_NAME,			// file
 	PIPE,				// |
 	REDIR_IN,			// <
@@ -39,6 +39,8 @@ enum e_type
 	D_QUOTE,			// "
 	EXP_EXIT,			// $?
 	EXP_ENVP,			// $
+	COMMAND,			// command
+	ARGUMENT,			// argumento de comando
 	BUILTIN,			// built-in
 };
 
@@ -64,13 +66,28 @@ typedef struct s_token
 {
 	enum e_type		type;
 	enum e_status	status;
-//	enum e_builtins	btin;
 	int				i;
 	char			*name;
-	int				expand;
+//	int				expand;				// nao estou vendo necessidade dessa variavel
 	struct s_token	*prev;
 	struct s_token	*next;
 }					t_token;
+
+typedef struct s_envp
+{
+	char			*name;
+	char			*content;
+	struct s_envp	*prev;
+	struct s_envp	*next;
+}					t_envp;
+
+typedef struct s_export
+{
+	char			*name;
+	char			*content;
+	struct s_envp	*prev;
+	struct s_envp	*next;
+}					t_export;
 
 typedef struct s_heredoc
 {
@@ -84,9 +101,10 @@ typedef struct s_heredoc
 typedef struct s_minishell
 {
 	char			*cmd_line;
-	char			**envp;
+	t_envp			*envp;		// fazer em lista encadeada
 	t_heredoc		*heredoc;
 	t_token			*token;
+	t_export		*export;	// fazer em lista encadeada
 	void			*root;
 	char			*path;
 	int				exit_status;
@@ -127,7 +145,10 @@ t_minishell	*init_data(char **envp, char **prompt);
 void		init_signals();
 void		signal_handler(int signum);
 int			init_bash(t_minishell *minishell, char *prompt);
-char		**load_envp(char **envp);
+void		load_envp(t_minishell *bash, char **envp);
+int			split_envp(const char *envp_line, char **before, char **after);
+void		add_envplst(t_minishell *bash, char *name, char *content);
+void		add_envplst_back(t_envp **newenvp, t_envp *lst);
 char		*check_syntax(char *line);
 int			btw_quotes(char *line, int i);
 int			skip_blank(char *line, int i);
@@ -162,13 +183,16 @@ void		parsing(t_minishell *bash);
 void		jointokens(t_minishell *bash);
 void		joinnext(t_token **token, char *name);
 void		joinprev(t_token **token, char *name);
-void		expandwords(t_minishell *bash);
-int			valid_envp_char(char s);
+void		expandtokens(t_minishell *bash);
+void		joinexpand(t_token **token, char *name, char *name_exp);
+int			valid_envp_char(char s, int i);
 char		*envp_name(char *name);
+char		*ft_getenv(t_minishell *bash, char *name);
 
 //free
 void		free_to_quit(t_minishell *bash, char *prompt);
 void		free_to_restart(t_minishell *bash);
 void		free_bash(t_minishell *bash);
+void		free_envp(t_minishell *bash);
 
 #endif
