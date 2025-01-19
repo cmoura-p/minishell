@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 21:39:01 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/01/15 22:22:11 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/01/19 17:15:28 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,10 @@ void jointokens(t_minishell *bash)
 			|| ((aux->prev != NULL) && aux->prev->type == WORD)))
 		{
 			if ((aux->i == 0) && (aux->next->type == WORD))
-				{
-					newname = ft_strjoin(aux->name, aux->next->name);
-					joinnext(&aux, newname);
-				}
+			{
+				newname = ft_strjoin(aux->name, aux->next->name);
+				joinnext(&aux, newname);
+			}
 			else if ((aux->i != 0) && (aux->prev->type == WORD))
 				{
 					newname = ft_strjoin(aux->prev->name, aux->name);
@@ -67,6 +67,46 @@ void jointokens(t_minishell *bash)
 				}
 			aux = bash->token;
 		}
-		else aux = aux->next;
+		else
+			aux = aux->next;
 	}
 }
+void joinexpand(t_token **token, char *name, char *name_exp)
+{
+	t_token	*aux;
+	t_token	*aux_next;
+	char	*sobra;
+
+	sobra = NULL;
+	aux = (*token);
+	sobra = ft_substr((aux->next->name), (ft_strlen(name)), \
+			(ft_strlen(aux->next->name)-1));
+	aux->name = ft_strjoin(name_exp, sobra);
+	aux->type = ARGUMENT;
+	aux_next = aux->next;
+	aux->status = aux_next->status;
+	aux->next = aux_next->next;
+	if (aux_next->next != NULL)
+		aux_next->next->prev = aux_next->prev;
+	free(aux_next);
+}
+void joinexpand_dq(t_token **token, char *after, char *before, char *name_exp)
+{
+	t_token	*aux;
+	t_token	*aux_next;
+
+	name_exp = ft_strjoin(before, name_exp);
+	aux = (*token);
+	aux->name = ft_strjoin(name_exp, after);
+	if ((aux->next != NULL) && (aux->next->type == WORD))
+	{
+		aux_next = aux->next;
+		aux->status = aux_next->status;
+		aux->next = aux_next->next;
+		if (aux_next->next != NULL)
+			aux_next->next->prev = aux_next->prev;
+		free(aux_next);
+	}
+	aux->type = ARGUMENT;
+}
+

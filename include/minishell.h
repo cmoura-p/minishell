@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 10:51:43 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/01/15 21:14:00 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/01/19 13:20:58 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ typedef struct s_token
 	enum e_status	status;
 	int				i;
 	char			*name;
-//	int				expand;				// nao estou vendo necessidade dessa variavel
+	int				expand;
 	struct s_token	*prev;
 	struct s_token	*next;
 }					t_token;
@@ -101,7 +101,7 @@ typedef struct s_heredoc
 typedef struct s_minishell
 {
 	char			*cmd_line;
-	t_envp			*envp;		// fazer em lista encadeada
+	t_envp			*envp;
 	t_heredoc		*heredoc;
 	t_token			*token;
 	t_export		*export;	// fazer em lista encadeada
@@ -157,6 +157,7 @@ char		*ft_minitrim(char *line);
 //run
 void		run(t_minishell *bash);
 void		tokenizer(t_minishell *bash);
+void		parsing(t_minishell *bash);
 
 //token
 int			tokenizer_quotes(char *line, int i, t_minishell *bash);
@@ -179,15 +180,19 @@ int			ft_isword(char s);
 void		print_token_list(t_token *token);
 
 //parsing
-void		parsing(t_minishell *bash);
 void		jointokens(t_minishell *bash);
 void		joinnext(t_token **token, char *name);
 void		joinprev(t_token **token, char *name);
 void		expandtokens(t_minishell *bash);
 void		joinexpand(t_token **token, char *name, char *name_exp);
+void 		joinexpand_dq(t_token **token, char *after, char *before, char *name_exp);
+void		joinlast(t_token **aux);
+void		expand_var(t_token **aux, t_envp *aux_envp);
+void		expand_in_dq(t_token **aux, t_envp *aux_envp);
+int			check_dollar(char *line, char **before, char **after);
 int			valid_envp_char(char s, int i);
 char		*envp_name(char *name);
-char		*ft_getenv(t_minishell *bash, char *name);
+char		*ft_getenv(t_envp *aux, char *name);
 
 //free
 void		free_to_quit(t_minishell *bash, char *prompt);

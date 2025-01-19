@@ -61,3 +61,36 @@ echo $[?
 
 echo $ ?
 	$ ?
+
+
+DANIMUR			echo "GG$?"
+
+Primeira alteracao proposta
+{
+	if (line[i+1] == '$')
+		i = token_dollar(line, i+1, bash);
+	else
+		i = d_quote(line, i, bash);
+}
+
+
+							com a primeira alteracao			original
+
+ERROS PARA CORRIGIR
+echo $USER"teste"		funciona mas nao ta colando				seg fault
+echo "$USER"teste		funciona mas nao ta colando				loop infinito
+echo "$USERteste"		funciona no parsing mas					funciona
+						tras uma word vazia da tokenizacao		mas nao expande
+
+echo "$USER teste"		funciona no parsing mas					funciona
+						tras uma word vazia da tokenizacao		mas nao expande
+
+echo "$USER""teste"		entra em loop depois de tokenizar		loop infinito
+echo "$USER" "teste"	entra em loop depois de tokenizar		nao da erro mas
+																nao faz nada
+echo $USER teste 	X	funciona 								funciona
+echo $USER "teste" 	X	funciona								funciona
+echo "$USER" teste 		funciona								funciona
+
+multiplos $ funcionou
+
