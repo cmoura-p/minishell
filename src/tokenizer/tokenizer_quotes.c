@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 16:43:26 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/01/05 20:09:03 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/01/18 23:40:00 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ int	s_quote(char *line, int i, t_minishell *bash)
 		quote = ft_substr(line, j + 1, i - j - 1);
 	if (!quote)
 		return (0);
-//	take_out_quotes(&tmp, SINGLE);
 	add_tokenlst(&bash, quote, WORD, SINGLE_Q);
 	return (i);
 }
@@ -62,7 +61,6 @@ int	d_quote(char *line, int i, t_minishell *bash)
 		quote = ft_substr(line, j + 1, i - j - 1);
 	if (!quote)
 		return (0);
-//	take_out_quotes(&tmp, SINGLE);
 	add_tokenlst(&bash, quote, WORD, DOUBLE_Q);
 	return (i);
 }

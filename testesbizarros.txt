@@ -1,0 +1,96 @@
+CONSIDERACAO IMPORTANTE
+Nos testes para unir tokens, existe
+alguma situacao em que o primeiro
+token seja o que vai ser freed?
+
+Por que dai temos que atualizar o
+ponteiro da estrutura principal
+
+
+echo $USER+este do brasil<cat cat
+	cmoura-p+este do brasil cat
+
+echo $USER[rimeira|do Brasiloioicat cat
+	bash: syntax error near unexpected token `do'
+
+echo $USER[rimeira do Brasiloioicat cat
+	cmoura-p[rimeira do Brasiloioicat cat
+
+echo teste qq>cat
+
+echo $USER"rimeira do Brasil"|cat cat
+	teste qq			(era o conteudo de cat)
+
+echo $USERoioioi
+	linha em branco
+
+echo $USER[oioioi
+cmoura-p[oioioi
+
+echo esse eh barril >ls
+
+cat cat ls
+	teste qq
+	esse eh barril
+
+cat cat ls -la
+	cat: invalid option -- 'l'
+	Try 'cat --help' for more information.
+
+cat cat |ls
+	cat  includes  lib  ls  Makefile  minishell  readline.supp  src
+											(executa um ls)
+
+cat cat |ls -la
+	total 248
+	drwxrwxr-x  6 cmoura-p cmoura-p   4096 Jan 12 10:52 .
+	drwxrwxr-x  6 cmoura-p cmoura-p   4096 Dec 16 20:13 ..
+	-rw-rw-r--  1 cmoura-p cmoura-p      9 Jan 12 10:43 cat
+	-rw-rw-r--  1 cmoura-p cmoura-p    462 Dec 16 20:13 .gitignore
+	drwxrwxr-x  2 cmoura-p cmoura-p   4096 Dec 28 16:04 includes
+	drwxrwxr-x  3 cmoura-p cmoura-p   4096 Jan  4 12:28 lib
+	-rw-rw-r--  1 cmoura-p cmoura-p     15 Jan 12 10:52 ls
+	-rw-rw-r--  1 cmoura-p cmoura-p   2913 Jan  4 22:34 Makefile
+	-rwxrwxr-x  1 cmoura-p cmoura-p 206960 Jan 10 15:59 minishell
+	-rw-rw-r--  1 cmoura-p cmoura-p    316 Dec 18 16:05 readline.supp
+	drwxrwxr-x 11 cmoura-p cmoura-p   4096 Jan  9 22:43 src
+	drwxrwxr-x  2 cmoura-p cmoura-p   4096 Dec 16 20:13 .vscode
+
+echo $[?
+	$[?							// no bash abre heredoc
+
+echo $ ?
+	$ ?
+
+
+DANIMUR			echo "GG$?"
+
+Primeira alteracao proposta
+{
+	if (line[i+1] == '$')
+		i = token_dollar(line, i+1, bash);
+	else
+		i = d_quote(line, i, bash);
+}
+
+
+							com a primeira alteracao			original
+
+ERROS PARA CORRIGIR
+echo $USER"teste"		funciona mas nao ta colando				seg fault
+echo "$USER"teste		funciona mas nao ta colando				loop infinito
+echo "$USERteste"		funciona no parsing mas					funciona
+						tras uma word vazia da tokenizacao		mas nao expande
+
+echo "$USER teste"		funciona no parsing mas					funciona
+						tras uma word vazia da tokenizacao		mas nao expande
+
+echo "$USER""teste"		entra em loop depois de tokenizar		loop infinito
+echo "$USER" "teste"	entra em loop depois de tokenizar		nao da erro mas
+																nao faz nada
+echo $USER teste 	X	funciona 								funciona
+echo $USER "teste" 	X	funciona								funciona
+echo "$USER" teste 		funciona								funciona
+
+multiplos $ funcionou
+

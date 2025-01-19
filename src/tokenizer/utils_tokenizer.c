@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 09:26:41 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/01/05 14:10:21 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/01/18 23:45:05 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,9 @@ void	add_tokenlst(t_minishell **bash, char *name, \
 	t_token	*aux;
 
 	newtoken = (t_token *)malloc(sizeof(t_token));
-	if (newtoken == NULL)
-		return;
+	if (!newtoken)
+		return ;
 	newtoken->name = name;
-	newtoken->expand = 0;				// quero tirar isso e ser + especifica no type
 	newtoken->type = type;
 	newtoken->status = status_q;
 	if (!(*bash)->token)
@@ -56,3 +55,4 @@ int	ft_isword(char s)
 		return (0);
 	return (1);
 }
+

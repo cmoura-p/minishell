@@ -6,7 +6,7 @@
 #    By: cmoura-p <cmoura-p@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/16 21:43:02 by cmoura-p          #+#    #+#              #
-#    Updated: 2025/01/05 21:10:38 by cmoura-p         ###   ########.fr        #
+#    Updated: 2025/01/18 00:37:47 by cmoura-p         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,6 +24,7 @@ SRC =		main.c \
 			src/init/init.c \
 			src/init/check_syntax.c \
 			src/init/utils_init.c \
+			src/init/utils_envp.c \
 			src/run.c \
 			src/clear/free_funcs.c \
 			src/tokenizer/tokenizer.c \
@@ -33,7 +34,10 @@ SRC =		main.c \
 			src/tokenizer/tokenizer_word.c \
 			src/tokenizer/utils_tokenizer.c \
 			src/tokenizer/token_prints.c \
-			src/parser/parsing.c
+			src/parser/parsing.c \
+			src/parser/parser_expand.c \
+			src/parser/utils_expand.c \
+			src/parser/utils_parsing.c
 
 OBJ_DIR = ./obj
 OBJS = $(addprefix $(OBJ_DIR)/, $(SRC:.c=.o))
