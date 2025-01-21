@@ -65,15 +65,7 @@ echo $ ?
 
 DANIMUR			echo "GG$?"
 
-Primeira alteracao proposta
-{
-	if (line[i+1] == '$')
-		i = token_dollar(line, i+1, bash);
-	else
-		i = d_quote(line, i, bash);
-}
-
-
+P
 							com a primeira alteracao			original
 
 ERROS PARA CORRIGIR
@@ -94,3 +86,6 @@ echo "$USER" teste 		funciona								funciona
 
 multiplos $ funcionou
 
+Hoje, dia 20 de janeiro terminei o dia com 2 consideracoes grandes
+	. o set_argument nao esta legal
+	. ainda preciso trabalhar na expansao entre aspas

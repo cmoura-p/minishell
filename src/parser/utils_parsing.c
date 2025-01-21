@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 21:39:01 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/01/19 17:15:28 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/01/20 20:56:04 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ void joinexpand(t_token **token, char *name, char *name_exp)
 	sobra = ft_substr((aux->next->name), (ft_strlen(name)), \
 			(ft_strlen(aux->next->name)-1));
 	aux->name = ft_strjoin(name_exp, sobra);
-	aux->type = ARGUMENT;
+	aux->type = EXP_ARG;
 	aux_next = aux->next;
 	aux->status = aux_next->status;
 	aux->next = aux_next->next;
@@ -107,6 +107,6 @@ void joinexpand_dq(t_token **token, char *after, char *before, char *name_exp)
 			aux_next->next->prev = aux_next->prev;
 		free(aux_next);
 	}
-	aux->type = ARGUMENT;
+	aux->type = EXP_ARG;
 }
 

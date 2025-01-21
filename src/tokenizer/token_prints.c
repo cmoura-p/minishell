@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 17:00:13 by dramos-j          #+#    #+#             */
-/*   Updated: 2025/01/15 22:36:58 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/01/21 01:34:05 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,12 +52,14 @@ const char	*get_token_type_str(enum e_type type)
 		return ("Exp exit code");
 	else if (type == EXP_ENVP)
 		return ("Exp var");
-	else if (type == BUILTIN)
-		return ("Built-ins");
 	else if (type == COMMAND)
 		return ("Command");
 	else if (type == ARGUMENT)
 		return ("Argument");
+	else if (type == EXP_ARG)
+		return ("Argument");
+	else if (type == BUILTIN)
+		return ("Built-ins");
 	else
 		return ("Unknown");
 }

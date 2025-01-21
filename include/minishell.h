@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 10:51:43 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/01/19 13:20:58 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/01/21 01:20:42 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ enum e_type
 	EXP_ENVP,			// $
 	COMMAND,			// command
 	ARGUMENT,			// argumento de comando
+	EXP_ARG,			// argumento de expansao
 	BUILTIN,			// built-in
 };
 
@@ -193,6 +194,11 @@ int			check_dollar(char *line, char **before, char **after);
 int			valid_envp_char(char s, int i);
 char		*envp_name(char *name);
 char		*ft_getenv(t_envp *aux, char *name);
+void		set_commands(t_minishell *bash);
+void		set_arguments(t_minishell *bash);
+void		remove_blank(t_minishell *bash);
+void		find_a_pipe(t_token **aux);
+
 
 //free
 void		free_to_quit(t_minishell *bash, char *prompt);
