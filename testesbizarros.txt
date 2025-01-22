@@ -94,3 +94,31 @@ Hoje 22 de janeiro
 	. arranjei o set_arguments
 	. tenho que fazer o parsing_redir
 	. tenho que voltar a expansao entre aspas duplas
+
+
+informacoes importantes do projeto
+	. nao ha expansao quando isto for fim de heredoc, exemplo:
+			cat << $USER (esse $USER tem que ser tratado como literal)
+
+	. cat << eof
+		> $USER
+		> eof
+
+		resultado no terminal
+		cmoura-p
+
+	. cat << "eof"
+		> $USER
+		> eof
+
+		resultado no terminal
+		$USER
+
+	. cat << eof"$USER"eof
+		> teste de heredoc
+		> eof
+		> eof"$USER"eof
+		> eofcmoura-peof
+		> eof$USEReof			so sai assim!!!
+
+

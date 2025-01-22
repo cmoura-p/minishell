@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 10:51:43 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/01/22 14:28:26 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/01/22 20:14:30 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,13 @@ enum e_type
 {
 	BLANK,				// blank space
 	WORD,				// geral
-	FILE_NAME,			// file
 	PIPE,				// |
 	REDIR_IN,			// <
+	FILE_IN,
 	REDIR_OUT,			// >
+	FILE_OUT,
 	REDIR_APP,	 		// >>
+	FILE_APP,
 	HEREDOC,			// <<
 	S_QUOTE,			// '
 	D_QUOTE,			// "
@@ -105,14 +107,14 @@ typedef struct s_minishell
 	t_envp			*envp;
 	t_heredoc		*heredoc;
 	t_token			*token;
-	t_export		*export;	// fazer em lista encadeada
+	t_export		*export;	// ainda nao usei - fazer em lista encadeada
 	void			*root;
 	char			*path;
 	int				exit_status;
-	int				fd_in;			//?
-	int				fd_out;			//?
-	int				pid;			//?
-	int				process;		//?
+	int				fd_in;			//ainda nao usei
+	int				fd_out;			//ainda nao usei
+	int				pid;			//ainda nao usei
+	int				process;		//ainda nao usei
 }					t_minishell;
 
 /*--------------------------B-TREE----------------------*/
@@ -196,6 +198,7 @@ char		*envp_name(char *name);
 char		*ft_getenv(t_envp *aux, char *name);
 void		set_commands(t_minishell *bash);
 void		set_arguments(t_minishell *bash);
+void		set_redir(t_minishell *bash);
 void		remove_blank(t_minishell *bash);
 void		find_a_pipe(t_token **aux);
 int			not_redirection(t_token *token);

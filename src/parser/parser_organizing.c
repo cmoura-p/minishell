@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 20:59:59 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/01/22 14:59:42 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/01/22 16:16:55 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	set_arguments(t_minishell *bash)
 
 	aux = bash->token;
 	while (aux)
-	{					// esse if nao ta fazendo o papel
+	{
 		if (aux->type == WORD && aux->prev && aux->prev->type == COMMAND)
 		{
 			aux->type = ARGUMENT;

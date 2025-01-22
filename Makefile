@@ -6,7 +6,7 @@
 #    By: cmoura-p <cmoura-p@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/16 21:43:02 by cmoura-p          #+#    #+#              #
-#    Updated: 2025/01/21 01:21:38 by cmoura-p         ###   ########.fr        #
+#    Updated: 2025/01/22 20:16:43 by cmoura-p         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,6 +36,7 @@ SRC =		main.c \
 			src/tokenizer/token_prints.c \
 			src/parser/parsing.c \
 			src/parser/parser_expand.c \
+			src/parser/parser_redir.c \
 			src/parser/parser_organizing.c \
 			src/parser/utils_expand.c \
 			src/parser/utils_parsing.c
