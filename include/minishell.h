@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 10:51:43 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/01/22 21:02:54 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/01/22 21:03:52 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,11 +107,7 @@ typedef struct s_minishell
 	t_envp			*envp;
 	t_heredoc		*heredoc;
 	t_token			*token;
-<<<<<<< HEAD
-	t_export		*export;	// ainda nao usei - fazer em lista encadeada
-=======
 	t_envp			*export;	// fazer em lista encadeada, brendon trocou o data type
->>>>>>> main
 	void			*root;
 	char			*path;
 	int				exit_status;
