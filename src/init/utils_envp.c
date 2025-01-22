@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_envp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmoura-p <cmoura-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: brendon <brendon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 21:34:51 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/01/15 20:23:48 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/01/22 20:13:43 by brendon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,16 @@ void	load_envp(t_minishell *bash, char **envp)
 	name = NULL;
 	content = NULL;
 	if (!envp)
-		return;
+		return ;
 	while (envp[i])
 	{
 		if (!split_envp(envp[i], &name, &content))
-			return;
+			return ;
 		add_envplst(bash, name, content);
 		i++;
 	}
 }
+
 void	add_envplst(t_minishell *bash, char *name, char *content)
 {
 	t_envp	*newenvp;
@@ -51,6 +52,7 @@ void	add_envplst(t_minishell *bash, char *name, char *content)
 		add_envplst_back(&newenvp, aux);
 	}
 }
+
 void	add_envplst_back(t_envp **newenvp, t_envp *lst)
 {
 	while (lst->next)
@@ -59,10 +61,10 @@ void	add_envplst_back(t_envp **newenvp, t_envp *lst)
 	(*newenvp)->prev = lst;
 }
 
-int split_envp(const char *envp_line, char **before, char **after)
+int	split_envp(const char *envp_line, char **before, char **after)
 {
-	char *equal_sign;
-	size_t before_len;
+	char	*equal_sign;
+	size_t	before_len;
 
 	if (!envp_line)
 		return (0);
@@ -72,7 +74,7 @@ int split_envp(const char *envp_line, char **before, char **after)
 		*before = ft_strdup(envp_line);
 		*after = NULL;
 		return (1);
-    }
+	}
 	before_len = equal_sign - envp_line;
 	*before = malloc(before_len + 1);
 	if (!*before)
@@ -85,5 +87,5 @@ int split_envp(const char *envp_line, char **before, char **after)
 		free(*before);
 		return (0);
 	}
-	return 1;
+	return (1);
 }

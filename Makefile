@@ -6,7 +6,7 @@
 #    By: cmoura-p <cmoura-p@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/16 21:43:02 by cmoura-p          #+#    #+#              #
-#    Updated: 2025/01/22 20:16:43 by cmoura-p         ###   ########.fr        #
+#    Updated: 2025/01/22 21:04:19 by cmoura-p         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,7 +39,16 @@ SRC =		main.c \
 			src/parser/parser_redir.c \
 			src/parser/parser_organizing.c \
 			src/parser/utils_expand.c \
-			src/parser/utils_parsing.c
+			src/parser/utils_parsing.c \
+			src/builtins/cd/cd.c \
+			src/builtins/echo/echo.c \
+			src/builtins/env/env.c \
+			src/builtins/exit/exit.c \
+			src/builtins/export/export.c \
+			src/builtins/export/insert_expo.c \
+			src/builtins/pwd/pwd.c \
+			src/builtins/unset/unset.c
+
 
 OBJ_DIR = ./obj
 OBJS = $(addprefix $(OBJ_DIR)/, $(SRC:.c=.o))
@@ -54,8 +63,11 @@ $(NAME): $(OBJS) $(LIBFT)
 	@$(CC) -o $@ $(OBJS) $(LIBFT) $(READLINE_FLAG)
 
 # Regra para compilar arquivos fonte em arquivos objeto
-$(OBJ_DIR)/%.o: %.c | $(OBJ_DIR)/src/init $(OBJ_DIR)/src/clear $(OBJ_DIR)/src/parser \
-						$(OBJ_DIR)/src/tokenizer
+$(OBJ_DIR)/%.o: %.c |	$(OBJ_DIR)/src/init $(OBJ_DIR)/src/clear $(OBJ_DIR)/src/parser $(OBJ_DIR)/src/builtins/export \
+						$(OBJ_DIR)/src/tokenizer $(OBJ_DIR)/src/builtins/cd $(OBJ_DIR)/src/builtins/echo \
+						$(OBJ_DIR)/src/builtins/env $(OBJ_DIR)/src/builtins/exit  \
+						$(OBJ_DIR)/src/builtins/pwd $(OBJ_DIR)/src/builtins/unset $(OBJ_DIR)
+	@mkdir -p $(dir $@)
 	@$(CC) $(CFLAGS) -c $< -o $@
 
 # Regras para criar subdiretórios necessários no OBJ_DIR
@@ -69,6 +81,27 @@ $(OBJ_DIR)/src/tokenizer:
 	@mkdir -p $@
 
 $(OBJ_DIR)/src/parser:
+	@mkdir -p $@
+
+$(OBJ_DIR)/src/builtins/cd:
+	@mkdir -p $@
+
+$(OBJ_DIR)/src/builtins/echo:
+	@mkdir -p $@
+
+$(OBJ_DIR)/src/builtins/env:
+	@mkdir -p $@
+
+$(OBJ_DIR)/src/builtins/exit:
+	@mkdir -p $@
+
+$(OBJ_DIR)/src/builtins/export:
+	@mkdir -p $@
+
+$(OBJ_DIR)/src/builtins/pwd:
+	@mkdir -p $@
+
+$(OBJ_DIR)/src/builtins/unset:
 	@mkdir -p $@
 
 $(OBJ_DIR):

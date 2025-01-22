@@ -6,14 +6,14 @@
 /*   By: cmoura-p <cmoura-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 10:51:43 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/01/22 20:14:30 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/01/22 21:02:54 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-#include "../libft/libft.h"
+# include "../libft/libft.h"
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
@@ -107,7 +107,11 @@ typedef struct s_minishell
 	t_envp			*envp;
 	t_heredoc		*heredoc;
 	t_token			*token;
+<<<<<<< HEAD
 	t_export		*export;	// ainda nao usei - fazer em lista encadeada
+=======
+	t_envp			*export;	// fazer em lista encadeada, brendon trocou o data type
+>>>>>>> main
 	void			*root;
 	char			*path;
 	int				exit_status;
@@ -202,6 +206,34 @@ void		set_redir(t_minishell *bash);
 void		remove_blank(t_minishell *bash);
 void		find_a_pipe(t_token **aux);
 int			not_redirection(t_token *token);
+
+//builtins
+//cd
+void		ft_cd(t_minishell *minishell, char **args);
+int			ft_check_args(t_minishell *bash, char **args);
+
+//echo
+void		ft_echo(char **args);
+
+//env
+void		ft_env(t_minishell *minishell, char **args);
+void		ft_envadd(t_envp **envp, t_envp *new);
+
+//exit
+void		ft_exit(t_minishell *minishell, char **args);
+
+//export
+void		ft_export(t_minishell *minishell, char **args);
+void		ft_expoinsert(t_envp **export, t_envp *new);
+t_envp		*ft_exponew(char *name, char *content);
+void		ft_freeexponode(t_envp *node);
+
+//pwd
+void		ft_pwd(t_minishell *minishell, char **args);
+
+//unset
+void		ft_unset(t_minishell *minishell, char **args);
+void		ft_search_del(t_envp **env, char *key);
 
 //free
 void		free_to_quit(t_minishell *bash, char *prompt);
