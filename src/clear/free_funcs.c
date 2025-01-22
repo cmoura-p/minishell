@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_funcs.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmoura-p <cmoura-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: brendon <brendon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 19:44:40 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/01/15 20:39:56 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/01/20 00:08:37 by brendon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,13 @@ void	free_to_quit(t_minishell *bash, char *prompt)
 	ft_printf("%s", SUCCESS_EXIT);
 	exit(EXIT_SUCCESS);
 }
+
 void	free_bash(t_minishell *bash)
 {
 	free_envp(bash);
 	free(bash);
 }
+
 void	free_envp(t_minishell *bash)
 {
 	t_envp	*aux;

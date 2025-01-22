@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmoura-p <cmoura-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: brendon <brendon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 10:51:43 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/01/19 13:20:58 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/01/20 13:24:39 by brendon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-#include "../libft/libft.h"
+# include "../libft/libft.h"
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
@@ -33,7 +33,7 @@ enum e_type
 	PIPE,				// |
 	REDIR_IN,			// <
 	REDIR_OUT,			// >
-	REDIR_APP,	 		// >>
+	REDIR_APP,			// >>
 	HEREDOC,			// <<
 	S_QUOTE,			// '
 	D_QUOTE,			// "
@@ -104,7 +104,7 @@ typedef struct s_minishell
 	t_envp			*envp;
 	t_heredoc		*heredoc;
 	t_token			*token;
-	t_export		*export;	// fazer em lista encadeada
+	t_envp			*export;	// fazer em lista encadeada, brendon trocou o data type
 	void			*root;
 	char			*path;
 	int				exit_status;
@@ -193,6 +193,34 @@ int			check_dollar(char *line, char **before, char **after);
 int			valid_envp_char(char s, int i);
 char		*envp_name(char *name);
 char		*ft_getenv(t_envp *aux, char *name);
+
+//builtins
+//cd
+void		ft_cd(t_minishell *minishell, char **args);
+int			ft_check_args(t_minishell *bash, char **args);
+
+//echo
+void		ft_echo(char **args);
+
+//env
+void		ft_env(t_minishell *minishell, char **args);
+void		ft_envadd(t_envp **envp, t_envp *new);
+
+//exit
+void		ft_exit(t_minishell *minishell, char **args);
+
+//export
+void		ft_export(t_minishell *minishell, char **args);
+void		ft_expoinsert(t_envp **export, t_envp *new);
+t_envp		*ft_exponew(char *name, char *content);
+void		ft_freeexponode(t_envp *node);
+
+//pwd
+void		ft_pwd(t_minishell *minishell, char **args);
+
+//unset
+void		ft_unset(t_minishell *minishell, char **args);
+void		ft_search_del(t_envp **env, char *key);
 
 //free
 void		free_to_quit(t_minishell *bash, char *prompt);

@@ -6,16 +6,16 @@
 /*   By: brendon <brendon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 17:46:35 by brendon           #+#    #+#             */
-/*   Updated: 2025/01/14 22:29:12 by brendon          ###   ########.fr       */
+/*   Updated: 2025/01/20 10:15:01 by brendon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../minishell.h"
+#include "../../../include/minishell.h"
 
-void	ft_search_del(t_env **env, char *key)
+void	ft_search_del(t_envp **env, char *key)
 {
-	t_list	*tmp;
-	t_list	*prev;
+	t_envp	*tmp;
+	t_envp	*prev;
 
 	tmp = *env;
 	prev = NULL;
@@ -28,7 +28,7 @@ void	ft_search_del(t_env **env, char *key)
 			else
 				*env = tmp->next;
 			free(tmp->name);
-			free(tmp->value);
+			free(tmp->content);
 			free(tmp);
 			return ;
 		}
@@ -40,7 +40,6 @@ void	ft_search_del(t_env **env, char *key)
 void	ft_unset(t_minishell *minishell, char **args)
 {
 	int	i;
-	int	j;
 
 	i = 0;
 	if (!args[1])
@@ -52,8 +51,8 @@ void	ft_unset(t_minishell *minishell, char **args)
 	}
 	while (args[i])
 	{
-		ft_search_del(minishell->env, args[i]);
-		ft_search_del(minishell->expo, args[i]);
+		ft_search_del(&minishell->envp, args[i]);
+		ft_search_del(&minishell->export, args[i]);
 		i++;
 	}
 }

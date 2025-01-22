@@ -6,17 +6,23 @@
 /*   By: brendon <brendon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 22:12:36 by brendon           #+#    #+#             */
-/*   Updated: 2025/01/06 09:19:10 by brendon          ###   ########.fr       */
+/*   Updated: 2025/01/20 08:44:09 by brendon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "../../../include/minishell.h"
 
-void	ft_pwd(t_minishell *minishell)
+void	ft_pwd(t_minishell *minishell, char **args)
 {
 	char	*pwd;
 
-	(void) minishell;// ver o que vai fazer com isso
+	(void)minishell;
+	if (args[0][0] == '-')
+	{
+		ft_printf("minishell: pwd: %s: invalid option\n", args[0]);
+		ft_printf("pwd: usage: pwd\n");
+		return ;
+	}
 	pwd = getcwd(NULL, 0);
 	if (pwd == NULL)
 	{
@@ -26,4 +32,4 @@ void	ft_pwd(t_minishell *minishell)
 	ft_printf("%s\n", pwd);
 	free(pwd);
 }
-		//é preciso tratar o erro
+	//é preciso tratar o erro

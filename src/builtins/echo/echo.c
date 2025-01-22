@@ -6,11 +6,11 @@
 /*   By: brendon <brendon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/20 08:22:22 by brendon           #+#    #+#             */
-/*   Updated: 2025/01/08 10:55:11 by brendon          ###   ########.fr       */
+/*   Updated: 2025/01/22 01:55:34 by brendon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "../../../include/minishell.h"
 
 int	ft_flagverify(char *str)
 {

@@ -6,12 +6,13 @@
 /*   By: brendon <brendon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 17:08:25 by brendon           #+#    #+#             */
-/*   Updated: 2025/01/19 19:17:50 by brendon          ###   ########.fr       */
+/*   Updated: 2025/01/20 23:48:09 by brendon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// Verifica se o nó novo deve ser inserido no início da lista
-static int	ft_insert_at_start(t_expo **export, t_expo *new)
+#include "../../../include/minishell.h"
+
+static int	ft_insert_at_start(t_envp **export, t_envp *new)
 {
 	if (!*export || ft_strcmp((*export)->name, new->name) > 0)
 	{
@@ -22,31 +23,28 @@ static int	ft_insert_at_start(t_expo **export, t_expo *new)
 	return (0);
 }
 
-// Substitui o valor de um nó existente
-static int	ft_replace_if_exists(t_expo *tmp, t_expo *new)
+static int	ft_replace_if_exists(t_envp *tmp, t_envp *new)
 {
 	if (ft_strcmp(tmp->name, new->name) == 0)
 	{
-		free(tmp->value);
-		if (new->value)
-			tmp->value = ft_strdup(new->value);
+		free(tmp->content);
+		if (new->content)
+			tmp->content = ft_strdup(new->content);
 		else
-    		tmp->value = NULL;
+			tmp->content = NULL;
 		ft_freeexponode(new);
 		return (1);
 	}
 	return (0);
 }
 
-// Função principal
-void	ft_expoinsert(t_expo **export, t_expo *new)
+void	ft_expoinsert(t_envp **export, t_envp *new)
 {
-	t_expo	*tmp;
-	t_expo	*prev;
+	t_envp	*tmp;
+	t_envp	*prev;
 
 	if (!new || ft_insert_at_start(export, new))
 		return ;
-
 	tmp = *export;
 	prev = NULL;
 	while (tmp && ft_strcmp(tmp->name, new->name) < 0)
