@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 10:51:43 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/01/21 01:20:42 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/01/22 14:28:26 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -198,7 +198,7 @@ void		set_commands(t_minishell *bash);
 void		set_arguments(t_minishell *bash);
 void		remove_blank(t_minishell *bash);
 void		find_a_pipe(t_token **aux);
-
+int			not_redirection(t_token *token);
 
 //free
 void		free_to_quit(t_minishell *bash, char *prompt);

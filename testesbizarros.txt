@@ -89,3 +89,8 @@ multiplos $ funcionou
 Hoje, dia 20 de janeiro terminei o dia com 2 consideracoes grandes
 	. o set_argument nao esta legal
 	. ainda preciso trabalhar na expansao entre aspas
+
+Hoje 22 de janeiro
+	. arranjei o set_arguments
+	. tenho que fazer o parsing_redir
+	. tenho que voltar a expansao entre aspas duplas
