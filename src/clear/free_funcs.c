@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_funcs.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brendon <brendon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cmoura-p <cmoura-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 19:44:40 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/01/20 00:08:37 by brendon          ###   ########.fr       */
+/*   Updated: 2025/01/25 18:58:49 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,10 @@ void	free_to_restart(t_minishell *bash)
 		aux = bash->token;
 		bash->token = bash->token->next;
 		if (aux->name)
-			free(aux->name);
+			{
+				free(aux->name);
+				aux->name = NULL;
+			}
 		if (aux)
 			free(aux);
 	}
@@ -53,9 +56,15 @@ void	free_envp(t_minishell *bash)
 		aux = bash->envp;
 		bash->envp = bash->envp->next;
 		if (aux->name)
+		{
 			free(aux->name);
+			aux->name = NULL;
+		}
 		if (aux->content)
+		{
 			free(aux->content);
+			aux->content = NULL;
+		}
 		if (aux)
 			free(aux);
 	}

@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 09:26:41 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/01/23 21:40:25 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/01/25 19:49:58 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void	del_tokenlst(t_minishell *bash, t_token **token)
 	aux = *token;
 
 	if (aux == bash->token)
-		bash->token = aux->next; // Atualiza o início da lista, se necessário
+		bash->token = aux->next;
 	if (aux->prev)
 		aux->prev->next = aux->next;
 	if (aux->next)
@@ -94,28 +94,9 @@ void	del_tokenlst(t_minishell *bash, t_token **token)
 	if (aux->name)
 		free(aux->name);
 	free(aux);
-}
-/* 	if ((*aux)->prev)
+	if (!(*token)->next)
 	{
-		newtoken->next = (*aux)->next->prev;
-		(*aux)->next->prev = newtoken;
-		(*aux)->prev = newtoken;
+		(*token)->type = WORD;
+		(*token)->status = NO_QUOTE;
 	}
-	else
-	{
-		newtoken->next = (*aux);
-		(*aux)->prev = newtoken;
-		bash->token = newtoken;
-	}
-	(*aux) = (*aux)->next;
- */
-int	ft_isword(char s)
-{
-	if ((s >= 9 && s <= 13) || s == 32
-		|| s == '\'' || s == '"'
-		|| s == '|' || s == '$' || s == '>'
-		|| s == '<')
-		return (0);
-	return (1);
 }
-

@@ -6,13 +6,11 @@
 /*   By: cmoura-p <cmoura-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 19:47:42 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/01/08 19:21:00 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/01/25 19:43:45 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-
-// incluir funcaode caracteres especiais ?
 
 static int	err_quotes(char *line)
 {
@@ -22,9 +20,9 @@ static int	err_quotes(char *line)
 	while (line[i])
 	{
 		if ((line[i] == '\'' || line[i] == '\"') && quote == 0)
-			quote = line[i]; 			// Aspas abertas
+			quote = line[i];
 		else if (line[i] == quote)
-			quote = 0; 					// Aspas fechadas
+			quote = 0;
 		i++;
 	}
 	if (quote != 0)
@@ -92,7 +90,7 @@ static int	err_special_char(char *line)
 	char	*special;
 	int		i;
 
-	special = "();&!*\\";		// verificar manual do bash
+	special = "();&!*\\";
 	i = 0;
 	while (line[i])
 	{
@@ -106,7 +104,8 @@ static int	err_special_char(char *line)
 				return (1);
 			}
 		}
-		i++;
+		if (line[i] != '\0')
+			i++;
 	}
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 18:46:17 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/01/24 22:34:38 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/01/25 19:39:47 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ void	expand_var(t_token **aux, t_envp *aux_envp)
 		(*aux)->name = ft_strjoin((*aux)->prev->name, (*aux)->name);
 		joinprev(aux, (*aux)->name);
 	}
-//	joinlast(aux);
 }
 
 void	expand_in_dq(t_minishell *bash, t_token **aux)
@@ -68,7 +67,6 @@ void	expand_in_dq(t_minishell *bash, t_token **aux)
 
 	b_var = NULL;
 	a_var = NULL;
-	// aqui a ideia eh fazer um loop enquanto tiver dentro das aspas duplas
 	if (check_dollar((*aux)->name, &b_var, &a_var) == 0)
 	{
 		(*aux) = (*aux)->next;
@@ -76,16 +74,39 @@ void	expand_in_dq(t_minishell *bash, t_token **aux)
 	}
 	if (b_var && *b_var != '\0')
 		add_tokenlst_mid(bash, aux, b_var, WORD, NO_QUOTE);
-	add_tokenlst_mid(bash, aux, "$", EXP_ENVP, NO_QUOTE);
+	if (a_var && a_var[0] == '?')
+		{
+			add_tokenlst_mid(bash, aux, ft_strdup("$?"), EXP_EXIT, NO_QUOTE);
+			a_var = ft_substr(a_var, 1, ft_strlen(a_var)-1);
+		}
+	else
+		add_tokenlst_mid(bash, aux, ft_strdup("$"), EXP_ENVP, NO_QUOTE);
 	if (a_var && *a_var != '\0')
-	{
-//		aqui o a_var deveria ter apenas a parte valida do env
-//		se tiver outro(s) $ tem de parar ai e essa string que ta sobrando
-//		tem de ser um novo token word double
-		(*aux)->name = envp_name(a_var);
-		(*aux) = (*aux)->prev;
-	}
+		newtoken_after_parsing(aux, a_var);
 	else
 		del_tokenlst(bash, aux);
 	expand_var(aux, bash->envp);
+}
+void	newtoken_after_parsing(t_token **aux, char *a_var)
+{
+	t_token	*newtoken;
+	char	*env_var;
+
+	newtoken = (t_token *)malloc(sizeof(t_token));
+	if (!newtoken)
+		return ;
+	env_var = envp_name(a_var);
+	(*aux)->name = env_var;
+	(*aux)->type = WORD;
+	(*aux)->status = NO_QUOTE;
+	a_var = ft_substr(a_var, (ft_strlen(env_var)), (ft_strlen(a_var)-1));
+	if (a_var && *a_var != '\0')
+	{
+		newtoken->name = a_var;
+		newtoken->type = WORD;
+		newtoken->status = DOUBLE_Q;
+		add_tokenlst_back(&newtoken, *aux);
+		newtoken->next = NULL;
+	}
+	(*aux) = (*aux)->prev;
 }

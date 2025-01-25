@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 13:42:58 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/01/15 19:27:02 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/01/25 19:44:25 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	get_prompt(char **prompt)
 {
 	char	*pwd;
 
-	pwd = getenv("PWD");	//verificar se getenv faz malloc  (NAUM FAZ)
+	pwd = getenv("PWD");
 	if (!pwd)
 		pwd = "erro pwd ";
 	*prompt = ft_strjoin(pwd, ": ");

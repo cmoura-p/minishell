@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 11:44:44 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/01/06 12:09:40 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/01/25 19:49:41 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ int		handle_blank(char *line, int i, t_minishell *bash)
 
 	i = skip_blank(line, i);
 	blank = ft_strdup(" ");
-	if (!blank)				// aqui tem que ver como retornar caso
-		return (0);			// o malloc do ft_strdup nao funcione
+	if (!blank)
+		return (0);
 	add_tokenlst(&bash, blank, BLANK, NO_QUOTE);
 	return (i - 1);
 }
