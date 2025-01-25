@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 10:51:43 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/01/22 21:03:52 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/01/23 21:19:25 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,7 +178,10 @@ int			redir_heredoc(char *line, int i, t_minishell *bash);
 int			handle_blank(char *line, int i, t_minishell *bash);
 void		add_tokenlst(t_minishell **bash, char *name, \
 						enum e_type type, enum e_status status_q);
+void		add_tokenlst_mid(t_minishell *bash, t_token **aux, char *name, \
+			enum e_type type, enum e_status status_q);
 void		add_tokenlst_back(t_token **newtoken, t_token *lst);
+void		del_tokenlst(t_minishell *bash, t_token **token);
 int			ft_isword(char s);
 void		print_token_list(t_token *token);
 
@@ -191,7 +194,7 @@ void		joinexpand(t_token **token, char *name, char *name_exp);
 void 		joinexpand_dq(t_token **token, char *after, char *before, char *name_exp);
 void		joinlast(t_token **aux);
 void		expand_var(t_token **aux, t_envp *aux_envp);
-void		expand_in_dq(t_token **aux, t_envp *aux_envp);
+void		expand_in_dq(t_minishell *bash, t_token **aux);
 int			check_dollar(char *line, char **before, char **after);
 int			valid_envp_char(char s, int i);
 char		*envp_name(char *name);

@@ -6,43 +6,11 @@
 /*   By: cmoura-p <cmoura-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 21:39:01 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/01/20 20:56:04 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/01/23 19:01:20 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-
-void joinnext(t_token **token, char *name)
-{
-	t_token	*aux;
-	t_token	*aux_next;
-
-	aux = (*token);
-	aux_next = (*token)->next;
-	aux->name = name;
-	aux->status = aux_next->status;
-	aux->type = aux->next->type;
-	aux->next = aux_next->next;
-	if (aux_next->next != NULL)
-		aux_next->next->prev = aux_next->prev;
-	free(aux_next);
-}
-
-void joinprev(t_token **token, char *name)
-{
-	t_token	*aux;
-	t_token	*aux_prev;
-
-	aux = (*token);
-	aux_prev = (*token)->prev;
-	aux_prev->name = name;
-	if (aux->next->type == WORD)
-		aux_prev->status = aux->status;
-	aux_prev->next = aux->next;
-	if (aux->next != NULL)
-		aux->next->prev = aux->prev;
-	free(aux);
-}
 
 void jointokens(t_minishell *bash)
 {
@@ -71,6 +39,38 @@ void jointokens(t_minishell *bash)
 			aux = aux->next;
 	}
 }
+
+void joinnext(t_token **token, char *name)
+{
+	t_token	*aux;
+	t_token	*aux_next;
+
+	aux = (*token);
+	aux_next = (*token)->next;
+	aux->name = name;
+	aux->status = aux_next->status;
+	aux->type = aux->next->type;
+	aux->next = aux_next->next;
+	if (aux_next->next != NULL)
+		aux_next->next->prev = aux_next->prev;
+	free(aux_next);
+}
+
+void joinprev(t_token **token, char *name)
+{
+	t_token	*aux;
+	t_token	*aux_prev;
+
+	aux = (*token);
+	aux_prev = (*token)->prev;
+	aux_prev->name = name;
+	if ((aux->next) && (aux->next->type == WORD))
+		aux_prev->status = aux->status;
+	aux_prev->next = aux->next;
+	if (aux->next != NULL)
+		aux->next->prev = aux->prev;
+	free(aux);
+}
 void joinexpand(t_token **token, char *name, char *name_exp)
 {
 	t_token	*aux;
@@ -82,7 +82,7 @@ void joinexpand(t_token **token, char *name, char *name_exp)
 	sobra = ft_substr((aux->next->name), (ft_strlen(name)), \
 			(ft_strlen(aux->next->name)-1));
 	aux->name = ft_strjoin(name_exp, sobra);
-	aux->type = EXP_ARG;
+	aux->type = ARGUMENT;
 	aux_next = aux->next;
 	aux->status = aux_next->status;
 	aux->next = aux_next->next;
@@ -90,7 +90,7 @@ void joinexpand(t_token **token, char *name, char *name_exp)
 		aux_next->next->prev = aux_next->prev;
 	free(aux_next);
 }
-void joinexpand_dq(t_token **token, char *after, char *before, char *name_exp)
+/* void joinexpand_dq(t_token **token, char *after, char *before, char *name_exp)
 {
 	t_token	*aux;
 	t_token	*aux_next;
@@ -109,4 +109,4 @@ void joinexpand_dq(t_token **token, char *after, char *before, char *name_exp)
 	}
 	aux->type = EXP_ARG;
 }
-
+ */
