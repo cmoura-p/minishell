@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 21:39:01 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/01/25 19:48:00 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/01/26 17:16:05 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,19 +20,19 @@ void jointokens(t_minishell *bash)
 	aux = bash->token;
 	while(aux)
 	{
-		if ((aux->status != NO_QUOTE) && (((aux->next != NULL) && (aux->next->type == WORD))
-			|| ((aux->prev != NULL) && aux->prev->type == WORD)))
+		if ((aux->status != NO_QUOTE) && (((aux->prev != NULL) && (aux->prev->type == WORD))
+			|| ((aux->next != NULL) && (aux->next->type == WORD))))
 		{
-			if ((aux->i == 0) && (aux->next->type == WORD))
+			if ((aux->prev != NULL) && (aux->prev->type == WORD))
+			{
+				newname = ft_strjoin(aux->prev->name, aux->name);
+				joinprev(&aux, newname);
+			}
+			else if ((aux->next != NULL) && (aux->next->type == WORD))
 			{
 				newname = ft_strjoin(aux->name, aux->next->name);
 				joinnext(&aux, newname);
 			}
-			else if ((aux->i != 0) && (aux->prev->type == WORD))
-				{
-					newname = ft_strjoin(aux->prev->name, aux->name);
-					joinprev(&aux, newname);
-				}
 			aux = bash->token;
 		}
 		else
@@ -53,6 +53,8 @@ void joinnext(t_token **token, char *name)
 	aux->next = aux_next->next;
 	if (aux_next->next != NULL)
 		aux_next->next->prev = aux_next->prev;
+	if (aux_next->name)
+		free(aux_next->name);
 	free(aux_next);
 }
 
@@ -69,6 +71,8 @@ void joinprev(t_token **token, char *name)
 	aux_prev->next = aux->next;
 	if (aux->next != NULL)
 		aux->next->prev = aux->prev;
+	if (aux->name)
+		free(aux->name);
 	free(aux);
 }
 void joinexpand(t_token **token, char *name, char *name_exp)
@@ -82,8 +86,8 @@ void joinexpand(t_token **token, char *name, char *name_exp)
 	sobra = ft_substr((aux->next->name), (ft_strlen(name)), \
 			(ft_strlen(aux->next->name)-1));
 	aux->name = ft_strjoin(name_exp, sobra);
-	aux->type = ARGUMENT;
 	aux_next = aux->next;
+	aux->type = aux_next->type;
 	aux->status = aux_next->status;
 	aux->next = aux_next->next;
 	if (aux_next->next != NULL)
