@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 13:42:58 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/01/25 19:44:25 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/01/26 20:01:05 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,15 @@ t_minishell	*init_data(char **envp, char **prompt)
 	get_prompt(prompt);
 	bash = ft_calloc(sizeof(t_minishell), 1);
 	if (!bash)
-		exit(1);
+		exit(MALLOC_ERROR);
 	bash->fd_in = STDIN_FILENO;
 	bash->fd_out = STDOUT_FILENO;
+	bash->exit_status = SUCCESS;
+	bash->export = NULL;
+	bash->heredoc = NULL;
 	load_envp(bash, envp);
 	return (bash);
 }
-
 int	init_bash(t_minishell *minishell, char *prompt)
 {
 	if (!minishell || !prompt)
@@ -63,6 +65,6 @@ void	init_signals()
 	sa.sa_flags = SA_RESTART;
 	sigemptyset(&sa.sa_mask);
 	if (sigaction(SIGINT, &sa, NULL) == -1)
-		exit(1);
+		exit(SIGNAL_ERROR);
 	signal(SIGQUIT, SIG_IGN);
 }

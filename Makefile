@@ -6,7 +6,7 @@
 #    By: cmoura-p <cmoura-p@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/16 21:43:02 by cmoura-p          #+#    #+#              #
-#    Updated: 2025/01/22 21:04:19 by cmoura-p         ###   ########.fr        #
+#    Updated: 2025/01/27 01:07:40 by cmoura-p         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,6 +30,7 @@ SRC =		main.c \
 			src/tokenizer/tokenizer.c \
 			src/tokenizer/tokenizer_quotes.c \
 			src/tokenizer/tokenizer_metachar.c \
+			src/tokenizer/tokenizer_heredoc.c \
 			src/tokenizer/tokenizer_redir.c \
 			src/tokenizer/tokenizer_word.c \
 			src/tokenizer/utils_tokenizer.c \
@@ -40,6 +41,7 @@ SRC =		main.c \
 			src/parser/parser_organizing.c \
 			src/parser/utils_expand.c \
 			src/parser/utils_parsing.c \
+			src/heredoc/heredoc.c \
 			src/builtins/cd/cd.c \
 			src/builtins/echo/echo.c \
 			src/builtins/env/env.c \
@@ -64,7 +66,8 @@ $(NAME): $(OBJS) $(LIBFT)
 
 # Regra para compilar arquivos fonte em arquivos objeto
 $(OBJ_DIR)/%.o: %.c |	$(OBJ_DIR)/src/init $(OBJ_DIR)/src/clear $(OBJ_DIR)/src/parser $(OBJ_DIR)/src/builtins/export \
-						$(OBJ_DIR)/src/tokenizer $(OBJ_DIR)/src/builtins/cd $(OBJ_DIR)/src/builtins/echo \
+						$(OBJ_DIR)/src/tokenizer $(OBJ_DIR)/src/heredoc \
+						$(OBJ_DIR)/src/builtins/cd $(OBJ_DIR)/src/builtins/echo \
 						$(OBJ_DIR)/src/builtins/env $(OBJ_DIR)/src/builtins/exit  \
 						$(OBJ_DIR)/src/builtins/pwd $(OBJ_DIR)/src/builtins/unset $(OBJ_DIR)
 	@mkdir -p $(dir $@)
@@ -78,6 +81,9 @@ $(OBJ_DIR)/src/clear:
 	@mkdir -p $@
 
 $(OBJ_DIR)/src/tokenizer:
+	@mkdir -p $@
+
+$(OBJ_DIR)/src/heredoc:
 	@mkdir -p $@
 
 $(OBJ_DIR)/src/parser:

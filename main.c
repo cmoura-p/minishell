@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/15 11:57:24 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/01/25 19:50:35 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/01/26 19:51:08 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	main(int ac, char **av, char **envp)
 	if (ac != 1)
 	{
 		ft_printf("Minishell: argument is not allowed -> %s \n", av[1]);
-		exit(0);
+		exit(SUCCESS);
 	}
 	minishell = init_data(envp, &prompt);
 	while (1)

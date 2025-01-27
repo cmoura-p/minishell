@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 09:26:41 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/01/25 19:49:58 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/01/27 00:05:59 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	add_tokenlst(t_minishell **bash, char *name, \
 	t_token	*newtoken;
 	t_token	*aux;
 
-	newtoken = (t_token *)malloc(sizeof(t_token));
+	newtoken = ft_calloc(1, sizeof(t_token));
 	if (!newtoken)
 		return ;
 	newtoken->name = name;

@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 10:51:43 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/01/25 14:01:20 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/01/26 23:14:06 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,14 @@ enum	e_status
 	DOUBLE_Q,
 };
 
+enum	e_exit_code
+{
+	SUCCESS,
+	MALLOC_ERROR,
+	SIGNAL_ERROR,
+	WHATEVER,
+};
+
 enum	e_builtins
 {
 	ECHO,
@@ -99,23 +107,23 @@ typedef struct s_heredoc
 	char				*heredoc_path;
 	char				*eo_heredoc;
 	struct s_heredoc	*next;
-}	t_heredoc;
+}						t_heredoc;
 
 typedef struct s_minishell
 {
-	char			*cmd_line;
-	t_envp			*envp;
-	t_heredoc		*heredoc;
-	t_token			*token;
-	t_envp			*export;	// fazer em lista encadeada, brendon trocou o data type
-	void			*root;
-	char			*path;
-	int				exit_status;
-	int				fd_in;			//ainda nao usei
-	int				fd_out;			//ainda nao usei
-	int				pid;			//ainda nao usei
-	int				process;		//ainda nao usei
-}					t_minishell;
+	char				*cmd_line;
+	t_envp				*envp;
+	t_heredoc			*heredoc;
+	t_token				*token;
+	t_envp				*export;
+	enum e_exit_code	exit_status;
+	void				*root;
+	char				*path;
+	int					fd_in;			//ainda nao usei
+	int					fd_out;			//ainda nao usei
+	int					pid;			//ainda nao usei
+	int					process;		//ainda nao usei
+}						t_minishell;
 
 /*--------------------------B-TREE----------------------*/
 
@@ -166,6 +174,7 @@ void		parsing(t_minishell *bash);
 int			tokenizer_quotes(char *line, int i, t_minishell *bash);
 int			tokenizer_metachar(char *line, int i, t_minishell *bash);
 int			tokenizer_word(char *line, int i, t_minishell *bash);
+int			token_heredoc(char *line, int i, t_minishell *bash);
 int			token_redir(char *line, int i, t_minishell *bash);
 int			token_pipe(char *line, int i, t_minishell *bash);
 int			token_dollar(char *line, int i, t_minishell *bash);
@@ -191,8 +200,6 @@ void		joinnext(t_token **token, char *name);
 void		joinprev(t_token **token, char *name);
 void		expandtokens(t_minishell *bash);
 void		joinexpand(t_token **token, char *name, char *name_exp);
-void 		joinexpand_dq(t_token **token, char *after, char *before, char *name_exp);
-void		joinlast(t_token **aux);
 void		expand_var(t_token **aux, t_envp *aux_envp);
 void		expand_in_dq(t_minishell *bash, t_token **aux);
 int			check_dollar(char *line, char **before, char **after);
@@ -206,6 +213,9 @@ void		remove_blank(t_minishell *bash);
 void		find_a_pipe(t_token **aux);
 int			not_redirection(t_token *token);
 void		newtoken_after_parsing(t_token **aux, char *a_var);
+
+//heredoc
+void		init_heredoc(t_minishell *bash);
 
 //builtins
 //cd

@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 16:44:23 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/01/18 23:40:38 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/01/26 23:15:06 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,9 @@ int	tokenizer_metachar(char *line, int j, t_minishell *bash)
 		i = token_pipe(line, j, bash);
 	if (line[j] == '$')
 		i = token_dollar(line, j, bash);
-	if (line[j] == '<' || line[j] == '>')
+	if (line[j] == '<' && line[j+1] == '<')
+		i = token_heredoc(line, j, bash);
+	else if (line[j] == '<' || line[j] == '>')
 		i = token_redir(line, j, bash);
 	return (i);
 }
