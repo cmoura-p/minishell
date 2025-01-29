@@ -16,17 +16,46 @@ void	ft_envadd(t_envp **env, t_envp *new)
 {
 	t_envp	*tmp;
 
+	// Verifica se os parâmetros são válidos
+	if (!env || !new || !new->name)
+		return ;
+
+	// Caso a lista esteja vazia, adiciona o novo nó
 	if (!*env)
 	{
 		*env = new;
 		return ;
 	}
+
 	tmp = *env;
-	while (tmp->next)
+
+	// Percorre a lista para verificar duplicatas
+	while (tmp)
+	{
+		// Se o nome da variável já existir, atualiza o valor
+		if (ft_strcmp(tmp->name, new->name) == 0)
+		{
+			free(tmp->content); // Libera o valor anterior
+			if (new->content)
+				tmp->content = ft_strdup(new->content);
+			else
+				tmp->content = NULL;
+			free(new->name); // Libera o nome do novo nó
+			free(new);       // Libera o novo nó
+			return ;
+		}
+
+		// Avança para o próximo nó
+		if (!tmp->next)
+			break ;
 		tmp = tmp->next;
+	}
+
+	// Adiciona o novo nó no final da lista
 	tmp->next = new;
 	new->prev = tmp;
 }
+
 
 void	ft_env(t_minishell *minishell, char **args)
 {

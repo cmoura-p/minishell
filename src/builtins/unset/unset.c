@@ -42,7 +42,7 @@ void	ft_unset(t_minishell *minishell, char **args)
 	int	i;
 
 	i = 0;
-	if (!args[1])
+	if (!args[0])
 		return ;
 	if (args[i][0] == '-')
 	{

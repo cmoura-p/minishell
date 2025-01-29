@@ -61,10 +61,10 @@ void jointokens(t_minishell *bash)
 				joinnext(&aux, newname);
 			}
 			else if ((aux->i != 0) && (aux->prev->type == WORD))
-				{
-					newname = ft_strjoin(aux->prev->name, aux->name);
-					joinprev(&aux, newname);
-				}
+			{
+				newname = ft_strjoin(aux->prev->name, aux->name);
+				joinprev(&aux, newname);
+			}
 			aux = bash->token;
 		}
 		else
@@ -109,4 +109,3 @@ void joinexpand_dq(t_token **token, char *after, char *before, char *name_exp)
 	}
 	aux->type = ARGUMENT;
 }
-

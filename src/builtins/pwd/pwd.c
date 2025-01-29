@@ -17,7 +17,7 @@ void	ft_pwd(t_minishell *minishell, char **args)
 	char	*pwd;
 
 	(void)minishell;
-	if (args[0][0] == '-')
+	if (args && args[0] && args[0][0] == '-' && args[0][1] != '\0')
 	{
 		ft_printf("minishell: pwd: %s: invalid option\n", args[0]);
 		ft_printf("pwd: usage: pwd\n");

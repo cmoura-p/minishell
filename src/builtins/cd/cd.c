@@ -40,17 +40,28 @@ int	ft_check_args(t_minishell *bash, char **args)
 void	ft_cd(t_minishell *minishell, char **args)
 {
 	char	*oldpwd;
+	char	*path;
 
-	if (ft_check_args(minishell, args))
-		return ;
-	oldpwd = ft_getenv(minishell->envp, "PWD");
+	oldpwd = ft_strdup(ft_getenv(minishell->envp, "PWD"));
 	if (!oldpwd)
 		oldpwd = getcwd(NULL, 0);
-	if (chdir(args[0]) == -1)
+	if (!args || !args[0])
+		path = ft_getenv(minishell->envp, "HOME");
+	else if (ft_strcmp(args[0], "-") == 0)
+		path = ft_getenv(minishell->envp, "OLDPWD");
+	else if (!ft_check_args(minishell, args))
+		path = args[0];
+	if (!path || chdir(path) == -1)
 	{
-		printf("minishell: cd: %s: No such file or directory\n", args[0]);
-		return ;
+		if (!args || !args[0])
+			printf("minishell: cd: HOME not set\n");
+		else
+			printf("minishell: cd: %s: No such file or directory\n", args[0]);
+		return (free(oldpwd));
 	}
-	ft_expoinsert(&minishell->export, ft_exponew("PWD", args[0]));
-	ft_envadd(&minishell->envp, ft_exponew("PWD", args[0]));
+	ft_expoinsert(&minishell->export, ft_exponew("PWD", getcwd(NULL, 0)));
+	ft_envadd(&minishell->envp, ft_exponew("PWD", getcwd(NULL, 0)));
+	ft_expoinsert(&minishell->export, ft_exponew("OLDPWD", oldpwd));
+	ft_envadd(&minishell->envp, ft_exponew("OLDPWD", oldpwd));
+	free(oldpwd);
 }

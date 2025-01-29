@@ -22,7 +22,7 @@ int	ft_flagverify(char *str)
 		i++;
 		while (str[i] == 'n' && str[i] != '\0')
 			i++;
-		if (str[i] == '\0')
+		if (str[i] == '\0' && i > 1)
 			return (1);
 	}
 	return (0);
