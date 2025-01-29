@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 13:58:23 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/01/26 17:08:19 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/01/27 20:48:47 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,5 +22,11 @@ void	parsing(t_minishell *bash)
 //	print_token_list(bash->token);
 	set_arguments(bash);
 	set_redir(bash);
+	if (bash->heredoc)
+	{
+//		organizar sinais para heredoc
+		heredoc(bash);
+//		retornar os sinais inciais
+	}
 	print_token_list(bash->token);
 }

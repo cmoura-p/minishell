@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 09:26:41 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/01/27 00:05:59 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/01/29 22:27:39 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,32 +47,31 @@ void	add_tokenlst(t_minishell **bash, char *name, \
 	newtoken->next = NULL;
 }
 
-void	add_tokenlst_mid(t_minishell *bash, t_token **aux, char *name, \
+void	add_tokenlst_dq(t_minishell *bash, t_token **aux, char *name, \
 			enum e_type type, enum e_status status_q)
 {
 	t_token	*newtoken;
 
-	newtoken = (t_token *)malloc(sizeof(t_token));
+	newtoken = ft_calloc(1, sizeof(t_token));
 	if (!newtoken)
 		return ;
 	newtoken->name = name;
 	newtoken->type = type;
 	newtoken->status = status_q;
-	if ((*aux)->next)
-	{
-		newtoken->next = (*aux)->next;
-		(*aux)->next->prev = newtoken;
-	}
-	else
-		newtoken->next = (*aux);
 	if ((*aux)->prev)
 	{
-		newtoken->prev = (*aux)->prev;
 		(*aux)->prev->next = newtoken;
+		newtoken->prev = (*aux)->prev;
+		(*aux)->prev = newtoken;
+		newtoken->next = (*aux);
 	}
-	(*aux)->prev = newtoken;
-	if (!(*aux)->prev)
+	else
+	{
+		(*aux)->prev = newtoken;
+		newtoken->prev = NULL;
+		newtoken->next = (*aux);
 		bash->token = newtoken;
+	}
 }
 void	del_tokenlst(t_minishell *bash, t_token **token)
 {

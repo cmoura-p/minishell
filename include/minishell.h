@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 10:51:43 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/01/26 23:14:06 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/01/29 19:55:34 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,10 +102,11 @@ typedef struct s_export
 
 typedef struct s_heredoc
 {
-	int					i;
+	int					counter;
 	int					fd_heredoc;
-	char				*heredoc_path;
 	char				*eo_heredoc;
+	char				*hd_path;
+	enum e_status		status;
 	struct s_heredoc	*next;
 }						t_heredoc;
 
@@ -183,11 +184,11 @@ int			d_quote(char *line, int i, t_minishell *bash);
 int			redir_in(char *line, int i, t_minishell *bash);
 int			redir_out(char *line, int i, t_minishell *bash);
 int			redir_app(char *line, int i, t_minishell *bash);
-int			redir_heredoc(char *line, int i, t_minishell *bash);
+//int			redir_heredoc(char *line, int i, t_minishell *bash);
 int			handle_blank(char *line, int i, t_minishell *bash);
 void		add_tokenlst(t_minishell **bash, char *name, \
 						enum e_type type, enum e_status status_q);
-void		add_tokenlst_mid(t_minishell *bash, t_token **aux, char *name, \
+void		add_tokenlst_dq(t_minishell *bash, t_token **aux, char *name, \
 			enum e_type type, enum e_status status_q);
 void		add_tokenlst_back(t_token **newtoken, t_token *lst);
 void		del_tokenlst(t_minishell *bash, t_token **token);
@@ -215,7 +216,10 @@ int			not_redirection(t_token *token);
 void		newtoken_after_parsing(t_token **aux, char *a_var);
 
 //heredoc
+void		heredoc(t_minishell *bash);
 void		init_heredoc(t_minishell *bash);
+void		create_hd_list(t_minishell *bash);
+void		add_heredoclst(t_heredoc **hd,char *name, enum e_status status_q);
 
 //builtins
 //cd

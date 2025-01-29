@@ -6,23 +6,68 @@
 /*   By: cmoura-p <cmoura-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 22:33:00 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/01/27 01:10:05 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/01/29 18:17:52 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void	init_heredoc(t_minishell *bash)
+void	heredoc(t_minishell *bash)
 {
-	t_heredoc	*heredoc;
+	t_heredoc	*hd_node;
+	char		*c;
 
-	heredoc = ft_calloc(1, sizeof(t_heredoc));
-	if (!heredoc)
-		return;
-	heredoc->fd_heredoc = 0;
-	heredoc->heredoc_path = NULL;
-	heredoc->eo_heredoc = NULL;
-	heredoc->i = 0;
-	heredoc->next = NULL;
-	bash->heredoc = heredoc;
+	hd_node = bash->heredoc;
+	create_hd_list(bash);
+	while (hd_node)
+	{
+		c = ft_itoa(hd_node->counter);
+		hd_node->hd_path = ft_strjoin("/tmp/temp_heredoc", c);
+		free(c);
+//		aqui comeca a brincadeira seria
+		hd_node = hd_node->next;
+	}
+
+}
+void	add_heredoclst(t_heredoc **hd,char *name, enum e_status status_q)
+{
+	t_heredoc	*newhd;
+
+	newhd = ft_calloc(1, sizeof(t_heredoc));
+	if (!newhd)
+		return ;
+	while ((*hd)->next)
+		(*hd) = (*hd)->next;
+	newhd->fd_heredoc = 0;
+	newhd->eo_heredoc = ft_strdup(name);
+	newhd->hd_path = NULL;
+	newhd->status = status_q;
+	newhd->counter = ((*hd)->counter)+1;
+	newhd->next = NULL;
+	(*hd)->next = newhd;
+}
+void	create_hd_list(t_minishell *bash)
+{
+	t_token		*token;
+	t_heredoc	*hd_node;
+	bool		first_time;
+
+	first_time = true;
+	token = bash->token;
+	hd_node = bash->heredoc;
+	while(token)
+	{
+		if (token->type == HEREDOC)
+		{
+			if (first_time)
+			{
+				hd_node->eo_heredoc = ft_strdup(token->next->name);
+				hd_node->status = token->next->status;
+				first_time = false;
+			}
+			else
+				add_heredoclst(&hd_node, token->next->name, token->next->status);
+		}
+		token = token->next;
+	}
 }

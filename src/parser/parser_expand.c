@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 18:46:17 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/01/25 19:39:47 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/01/29 22:23:39 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ void	expand_var(t_token **aux, t_envp *aux_envp)
 {
 	char	*env_var;
 	char	*exp_var;
+	char	*newname;
 
 	if (!(*aux)->next)
 		return;
@@ -55,8 +56,8 @@ void	expand_var(t_token **aux, t_envp *aux_envp)
 	joinexpand(aux, env_var, exp_var);
 	if ((*aux)->prev != NULL && (*aux)->prev->type == WORD)
 	{
-		(*aux)->name = ft_strjoin((*aux)->prev->name, (*aux)->name);
-		joinprev(aux, (*aux)->name);
+		newname = ft_strjoin((*aux)->prev->name, (*aux)->name);
+		joinprev(aux, newname);
 	}
 }
 
@@ -73,14 +74,14 @@ void	expand_in_dq(t_minishell *bash, t_token **aux)
 		return;
 	}
 	if (b_var && *b_var != '\0')
-		add_tokenlst_mid(bash, aux, b_var, WORD, NO_QUOTE);
+		add_tokenlst_dq(bash, aux, b_var, WORD, NO_QUOTE);
 	if (a_var && a_var[0] == '?')
 		{
-			add_tokenlst_mid(bash, aux, ft_strdup("$?"), EXP_EXIT, NO_QUOTE);
+			add_tokenlst_dq(bash, aux, ft_strdup("$?"), EXP_EXIT, NO_QUOTE);
 			a_var = ft_substr(a_var, 1, ft_strlen(a_var)-1);
 		}
 	else
-		add_tokenlst_mid(bash, aux, ft_strdup("$"), EXP_ENVP, NO_QUOTE);
+		add_tokenlst_dq(bash, aux, ft_strdup("$"), EXP_ENVP, NO_QUOTE);
 	if (a_var && *a_var != '\0')
 		newtoken_after_parsing(aux, a_var);
 	else

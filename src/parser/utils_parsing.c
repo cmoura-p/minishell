@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 21:39:01 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/01/26 17:16:05 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/01/27 19:28:49 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,5 +92,7 @@ void joinexpand(t_token **token, char *name, char *name_exp)
 	aux->next = aux_next->next;
 	if (aux_next->next != NULL)
 		aux_next->next->prev = aux_next->prev;
+	if (aux_next->name)
+		free(aux_next->name);
 	free(aux_next);
 }
