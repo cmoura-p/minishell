@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 11:03:44 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/01/26 23:37:53 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/01/29 23:07:57 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,19 +39,6 @@ int	redir_app(char *line, int i, t_minishell *bash)
 	return (i);
 }
 
-/* int	redir_heredoc(char *line, int i, t_minishell *bash)
-{
-	char	*redir;
-
-//	if (!bash->heredoc)
-//		init_heredoc(bash);
-	redir = ft_substr(line, i, 2);
-	if (!redir)
-		return (0);
-	add_tokenlst(&bash, redir, HEREDOC, NO_QUOTE);
-	return (i);
-}
- */
 int	redir_in(char *line, int i, t_minishell *bash)
 {
 	char	*redir;
