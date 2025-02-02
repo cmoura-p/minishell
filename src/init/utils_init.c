@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 11:34:58 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/01/14 21:35:42 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/02/02 11:18:47 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ char	*ft_minitrim(char *line)
 	size = j - i + 1;
 	result = (char *) malloc(size * sizeof(char) + 1);
 	if (!result)
-		return (NULL);
+		return (ft_strdup(""));
 	j = 0;
 	while (line[i] && (j < size))
 	{

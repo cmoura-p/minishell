@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 10:51:43 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/01/29 19:55:34 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/01/30 19:27:44 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -210,6 +210,7 @@ char		*ft_getenv(t_envp *aux, char *name);
 void		set_commands(t_minishell *bash);
 void		set_arguments(t_minishell *bash);
 void		set_redir(t_minishell *bash);
+t_token		*set_redir_file(t_token *token, enum e_type type);
 void		remove_blank(t_minishell *bash);
 void		find_a_pipe(t_token **aux);
 int			not_redirection(t_token *token);

@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 20:59:59 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/01/25 19:21:51 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/01/30 17:59:35 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	set_commands(t_minishell *bash)
 	while (aux)
 	{
 		aux_next = aux->next;
-		if ((aux->type == WORD) && (not_redirection(aux)))
+		if ((not_redirection(aux) && (aux->type == WORD)))
 		{
 			aux->type = COMMAND;
 			while (aux_next && aux_next->type == WORD)

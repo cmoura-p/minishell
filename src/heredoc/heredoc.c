@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 22:33:00 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/01/29 18:17:52 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/01/30 17:58:25 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	heredoc(t_minishell *bash)
 {
+//	pid_t		pid;
 	t_heredoc	*hd_node;
 	char		*c;
 
@@ -24,10 +25,11 @@ void	heredoc(t_minishell *bash)
 		c = ft_itoa(hd_node->counter);
 		hd_node->hd_path = ft_strjoin("/tmp/temp_heredoc", c);
 		free(c);
-//		aqui comeca a brincadeira seria
+//		aqui comeca a brincadeira seria com fork
+//		pid = fork();
+// 		entender o funcionamento da administracao dos sinais
 		hd_node = hd_node->next;
 	}
-
 }
 void	add_heredoclst(t_heredoc **hd,char *name, enum e_status status_q)
 {

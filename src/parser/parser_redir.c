@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 16:19:54 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/01/25 19:46:03 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/01/30 19:39:58 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,27 @@ void	set_redir(t_minishell *bash)
 	aux = bash->token;
 	while (aux)
 	{
-		if (aux->type == BLANK)
-			aux = aux->next;
 		if (aux->type == REDIR_IN)
-			aux->next->type = FILE_IN;
+			aux = set_redir_file(aux, FILE_IN);
 		else if (aux->type == REDIR_OUT)
-			aux->next->type = FILE_OUT;
+			aux = set_redir_file(aux, FILE_OUT);
 		else if (aux->type == REDIR_APP)
-			aux->next->type = FILE_APP;
-	aux = aux->next;
+			aux = set_redir_file(aux, FILE_APP);
+		else
+			aux = aux->next;
 	}
+}
+t_token	*set_redir_file(t_token *token, enum e_type type)
+{
+
+	token = token->next;
+	if (token->type == BLANK)
+		token = token->next;
+	while (token && token->type == WORD)
+	{
+		token->type = type;
+		token = token->next;
+	}
+	return (token);
 }
 
