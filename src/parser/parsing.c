@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmoura-p <cmoura-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 13:58:23 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/01/30 19:43:10 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/02/03 16:17:23 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 void	parsing(t_minishell *bash)
 {
 	expandtokens(bash);
+	print_token_list(bash->token);
 	jointokens(bash);
 	set_redir(bash);
-//	print_token_list(bash->token);
 	set_commands(bash);
 	remove_blank(bash);
 //	print_token_list(bash->token);

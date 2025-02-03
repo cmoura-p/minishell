@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmoura-p <cmoura-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/15 11:57:24 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/02/02 11:09:28 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/02/03 14:26:23 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	main(int ac, char **av, char **envp)
 	{
 		if (init_bash(minishell, prompt) != 0)
 		{
-			if (minishell->cmd_line[0] != '\0') // || (init_bash(minishell, prompt) != 2))
+			if (minishell->cmd_line[0] != '\0')
 				run(minishell);
 		}
 		else

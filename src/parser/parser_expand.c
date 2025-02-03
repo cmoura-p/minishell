@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_expand.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmoura-p <cmoura-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 18:46:17 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/01/29 22:23:39 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/02/03 16:49:14 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,18 @@ void	expand_var(t_token **aux, t_envp *aux_envp)
 	env_var = envp_name((*aux)->next->name);
 	exp_var = ft_getenv(aux_envp, env_var);
 	joinexpand(aux, env_var, exp_var);
-	if ((*aux)->prev != NULL && (*aux)->prev->type == WORD)
+
+// essa solucao do proximo if nao resultou por completo
+// echo "$USER"abc funcionou
+// echo $USER"$USER'"$USER""$user" nao funcionou
+
+// talvez, em lugar de colocar 'REMENDOS' seja melhor
+// olhar com carinho o jointokens
+    if (((*aux)->next) && ((*aux)->next->type == WORD) && ((*aux)->next->status != DOUBLE_Q))
+    {
+        (*aux)->next->status = SINGLE_Q;
+    }
+    if (((*aux)->prev != NULL) && ((*aux)->prev->type == WORD))
 	{
 		newname = ft_strjoin((*aux)->prev->name, (*aux)->name);
 		joinprev(aux, newname);
@@ -111,3 +122,4 @@ void	newtoken_after_parsing(t_token **aux, char *a_var)
 	}
 	(*aux) = (*aux)->prev;
 }
+
