@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 13:58:23 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/02/03 16:17:23 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/02/05 15:12:12 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ void	parsing(t_minishell *bash)
 	set_redir(bash);
 	set_commands(bash);
 	remove_blank(bash);
-//	print_token_list(bash->token);
 	set_arguments(bash);
 	if (bash->heredoc)
 	{
