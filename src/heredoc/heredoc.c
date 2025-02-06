@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmoura-p <cmoura-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 22:33:00 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/02/06 13:43:23 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/02/06 19:54:24 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,22 @@
 
 void	heredoc(t_minishell *bash)
 {
-	pid_t		pid;
+//	pid_t		pid;
 	t_heredoc	*hd_node;
 	char		*c;
-	int			status;
+//	int			status;
 
 	hd_node = bash->heredoc;
 	create_hd_list(bash);
-//	em que posicao esta o hd agora?
 	while (hd_node)
 	{
 		c = ft_itoa(hd_node->counter);
 		hd_node->hd_path = ft_strjoin("/tmp/temp_heredoc", c);
 		free(c);
-        pid = fork();
-        if (pid == 0)
-            set_heredoc(hd_node, bash);
-        waitpid(pid, &status, 0);
+//        pid = fork();
+//        if (pid == 0)
+//            set_heredoc(hd_node, bash);
+//        waitpid(pid, &status, 0);
 //		vai buscar o status do precesso filho, se for ctrl+c
 //		tem que lidar pq foi abortado todo heredoc
 //		e depois fazer return

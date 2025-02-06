@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 10:51:43 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/02/05 15:43:36 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/02/06 16:56:58 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,6 +166,7 @@ char		*check_syntax(char *line);
 int			btw_quotes(char *line, int i);
 int			skip_blank(char *line, int i);
 char		*ft_minitrim(char *line);
+void        get_prompt(char **prompt);
 
 //run
 void		run(t_minishell *bash);
@@ -219,8 +220,10 @@ void		newtoken_after_parsing(t_token **aux, char *a_var);
 
 //heredoc
 void		heredoc(t_minishell *bash);
+int         set_heredoc(t_heredoc *hd, t_minishell *bash);
 void		init_heredoc(t_minishell *bash);
 void		create_hd_list(t_minishell *bash);
+int         read_hd_line(t_heredoc *hd, t_minishell *bash);
 void		add_heredoclst(t_heredoc **hd,char *name, enum e_status status_q);
 
 //builtins

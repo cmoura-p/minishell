@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: cmoura-p <cmoura-p@student.42.fr>          +#+  +:+       +#+         #
+#    By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/16 21:43:02 by cmoura-p          #+#    #+#              #
-#    Updated: 2025/01/27 01:07:40 by cmoura-p         ###   ########.fr        #
+#    Updated: 2025/02/06 16:57:35 by cmoura-p         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,6 +42,7 @@ SRC =		main.c \
 			src/parser/utils_expand.c \
 			src/parser/utils_parsing.c \
 			src/heredoc/heredoc.c \
+			src/heredoc/utils_heredoc.c \
 			src/builtins/cd/cd.c \
 			src/builtins/echo/echo.c \
 			src/builtins/env/env.c \

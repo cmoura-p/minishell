@@ -6,23 +6,11 @@
 /*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 13:42:58 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/02/05 17:01:43 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/02/06 15:34:30 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-
-void	get_prompt(char **prompt)
-{
-	char	*pwd;
-
-	pwd = getenv("PWD");
-	if (!pwd)
-		pwd = "erro pwd ";
-	*prompt = ft_strjoin(pwd, ": ");
-	if (!(*prompt))
-		*prompt = pwd;
-}
 
 t_minishell	*init_data(char **envp, char **prompt)
 {

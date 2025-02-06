@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 13:58:23 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/02/05 15:12:12 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/02/06 17:03:23 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 void	parsing(t_minishell *bash)
 {
 	expandtokens(bash);
-	print_token_list(bash->token);
 	jointokens(bash);
 	set_redir(bash);
 	set_commands(bash);
@@ -27,5 +26,4 @@ void	parsing(t_minishell *bash)
 		heredoc(bash);
 //		retornar os sinais inciais
 	}
-	print_token_list(bash->token);
 }
