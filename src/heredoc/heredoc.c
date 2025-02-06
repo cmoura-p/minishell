@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
+/*   By: cmoura-p <cmoura-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 22:33:00 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/02/05 20:13:31 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/02/06 13:13:36 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,13 @@ void	heredoc(t_minishell *bash)
         if (pid == 0)
             set_heredoc(hd_node, bash);
         waitpid(pid, &status, 0);
-//		vai buscar o status do precesso filho
-//		se for ctrl+c tem que lidar pq foi abortado
-//      todo heredoc e fazer return
+//		vai buscar o status do precesso filho, se for ctrl+c
+//		tem que lidar pq foi abortado todo heredoc
+//		e depois fazer return
 		hd_node = hd_node->next;
 	}
+//	incluir o "/tmp/temp_heredoc#" nos tokens
+//	como file In e type heredoc vira redir in
 }
 void	add_heredoclst(t_heredoc **hd,char *name, enum e_status status_q)
 {
