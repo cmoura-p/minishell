@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 22:33:00 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/02/06 13:13:36 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/02/06 13:43:23 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,11 @@ void	heredoc(t_minishell *bash)
 	pid_t		pid;
 	t_heredoc	*hd_node;
 	char		*c;
-    int         status;
+	int			status;
 
 	hd_node = bash->heredoc;
 	create_hd_list(bash);
+//	em que posicao esta o hd agora?
 	while (hd_node)
 	{
 		c = ft_itoa(hd_node->counter);
@@ -54,6 +55,7 @@ void	add_heredoclst(t_heredoc **hd,char *name, enum e_status status_q)
 	newhd->counter = ((*hd)->counter)+1;
 	newhd->next = NULL;
 	(*hd)->next = newhd;
+//	(*hd) = (*hd)->next;
 }
 void	create_hd_list(t_minishell *bash)
 {

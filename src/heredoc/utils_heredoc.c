@@ -6,12 +6,16 @@
 /*   By: cmoura-p <cmoura-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 19:29:38 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/02/05 21:39:14 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/02/06 13:46:54 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
+// aqui vamos trabalhar cada heredoc
+// vamos fazer open e close do FD
+// vamos chamar uma funco para fazer o readline do hd
+// vamos administrar a interacao dos sinais
 int set_heredoc(t_heredoc *hd, t_minishell *bash)
 {
     int status;
@@ -28,8 +32,8 @@ int set_heredoc(t_heredoc *hd, t_minishell *bash)
         close(hd->fd_heredoc);
 // 		0 ou 1 eh sucesso ou ctrl+c
         if (status == 0 || status == 1)
-            exit(0);    // exit pq estou dentro de um processo filho
+            exit(0);    // exit saio do processo filho
         if (status == 2)
-            exit(2);   // aqui tenho que sair com o exit_code
+            exit(2);   // aqui tenho que sair com o exit_code pra saber do que to saindo
     }
 }
