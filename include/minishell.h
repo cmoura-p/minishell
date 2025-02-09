@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
+/*   By: cmoura-p <cmoura-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 10:51:43 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/02/06 16:56:58 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/02/09 10:28:49 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ enum e_type
 	EXP_ENVP,			// $
 	COMMAND,			// command
 	ARGUMENT,			// argumento de comando
-	EXP_ARG,			// argumento de expansao
+	EXP_NULL,			// expansao nula
 	BUILTIN,			// built-in
 };
 
@@ -167,6 +167,7 @@ int			btw_quotes(char *line, int i);
 int			skip_blank(char *line, int i);
 char		*ft_minitrim(char *line);
 void        get_prompt(char **prompt);
+int 		split_string(char *line, char **before, char **after, char c);
 
 //run
 void		run(t_minishell *bash);
@@ -205,7 +206,7 @@ void		expandtokens(t_minishell *bash);
 void		joinexpand(t_token **token, char *name, char *name_exp);
 void		expand_var(t_token **aux, t_envp *aux_envp);
 void		expand_in_dq(t_minishell *bash, t_token **aux);
-int			check_dollar(char *line, char **before, char **after);
+//int			check_dollar(char *line, char **before, char **after);
 int			valid_envp_char(char s, int i);
 char		*envp_name(char *name);
 char		*ft_getenv(t_envp *aux, char *name);
@@ -215,6 +216,8 @@ void		set_redir(t_minishell *bash);
 t_token		*set_redir_file(t_token *token, enum e_type type);
 void		remove_blank(t_minishell *bash);
 void		find_a_pipe(t_token **aux);
+int			blank_in_expand(t_token *token, char *exp_var);
+
 int			not_redirection(t_token *token);
 void		newtoken_after_parsing(t_token **aux, char *a_var);
 
@@ -223,7 +226,8 @@ void		heredoc(t_minishell *bash);
 int         set_heredoc(t_heredoc *hd, t_minishell *bash);
 void		init_heredoc(t_minishell *bash);
 void		create_hd_list(t_minishell *bash);
-int         read_hd_line(t_heredoc *hd, t_minishell *bash);
+void		change_hd_tokens(t_minishell *bash);
+//int         read_hd_line(t_heredoc *hd, t_minishell *bash);
 void		add_heredoclst(t_heredoc **hd,char *name, enum e_status status_q);
 
 //builtins

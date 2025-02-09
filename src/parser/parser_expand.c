@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 18:46:17 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/02/03 23:17:57 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/02/09 16:55:43 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,9 @@ void	expand_var(t_token **aux, t_envp *aux_envp)
 		return;
 	env_var = envp_name((*aux)->next->name);
 	exp_var = ft_getenv(aux_envp, env_var);
-	joinexpand(aux, env_var, exp_var);
-if (((*aux)->prev != NULL) && ((*aux)->prev->type == WORD))
+	if (!blank_in_expand((*aux), exp_var))
+		joinexpand(aux, env_var, exp_var);
+	if (((*aux)->prev != NULL) && ((*aux)->prev->type == WORD))
 	{
 		newname = ft_strjoin((*aux)->prev->name, (*aux)->name);
 		joinprev(aux, newname);
@@ -68,7 +69,7 @@ void	expand_in_dq(t_minishell *bash, t_token **aux)
 
 	b_var = NULL;
 	a_var = NULL;
-	if (check_dollar((*aux)->name, &b_var, &a_var) == 0)
+	if (split_string((*aux)->name, &b_var, &a_var, '$') == 0)
 	{
 		(*aux) = (*aux)->next;
 		return;
@@ -93,9 +94,6 @@ void	newtoken_after_parsing(t_token **aux, char *a_var)
 	t_token	*newtoken;
 	char	*env_var;
 
-	newtoken = (t_token *)malloc(sizeof(t_token));
-	if (!newtoken)
-		return ;
 	env_var = envp_name(a_var);
 	(*aux)->name = env_var;
 	(*aux)->type = WORD;
@@ -103,6 +101,9 @@ void	newtoken_after_parsing(t_token **aux, char *a_var)
 	a_var = ft_substr(a_var, (ft_strlen(env_var)), (ft_strlen(a_var)-1));
 	if (a_var && *a_var != '\0')
 	{
+		newtoken = (t_token *)malloc(sizeof(t_token));
+		if (!newtoken)
+			return ;
 		newtoken->name = a_var;
 		newtoken->type = WORD;
 		newtoken->status = DOUBLE_Q;
