@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 11:03:44 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/01/18 23:39:29 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/01/29 23:07:57 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,7 @@
 int	token_redir(char *line, int i, t_minishell *bash)
 {
 	if (line[i] == '<')
-		{
-		if (line[i+1] == '<')
-			{
-				redir_heredoc(line, i, bash);
-				i++;
-			}
-		else
-			redir_in(line, i, bash);
-		}
+		redir_in(line, i, bash);
 	if (line[i] == '>')
 		{
 		if (line[i+1] == '>')
@@ -44,19 +36,6 @@ int	redir_app(char *line, int i, t_minishell *bash)
 	if (!redir)
 		return (0);
 	add_tokenlst(&bash, redir, REDIR_APP, NO_QUOTE);
-	return (i);
-}
-
-int	redir_heredoc(char *line, int i, t_minishell *bash)
-{
-	char	*redir;
-
-//	if (!bash->heredoc)
-//		init_heredoc(bash);
-	redir = ft_substr(line, i, 2);
-	if (!redir)
-		return (0);
-	add_tokenlst(&bash, redir, HEREDOC, NO_QUOTE);
 	return (i);
 }
 

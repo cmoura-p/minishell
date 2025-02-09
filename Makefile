@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: brendon <brendon@student.42.fr>            +#+  +:+       +#+         #
+#    By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/16 21:43:02 by cmoura-p          #+#    #+#              #
-#    Updated: 2025/01/20 10:11:13 by brendon          ###   ########.fr        #
+#    Updated: 2025/02/06 16:57:35 by cmoura-p         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,14 +30,19 @@ SRC =		main.c \
 			src/tokenizer/tokenizer.c \
 			src/tokenizer/tokenizer_quotes.c \
 			src/tokenizer/tokenizer_metachar.c \
+			src/tokenizer/tokenizer_heredoc.c \
 			src/tokenizer/tokenizer_redir.c \
 			src/tokenizer/tokenizer_word.c \
 			src/tokenizer/utils_tokenizer.c \
 			src/tokenizer/token_prints.c \
 			src/parser/parsing.c \
 			src/parser/parser_expand.c \
+			src/parser/parser_redir.c \
+			src/parser/parser_organizing.c \
 			src/parser/utils_expand.c \
 			src/parser/utils_parsing.c \
+			src/heredoc/heredoc.c \
+			src/heredoc/utils_heredoc.c \
 			src/builtins/cd/cd.c \
 			src/builtins/echo/echo.c \
 			src/builtins/env/env.c \
@@ -63,7 +68,8 @@ $(NAME): $(OBJS) $(LIBFT)
 
 # Regra para compilar arquivos fonte em arquivos objeto
 $(OBJ_DIR)/%.o: %.c |	$(OBJ_DIR)/src/init $(OBJ_DIR)/src/clear $(OBJ_DIR)/src/parser $(OBJ_DIR)/src/builtins/export \
-						$(OBJ_DIR)/src/tokenizer $(OBJ_DIR)/src/builtins/cd $(OBJ_DIR)/src/builtins/echo \
+						$(OBJ_DIR)/src/tokenizer $(OBJ_DIR)/src/heredoc \
+						$(OBJ_DIR)/src/builtins/cd $(OBJ_DIR)/src/builtins/echo \
 						$(OBJ_DIR)/src/builtins/env $(OBJ_DIR)/src/builtins/exit  \
 						$(OBJ_DIR)/src/builtins/pwd $(OBJ_DIR)/src/builtins/unset $(OBJ_DIR) $(OBJ_DIR)/src/tree
 	@mkdir -p $(dir $@)	
@@ -79,9 +85,12 @@ $(OBJ_DIR)/src/clear:
 $(OBJ_DIR)/src/tokenizer:
 	@mkdir -p $@
 
+$(OBJ_DIR)/src/heredoc:
+	@mkdir -p $@
+
 $(OBJ_DIR)/src/parser:
 	@mkdir -p $@
-	
+
 $(OBJ_DIR)/src/builtins/cd:
 	@mkdir -p $@
 

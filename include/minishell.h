@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brendon <brendon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 10:51:43 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/01/20 13:24:39 by brendon          ###   ########.fr       */
+/*   Updated: 2025/02/06 16:56:58 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,13 @@ enum e_type
 {
 	BLANK,				// blank space
 	WORD,				// geral
-	FILE_NAME,			// file
 	PIPE,				// |
 	REDIR_IN,			// <
+	FILE_IN,
 	REDIR_OUT,			// >
-	REDIR_APP,			// >>
+	FILE_OUT,
+	REDIR_APP,	 		// >>
+	FILE_APP,
 	HEREDOC,			// <<
 	S_QUOTE,			// '
 	D_QUOTE,			// "
@@ -41,6 +43,7 @@ enum e_type
 	EXP_ENVP,			// $
 	COMMAND,			// command
 	ARGUMENT,			// argumento de comando
+	EXP_ARG,			// argumento de expansao
 	BUILTIN,			// built-in
 };
 
@@ -49,6 +52,15 @@ enum	e_status
 	NO_QUOTE,
 	SINGLE_Q,
 	DOUBLE_Q,
+};
+
+enum	e_exit_code
+{
+	SUCCESS,
+	MALLOC_ERROR,
+	SIGNAL_ERROR,
+    CMD_NOT_FOUND,
+	WHATEVER,
 };
 
 enum	e_builtins
@@ -83,28 +95,29 @@ typedef struct s_envp
 
 typedef struct s_heredoc
 {
-	int					i;
+	int					counter;
 	int					fd_heredoc;
-	char				*heredoc_path;
 	char				*eo_heredoc;
+	char				*hd_path;
+	enum e_status		status;
 	struct s_heredoc	*next;
-}	t_heredoc;
+}						t_heredoc;
 
 typedef struct s_minishell
 {
-	char			*cmd_line;
-	t_envp			*envp;
-	t_heredoc		*heredoc;
-	t_token			*token;
-	t_envp			*export;	// fazer em lista encadeada, brendon trocou o data type
-	void			*root;
-	char			*path;
-	int				exit_status;
-	int				fd_in;			//?
-	int				fd_out;			//?
-	int				pid;			//?
-	int				process;		//?
-}					t_minishell;
+	char				*cmd_line;
+	t_envp				*envp;
+	t_heredoc			*heredoc;
+	t_token				*token;
+	t_envp				*export;
+	enum e_exit_code	exit_status;
+	void				*root;
+	char				*path;
+	int					fd_in;			//ainda nao usei
+	int					fd_out;			//ainda nao usei
+	int					pid;			//ainda nao usei
+	int					process;		//ainda nao usei
+}						t_minishell;
 
 /*--------------------------B-TREE----------------------*/
 
@@ -145,6 +158,7 @@ char		*check_syntax(char *line);
 int			btw_quotes(char *line, int i);
 int			skip_blank(char *line, int i);
 char		*ft_minitrim(char *line);
+void        get_prompt(char **prompt);
 
 //run
 void		run(t_minishell *bash);
@@ -155,6 +169,7 @@ void		parsing(t_minishell *bash);
 int			tokenizer_quotes(char *line, int i, t_minishell *bash);
 int			tokenizer_metachar(char *line, int i, t_minishell *bash);
 int			tokenizer_word(char *line, int i, t_minishell *bash);
+int			token_heredoc(char *line, int i, t_minishell *bash);
 int			token_redir(char *line, int i, t_minishell *bash);
 int			token_pipe(char *line, int i, t_minishell *bash);
 int			token_dollar(char *line, int i, t_minishell *bash);
@@ -163,11 +178,14 @@ int			d_quote(char *line, int i, t_minishell *bash);
 int			redir_in(char *line, int i, t_minishell *bash);
 int			redir_out(char *line, int i, t_minishell *bash);
 int			redir_app(char *line, int i, t_minishell *bash);
-int			redir_heredoc(char *line, int i, t_minishell *bash);
+//int			redir_heredoc(char *line, int i, t_minishell *bash);
 int			handle_blank(char *line, int i, t_minishell *bash);
 void		add_tokenlst(t_minishell **bash, char *name, \
 						enum e_type type, enum e_status status_q);
+void		add_tokenlst_dq(t_minishell *bash, t_token **aux, char *name, \
+			enum e_type type, enum e_status status_q);
 void		add_tokenlst_back(t_token **newtoken, t_token *lst);
+void		del_tokenlst(t_minishell *bash, t_token **token);
 int			ft_isword(char s);
 void		print_token_list(t_token *token);
 
@@ -177,14 +195,28 @@ void		joinnext(t_token **token, char *name);
 void		joinprev(t_token **token, char *name);
 void		expandtokens(t_minishell *bash);
 void		joinexpand(t_token **token, char *name, char *name_exp);
-void 		joinexpand_dq(t_token **token, char *after, char *before, char *name_exp);
-void		joinlast(t_token **aux);
 void		expand_var(t_token **aux, t_envp *aux_envp);
-void		expand_in_dq(t_token **aux, t_envp *aux_envp);
+void		expand_in_dq(t_minishell *bash, t_token **aux);
 int			check_dollar(char *line, char **before, char **after);
 int			valid_envp_char(char s, int i);
 char		*envp_name(char *name);
 char		*ft_getenv(t_envp *aux, char *name);
+void		set_commands(t_minishell *bash);
+void		set_arguments(t_minishell *bash);
+void		set_redir(t_minishell *bash);
+t_token		*set_redir_file(t_token *token, enum e_type type);
+void		remove_blank(t_minishell *bash);
+void		find_a_pipe(t_token **aux);
+int			not_redirection(t_token *token);
+void		newtoken_after_parsing(t_token **aux, char *a_var);
+
+//heredoc
+void		heredoc(t_minishell *bash);
+int         set_heredoc(t_heredoc *hd, t_minishell *bash);
+void		init_heredoc(t_minishell *bash);
+void		create_hd_list(t_minishell *bash);
+int         read_hd_line(t_heredoc *hd, t_minishell *bash);
+void		add_heredoclst(t_heredoc **hd,char *name, enum e_status status_q);
 
 //builtins
 //cd

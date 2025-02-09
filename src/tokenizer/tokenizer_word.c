@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 16:44:48 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/01/18 23:37:41 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/01/25 19:49:17 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,18 @@ int	tokenizer_word(char *line, int i, t_minishell *bash)
 	while (line[i] && ft_isword(line[i]))
 		i++;
 	word = ft_substr(line, j, i - j);
-	if (!word)				// verificar o retorno no erro
-		return (0);			// do malloc no substr
+	if (!word)
+		return (0);
 	add_tokenlst(&bash, word, WORD, NO_QUOTE);
 	return (i - 1);
+}
+
+int	ft_isword(char s)
+{
+	if ((s >= 9 && s <= 13) || s == 32
+		|| s == '\'' || s == '"'
+		|| s == '|' || s == '$' || s == '>'
+		|| s == '<')
+		return (0);
+	return (1);
 }

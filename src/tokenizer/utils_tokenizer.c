@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 09:26:41 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/01/18 23:45:05 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/01/29 22:27:39 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	add_tokenlst(t_minishell **bash, char *name, \
 	t_token	*newtoken;
 	t_token	*aux;
 
-	newtoken = (t_token *)malloc(sizeof(t_token));
+	newtoken = ft_calloc(1, sizeof(t_token));
 	if (!newtoken)
 		return ;
 	newtoken->name = name;
@@ -46,13 +46,56 @@ void	add_tokenlst(t_minishell **bash, char *name, \
 	}
 	newtoken->next = NULL;
 }
-int	ft_isword(char s)
-{
-	if ((s >= 9 && s <= 13) || s == 32
-		|| s == '\'' || s == '"'
-		|| s == '|' || s == '$' || s == '>'
-		|| s == '<')
-		return (0);
-	return (1);
-}
 
+void	add_tokenlst_dq(t_minishell *bash, t_token **aux, char *name, \
+			enum e_type type, enum e_status status_q)
+{
+	t_token	*newtoken;
+
+	newtoken = ft_calloc(1, sizeof(t_token));
+	if (!newtoken)
+		return ;
+	newtoken->name = name;
+	newtoken->type = type;
+	newtoken->status = status_q;
+	if ((*aux)->prev)
+	{
+		(*aux)->prev->next = newtoken;
+		newtoken->prev = (*aux)->prev;
+		(*aux)->prev = newtoken;
+		newtoken->next = (*aux);
+	}
+	else
+	{
+		(*aux)->prev = newtoken;
+		newtoken->prev = NULL;
+		newtoken->next = (*aux);
+		bash->token = newtoken;
+	}
+}
+void	del_tokenlst(t_minishell *bash, t_token **token)
+{
+	t_token *aux;
+
+	aux = *token;
+
+	if (aux == bash->token)
+		bash->token = aux->next;
+	if (aux->prev)
+		aux->prev->next = aux->next;
+	if (aux->next)
+	{
+		aux->next->prev = aux->prev;
+		*token = aux->next;
+	}
+	else
+		*token = aux->prev;
+	if (aux->name)
+		free(aux->name);
+	free(aux);
+	if (!(*token)->next)
+	{
+		(*token)->type = WORD;
+		(*token)->status = NO_QUOTE;
+	}
+}

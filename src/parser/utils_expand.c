@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 21:17:10 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/01/19 13:11:48 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/01/25 19:39:19 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,14 +76,5 @@ int check_dollar(char *line, char **before, char **after)
 		}
 	}
 	return 1;
-}
-void	joinlast(t_token **aux)
-{
-	while (((*aux)->next != NULL) && ((*aux)->next->type == BLANK)
-		&& (*aux)->next->next->type == WORD)
-	{
-		*aux = (*aux)->next->next;
-		(*aux)->type = ARGUMENT;
-	}
 }
 

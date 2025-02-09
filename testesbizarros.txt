@@ -65,15 +65,7 @@ echo $ ?
 
 DANIMUR			echo "GG$?"
 
-Primeira alteracao proposta
-{
-	if (line[i+1] == '$')
-		i = token_dollar(line, i+1, bash);
-	else
-		i = d_quote(line, i, bash);
-}
-
-
+P
 							com a primeira alteracao			original
 
 ERROS PARA CORRIGIR
@@ -93,4 +85,40 @@ echo $USER "teste" 	X	funciona								funciona
 echo "$USER" teste 		funciona								funciona
 
 multiplos $ funcionou
+
+Hoje, dia 20 de janeiro terminei o dia com 2 consideracoes grandes
+	. o set_argument nao esta legal
+	. ainda preciso trabalhar na expansao entre aspas
+
+Hoje 22 de janeiro
+	. arranjei o set_arguments
+	. tenho que fazer o parsing_redir
+	. tenho que voltar a expansao entre aspas duplas
+
+
+informacoes importantes do projeto
+	. nao ha expansao quando isto for fim de heredoc, exemplo:
+			cat << $USER (esse $USER tem que ser tratado como literal)
+
+	. cat << eof
+		> $USER
+		> eof
+
+		resultado no terminal
+		cmoura-p
+
+	. cat << "eof"
+		> $USER
+		> eof
+
+		resultado no terminal
+		$USER
+
+	. cat << eof"$USER"eof
+		> teste de heredoc
+		> eof
+		> eof"$USER"eof
+		> eofcmoura-peof
+		> eof$USEReof			so sai assim!!!
+
 

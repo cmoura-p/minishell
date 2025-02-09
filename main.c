@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brendon <brendon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/15 11:57:24 by cmoura-p          #+#    #+#             */
 /*   Updated: 2025/01/22 20:25:12 by brendon          ###   ########.fr       */
@@ -50,13 +50,13 @@ int	main(int ac, char **av, char **envp)
 	(void)av;
 	if (ac != 1)
 	{
-		ft_printf("Minishell: argument is not allowed -> %s \n", av[1]);// tem que ser na saida padrao de erro? (STDERR_FILENO)
-		exit(0);  //return com mensagem de erro
+		ft_printf("Minishell: argument is not allowed -> %s \n", av[1]);
+		exit(SUCCESS);
 	}
 	minishell = init_data(envp, &prompt);
 	while (1)
 	{
-		if (init_bash(minishell, prompt))
+		if (init_bash(minishell, prompt) != 0)
 		{
 			if (minishell->cmd_line[0] != '\0')
 			{

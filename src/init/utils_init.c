@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_init.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmoura-p <cmoura-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 11:34:58 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/01/14 21:35:42 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/02/06 15:09:17 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ char	*ft_minitrim(char *line)
 	size = j - i + 1;
 	result = (char *) malloc(size * sizeof(char) + 1);
 	if (!result)
-		return (NULL);
+		return (ft_strdup(""));
 	j = 0;
 	while (line[i] && (j < size))
 	{
@@ -55,4 +55,15 @@ char	*ft_minitrim(char *line)
 	}
 	result[j] = '\0';
 	return (result);
+}
+void	get_prompt(char **prompt)
+{
+	char	*pwd;
+
+	pwd = getenv("PWD");
+	if (!pwd)
+		pwd = "erro pwd ";
+	*prompt = ft_strjoin(pwd, ": ");
+	if (!(*prompt))
+		*prompt = pwd;
 }
