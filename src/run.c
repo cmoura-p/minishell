@@ -18,5 +18,7 @@ void	run(t_minishell *bash)
 	tokenizer(bash);
 	print_token_list(bash->token);
 	parsing(bash);
-	free_to_restart(bash);
+	bash->root = ft_tree(bash->token);
+	ft_free_tree(bash->root);
+	bash->root= NULL;
 }

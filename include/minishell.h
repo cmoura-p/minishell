@@ -81,14 +81,6 @@ typedef struct s_envp
 	struct s_envp	*next;
 }					t_envp;
 
-typedef struct s_export
-{
-	char			*name;
-	char			*content;
-	struct s_envp	*prev;
-	struct s_envp	*next;
-}					t_export;
-
 typedef struct s_heredoc
 {
 	int					i;
@@ -228,4 +220,11 @@ void		free_to_restart(t_minishell *bash);
 void		free_bash(t_minishell *bash);
 void		free_envp(t_minishell *bash);
 
+//testes
+
+void		print_tree(t_token *root, int level);
+void		*ft_tree(t_token *start);
+void		ft_free_tree(void *root);
+void		free_token(t_token *token);
+void		free_token_list(t_token *head);
 #endif

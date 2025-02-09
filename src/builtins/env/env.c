@@ -12,49 +12,49 @@
 
 #include "../../../include/minishell.h"
 
+void	ft_update_env_value(t_envp *existing, t_envp *new)
+{
+	free(existing->content);
+	if (new->content)
+		existing->content = ft_strdup(new->content);
+	else
+		existing->content = NULL;
+}
+
+t_envp	*ft_find_env(t_envp *env, char *name)
+{
+	while (env)
+	{
+		if (ft_strcmp(env->name, name) == 0)
+			return (env);
+		if (!env->next)
+			break ;
+		env = env->next;
+	}
+	return (env);
+}
+
 void	ft_envadd(t_envp **env, t_envp *new)
 {
 	t_envp	*tmp;
 
-	// Verifica se os parâmetros são válidos
 	if (!env || !new || !new->name)
 		return ;
-
-	// Caso a lista esteja vazia, adiciona o novo nó
 	if (!*env)
-	{
 		*env = new;
-		return ;
-	}
-
-	tmp = *env;
-
-	// Percorre a lista para verificar duplicatas
-	while (tmp)
+	else
 	{
-		// Se o nome da variável já existir, atualiza o valor
-		if (ft_strcmp(tmp->name, new->name) == 0)
+		tmp = ft_find_env(*env, new->name);
+		if (tmp && ft_strcmp(tmp->name, new->name) == 0)
+			ft_update_env_value(tmp, new);
+		else
 		{
-			free(tmp->content); // Libera o valor anterior
-			if (new->content)
-				tmp->content = ft_strdup(new->content);
-			else
-				tmp->content = NULL;
-			free(new->name); // Libera o nome do novo nó
-			free(new);       // Libera o novo nó
-			return ;
+			tmp->next = new;
+			new->prev = tmp;
 		}
-
-		// Avança para o próximo nó
-		if (!tmp->next)
-			break ;
-		tmp = tmp->next;
 	}
-
-	// Adiciona o novo nó no final da lista
-	tmp->next = new;
-	new->prev = tmp;
 }
+
 
 
 void	ft_env(t_minishell *minishell, char **args)
@@ -63,10 +63,12 @@ void	ft_env(t_minishell *minishell, char **args)
 
 	if (args && args[0] && args[0][0])
 	{
-		if (args[0][0] == '-')
-			ft_printf("bash: env: %s: invalid option\n", args[0]);
-		else
-			ft_printf("bash: env: %s: No such file or directory\n", args[1]);
+		if (args[0][0] == '-' && args[0][1])
+			ft_printf("env: invalid option -- '%s'\n", &args[0][1]);
+		else if (args[0][0] != '-')
+			ft_printf("env: ‘%s’: No such file or directory\n", args[0]);
+		else if (args[0][0] == '-' && args[1])
+			ft_printf("env: ‘%s’: No such file or directory\n", args[1]);
 		return ;
 	}
 	tmp = minishell->envp;

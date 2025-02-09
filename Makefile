@@ -45,7 +45,8 @@ SRC =		main.c \
 			src/builtins/export/export.c \
 			src/builtins/export/insert_expo.c \
 			src/builtins/pwd/pwd.c \
-			src/builtins/unset/unset.c 
+			src/builtins/unset/unset.c \
+			src/tree/tree.c \
 			
 
 OBJ_DIR = ./obj
@@ -64,7 +65,7 @@ $(NAME): $(OBJS) $(LIBFT)
 $(OBJ_DIR)/%.o: %.c |	$(OBJ_DIR)/src/init $(OBJ_DIR)/src/clear $(OBJ_DIR)/src/parser $(OBJ_DIR)/src/builtins/export \
 						$(OBJ_DIR)/src/tokenizer $(OBJ_DIR)/src/builtins/cd $(OBJ_DIR)/src/builtins/echo \
 						$(OBJ_DIR)/src/builtins/env $(OBJ_DIR)/src/builtins/exit  \
-						$(OBJ_DIR)/src/builtins/pwd $(OBJ_DIR)/src/builtins/unset $(OBJ_DIR)
+						$(OBJ_DIR)/src/builtins/pwd $(OBJ_DIR)/src/builtins/unset $(OBJ_DIR) $(OBJ_DIR)/src/tree
 	@mkdir -p $(dir $@)	
 	@$(CC) $(CFLAGS) -c $< -o $@
 
@@ -100,6 +101,9 @@ $(OBJ_DIR)/src/builtins/pwd:
 	@mkdir -p $@
 
 $(OBJ_DIR)/src/builtins/unset:
+	@mkdir -p $@
+
+$(OBJ_DIR)/src/tree:
 	@mkdir -p $@
 
 $(OBJ_DIR):

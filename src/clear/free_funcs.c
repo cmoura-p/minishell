@@ -12,10 +12,62 @@
 
 #include "../../include/minishell.h"
 
+void	ft_free_exec(t_exec *cmd)
+{
+	int	i;
+
+	if (!cmd)
+		return ;
+	i = 0;
+	while (cmd->args && cmd->args[i])
+		free(cmd->args[i++]);
+	free(cmd->args);
+	free(cmd);
+}
+
+void	ft_free_redir(t_redir *redir)
+{
+	if (!redir)
+		return ;
+	if (redir->file_name)
+		free(redir->file_name);
+	if (redir->next)
+		ft_free_tree(redir->next);
+	free(redir);
+}
+
+void	ft_free_pipe(t_pipe *pipe)
+{
+	if (!pipe)
+		return ;
+	if (pipe->left)
+		ft_free_tree(pipe->left);
+	if (pipe->right)
+		ft_free_tree(pipe->right);
+	free(pipe);
+}
+
+void	ft_free_tree(void *root)
+{
+	if (!root)
+		return ;
+	if (((t_pipe *)root)->type == PIPE)
+		ft_free_pipe((t_pipe *)root);
+	else if (((t_redir *)root)->type == REDIR_IN
+		|| ((t_redir *)root)->type == REDIR_OUT
+		|| ((t_redir *)root)->type == REDIR_APP)
+		ft_free_redir((t_redir *)root);
+	else if (((t_exec *)root)->type == COMMAND)
+		ft_free_exec((t_exec *)root);
+}
+
+
 void	free_to_restart(t_minishell *bash)
 {
 	t_token	*aux;
 
+	if(!bash->token)
+		return ;
 	while (bash->token)
 	{
 		aux = bash->token;
