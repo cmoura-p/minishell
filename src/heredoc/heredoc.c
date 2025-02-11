@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 22:33:00 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/02/09 23:46:33 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/02/10 22:59:14 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,10 @@
 
 void	heredoc(t_minishell *bash)
 {
-//	pid_t		pid;
+	pid_t		pid;
 	t_heredoc	*hd_node;
 	char		*c;
+	int			status;
 
 	hd_node = bash->heredoc;
 	create_hd_list(bash);
@@ -25,13 +26,15 @@ void	heredoc(t_minishell *bash)
 		c = ft_itoa(hd_node->counter);
 		hd_node->hd_path = ft_strjoin("/tmp/temp_heredoc", c);
 		free(c);
-//		pid = fork();
-//      if (pid == 0)
-//         set_heredoc(hd_node, bash);
-//      waitpid(pid, &status, 0);
-//		vai buscar o status do precesso filho, se for ctrl+c
-//		tem que lidar pq foi abortado todo heredoc
-//		e depois fazer return
+		pid = fork();
+		if (pid == 0)
+			set_heredoc(hd_node, bash);
+		waitpid(pid, &status, 0);
+		if (heredoc_status(status) == EXIT_SIGINT)
+		{
+			heredoc_ctrl_c(bash);
+			return;
+		}
 		hd_node = hd_node->next;
 	}
 	change_hd_tokens(bash);
@@ -52,7 +55,6 @@ void	add_heredoclst(t_heredoc **hd,char *name, enum e_status status_q)
 	newhd->counter = ((*hd)->counter)+1;
 	newhd->next = NULL;
 	(*hd)->next = newhd;
-//	(*hd) = (*hd)->next;
 }
 void	create_hd_list(t_minishell *bash)
 {

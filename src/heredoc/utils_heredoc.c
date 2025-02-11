@@ -3,41 +3,72 @@
 /*                                                        :::      ::::::::   */
 /*   utils_heredoc.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
+/*   By: cmoura-p <cmoura-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 19:29:38 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/02/06 17:00:17 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/02/10 23:46:46 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-// aqui vamos trabalhar cada heredoc
-// vamos fazer open e close do FD
-// vamos chamar uma funco para fazer o readline do hd
-// vamos administrar a interacao dos sinais
-/* int set_heredoc(t_heredoc *hd, t_minishell *bash)
+int set_heredoc(t_heredoc *hd, t_minishell *bash)
 {
-    int status;
+	int status;
 
-//  set_signal_hd
-    while(1)
-    {
-        hd->fd_heredoc = open(hd->hd_path, O_CREAT \
-        | O_RDWR | O_TRUNC, 064 );
-//  	le as linhas do hd e pega o status de retorno
+	set_heredoc_signals();
+	while(1)
+	{
+		hd->fd_heredoc = open(hd->hd_path, O_CREAT \
+		| O_RDWR | O_TRUNC, 064 );
 		status = read_hd_line(hd, bash);
-        if (status == 1)
-            printf("warning: heredoc aborted %s \n", hd->eo_heredoc);
-        close(hd->fd_heredoc);
-// 		0 ou 1 eh sucesso ou ctrl+c
-        if (status == 0 || status == 1)
-            exit(0);    // exit saio do processo filho
-        if (status == 2)
-            exit(2);   // aqui tenho que sair com o exit_code pra saber do que to saindo
-    }
+		if (status == 1)
+			printf("warning: heredoc aborted - expected eof %s \n", hd->eo_heredoc);
+		close(hd->fd_heredoc);
+//		tem que ter free por aqui
+		if (status == 0 || status == 1)
+			exit(0);
+		if (status == 2)
+			exit(EXIT_SIGINT);
+	}
 }
 int read_hd_line(t_heredoc *hd, t_minishell *bash)
 {
-    return (0);
-} */
+	char	*line;
+	(void)	*hd;
+	(void)	*bash;
+
+	while(1)
+	{
+		line = readline("> ");
+		if (!line)
+		{
+			free(line);
+			if (g_signal == SIGINT)
+				return (2);
+			else
+				return (1);
+		}
+//		aqui tem linha para ser tratada
+	}
+	return (0);
+}
+int	heredoc_status(int hd_exit_status)
+{
+	if (WIFEXITED(hd_exit_status))
+		return (WEXITSTATUS(hd_exit_status));
+	else if (WIFSIGNALED(hd_exit_status))
+	{
+		if (WTERMSIG(hd_exit_status) == SIGINT)
+		{
+//			ft_printf(1, "\n");
+			return (EXIT_SIGINT);
+		}
+		else if (WTERMSIG(hd_exit_status) == SIGQUIT)
+		{
+//			ft_printf(1, "Quit (core dumped)\n");
+			return (EXIT_SIGQUIT);
+		}
+	}
+	return (0);
+}
