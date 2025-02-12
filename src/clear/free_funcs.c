@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_funcs.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmoura-p <cmoura-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 19:44:40 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/01/25 18:58:49 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/02/12 21:02:30 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,46 @@
 
 void	free_to_restart(t_minishell *bash)
 {
-	t_token	*aux;
+	if (bash->token)
+        clean_tokens(bash);
+    if (bash->heredoc)
+        clean_heredoc(bash);
+}
+void    clean_tokens(t_minishell *bash)
+{
+    t_token	*aux;
 
-	while (bash->token)
-	{
-		aux = bash->token;
-		bash->token = bash->token->next;
-		if (aux->name)
-			{
-				free(aux->name);
-				aux->name = NULL;
-			}
-		if (aux)
-			free(aux);
-	}
-	bash->token = NULL;
+    while (bash->token)
+    {
+        aux = bash->token;
+        bash->token = bash->token->next;
+        if (aux->name)
+            {
+                free(aux->name);
+                aux->name = NULL;
+            }
+        if (aux)
+            free(aux);
+    }
+    bash->token = NULL;
+}
+void    clean_heredoc(t_minishell *bash)
+{
+    t_heredoc	*aux;
+
+    while (bash->heredoc)
+    {
+        aux = bash->heredoc;
+        bash->heredoc = bash->heredoc->next;
+        if (aux->eo_heredoc)
+        {
+            free(aux->eo_heredoc);
+            aux->eo_heredoc = NULL;
+        }
+        if (aux)
+           free(aux);
+    }
+    bash->heredoc = NULL;
 }
 
 void	free_to_quit(t_minishell *bash, char *prompt)
@@ -43,30 +68,11 @@ void	free_to_quit(t_minishell *bash, char *prompt)
 
 void	free_bash(t_minishell *bash)
 {
-	free_envp(bash);
-	free(bash);
-}
-
-void	free_envp(t_minishell *bash)
-{
-	t_envp	*aux;
-
-	while (bash->envp)
-	{
-		aux = bash->envp;
-		bash->envp = bash->envp->next;
-		if (aux->name)
-		{
-			free(aux->name);
-			aux->name = NULL;
-		}
-		if (aux->content)
-		{
-			free(aux->content);
-			aux->content = NULL;
-		}
-		if (aux)
-			free(aux);
-	}
-	bash->envp = NULL;
+	if (bash->envp)
+        free_envp(bash);
+    if (bash->token)
+        clean_tokens(bash);
+    if (bash->heredoc)
+        clean_heredoc(bash);
+    free(bash);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmoura-p <cmoura-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 10:51:43 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/02/12 00:19:03 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/02/12 15:57:31 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -275,5 +275,7 @@ void		free_to_quit(t_minishell *bash, char *prompt);
 void		free_to_restart(t_minishell *bash);
 void		free_bash(t_minishell *bash);
 void		free_envp(t_minishell *bash);
+void        clean_heredoc(t_minishell *bash);
+void        clean_tokens(t_minishell *bash);
 
 #endif

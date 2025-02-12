@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_heredoc.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmoura-p <cmoura-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 19:29:38 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/02/12 11:21:01 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/02/12 20:13:47 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,17 @@ int read_hd_line(t_heredoc *hd, t_minishell *bash)
 			else
 				return (1);
 		}
-//		aqui tem linha para ser tratada
+        if (ft_strncmp(line, hd->eo_heredoc, ft_strlen(hd->eo_heredoc)) == 0)
+		{
+			free(line);
+			return (0);
+		}
+//      aqui tem uma avaliacao para expansao dentro do heredoc
+//		if (tmp_hd->eof_quote == NO_QUOTE)
+//			check_hd_expand(&line, bash);
+		write(hd->fd_heredoc, line, ft_strlen(line));
+		write(hd->fd_heredoc, "\n", 1);
+		free(line);
 	}
 	return (0);
 }
@@ -62,12 +72,12 @@ int	child_status(int hd_exit_status)
 	{
 		if (WTERMSIG(hd_exit_status) == SIGINT)
 		{
-//			ft_printf(1, "\n");
+//			write(STDOUT_FILENO, "\n", 1);
 			return (EXIT_SIGINT);
 		}
 		else if (WTERMSIG(hd_exit_status) == SIGQUIT)
 		{
-//			ft_printf(1, "Quit (core dumped)\n");
+//			write(STDOUT_FILENO, "Quit\n", 5);
 			return (EXIT_SIGQUIT);
 		}
 	}
