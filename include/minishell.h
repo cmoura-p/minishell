@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 10:51:43 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/02/10 23:44:00 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/02/12 00:19:03 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -240,7 +240,7 @@ void		create_hd_list(t_minishell *bash);
 void		change_hd_tokens(t_minishell *bash);
 int			read_hd_line(t_heredoc *hd, t_minishell *bash);
 void		add_heredoclst(t_heredoc **hd,char *name, enum e_status status_q);
-int			heredoc_status(int hd_exit_status);
+int			child_status(int hd_exit_status);
 
 //builtins
 //cd

@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 22:33:00 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/02/10 22:59:14 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/02/12 00:19:18 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	heredoc(t_minishell *bash)
 		if (pid == 0)
 			set_heredoc(hd_node, bash);
 		waitpid(pid, &status, 0);
-		if (heredoc_status(status) == EXIT_SIGINT)
+		if (child_status(status) == EXIT_SIGINT)
 		{
 			heredoc_ctrl_c(bash);
 			return;

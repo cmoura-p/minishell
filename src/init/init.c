@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 13:42:58 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/02/10 17:47:31 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/02/11 23:54:52 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,13 +50,13 @@ int	init_bash(t_minishell *minishell, char *prompt)
 
 void	init_signals()
 {
-	struct sigaction	sa;				// variavel que determina o comportamento dos sinais no nosso projeto
+	struct sigaction	sa;
 
-	sa.sa_handler = &signal_handler;	// a funcao que lida com sinais
-	sa.sa_flags = SA_RESTART;			// como restaurar os sinais
-	sigemptyset(&sa.sa_mask);			// mascara de sinais para nao bloquear outros sinais
-										// quando SIGINT for acionado
-	if (sigaction(SIGINT, &sa, NULL) == -1)	//retorno de uma interrupcao
+	sa.sa_handler = &signal_handler;
+	sa.sa_flags = SA_RESTART;
+	sigemptyset(&sa.sa_mask);
+
+	if (sigaction(SIGINT, &sa, NULL) == -1)
 		exit(SIGNAL_ERROR);
-	signal(SIGQUIT, SIG_IGN);			//define a vida de SIGQUIT (CTRL + \). Vai ser ignorado (SIG_IGN)
+	signal(SIGQUIT, SIG_IGN);
 }

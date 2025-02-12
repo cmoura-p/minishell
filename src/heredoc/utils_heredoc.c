@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 19:29:38 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/02/10 23:46:46 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/02/12 11:21:01 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ int set_heredoc(t_heredoc *hd, t_minishell *bash)
 			exit(EXIT_SIGINT);
 	}
 }
+
 int read_hd_line(t_heredoc *hd, t_minishell *bash)
 {
 	char	*line;
@@ -53,7 +54,7 @@ int read_hd_line(t_heredoc *hd, t_minishell *bash)
 	}
 	return (0);
 }
-int	heredoc_status(int hd_exit_status)
+int	child_status(int hd_exit_status)
 {
 	if (WIFEXITED(hd_exit_status))
 		return (WEXITSTATUS(hd_exit_status));
