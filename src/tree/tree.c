@@ -148,6 +148,37 @@ char	**tokken_to_args(t_token *start)
 	args[i] = NULL;
 	return (args);
 }
+void	*ft_redir_app(t_token *start, t_token *aux)
+{
+	t_redir	*redir;
+
+	if (!aux || !aux->next)
+		return (NULL);
+	redir = malloc(sizeof(t_redir));
+	if (!redir)
+		return (NULL);
+	redir->type = REDIR_APP;
+	redir->file_name = ft_strdup(aux->next->name);
+	redir->fd = open(redir->file_name, O_WRONLY | O_CREAT | O_APPEND, 0644);
+	if (redir->fd < 0)
+	{
+		ft_putstr_fd("minishell: ", 2);
+		ft_putstr_fd(redir->file_name, 2);
+		ft_putstr_fd(": No such file or directory\n", 2);
+		free(redir->file_name);
+		free(redir);
+		return (NULL);
+	}
+	if (aux->prev)
+		aux->prev->next = aux->next->next;
+	if (aux->next->next)
+		aux->next->next->prev = aux->prev;
+	free_token(aux->next);
+	free_token(aux);
+	redir->next = ft_tree(start);
+	printf("redir_app\n");
+	return (redir);
+}
 
 void	*ft_tree(t_token *start)
 {
@@ -171,11 +202,11 @@ void	*ft_tree(t_token *start)
 		aux = aux->next;
 	if (aux)
 		return (ft_redir_out(start, aux));
-	/*aux =  start;
-	while(aux && aux->type == REDIR_APP)
+	aux =  start;
+	while (aux && aux->type == REDIR_APP)
 		aux = aux->next;
 	if(aux)
-		return (ft_redir_app(start, aux))*/
+		return (ft_redir_app(start, aux));
 	else
 	{
 		root = malloc(sizeof(t_exec));

@@ -52,6 +52,7 @@ SRC =		main.c \
 			src/builtins/pwd/pwd.c \
 			src/builtins/unset/unset.c \
 			src/tree/tree.c \
+			src/execute/exec.c \
 			
 
 OBJ_DIR = ./obj
@@ -67,11 +68,12 @@ $(NAME): $(OBJS) $(LIBFT)
 	@$(CC) -o $@ $(OBJS) $(LIBFT) $(READLINE_FLAG)
 
 # Regra para compilar arquivos fonte em arquivos objeto
-$(OBJ_DIR)/%.o: %.c |	$(OBJ_DIR)/src/init $(OBJ_DIR)/src/clear $(OBJ_DIR)/src/parser $(OBJ_DIR)/src/builtins/export \
-						$(OBJ_DIR)/src/tokenizer $(OBJ_DIR)/src/heredoc \
+$(OBJ_DIR)/%.o: %.c |	$(OBJ_DIR)/src/init $(OBJ_DIR)/src/clear $(OBJ_DIR)/src/parser \
+						$(OBJ_DIR)/src/builtins/export $(OBJ_DIR)/src/tokenizer $(OBJ_DIR)/src/heredoc \
 						$(OBJ_DIR)/src/builtins/cd $(OBJ_DIR)/src/builtins/echo \
 						$(OBJ_DIR)/src/builtins/env $(OBJ_DIR)/src/builtins/exit  \
-						$(OBJ_DIR)/src/builtins/pwd $(OBJ_DIR)/src/builtins/unset $(OBJ_DIR) $(OBJ_DIR)/src/tree
+						$(OBJ_DIR)/src/builtins/pwd $(OBJ_DIR)/src/builtins/unset $(OBJ_DIR) $(OBJ_DIR)/src/tree \
+						$(OBJ_DIR)/src/execute 
 	@mkdir -p $(dir $@)	
 	@$(CC) $(CFLAGS) -c $< -o $@
 
@@ -113,6 +115,9 @@ $(OBJ_DIR)/src/builtins/unset:
 	@mkdir -p $@
 
 $(OBJ_DIR)/src/tree:
+	@mkdir -p $@
+
+$(OBJ_DIR)/src/execute:
 	@mkdir -p $@
 
 $(OBJ_DIR):

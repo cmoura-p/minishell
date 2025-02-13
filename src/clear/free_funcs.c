@@ -52,13 +52,13 @@ void	ft_free_tree(void *root)
 	if (!root)
 		return ;
 	if (((t_pipe *)root)->type == PIPE)
-		ft_free_pipe((t_pipe *)root);
+		return(ft_free_pipe((t_pipe *)root));
 	else if (((t_redir *)root)->type == REDIR_IN
 		|| ((t_redir *)root)->type == REDIR_OUT
 		|| ((t_redir *)root)->type == REDIR_APP)
-		ft_free_redir((t_redir *)root);
+		return(ft_free_redir((t_redir *)root));
 	else if (((t_exec *)root)->type == COMMAND)
-		ft_free_exec((t_exec *)root);
+		return(ft_free_exec((t_exec *)root));
 }
 
 
