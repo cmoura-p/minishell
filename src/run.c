@@ -15,11 +15,18 @@
 void	run(t_minishell *bash)
 {
 	tokenizer(bash);
-	print_token_list(bash->token);
+	//print_token_list(bash->token);
 	parsing(bash);
     if (!bash->token)
         return;
-    print_token_list(bash->token);
+    //print_token_list(bash->token);
     init_signals();
+	bash->root = ft_tree(bash->token);
+	if (!bash->root)
+		return;
+	ft_execute(bash, bash->root);
+	ft_free_tree(bash->root);
+	//free_token_list(bash->token);
+	bash->token = NULL;
     free_to_restart(bash);
 }

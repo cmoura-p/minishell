@@ -63,19 +63,19 @@ void ft_exec_builtin(t_minishell *minishell, char **args)
 	if (!args || !args[0])
 		return;
 	if (strcmp(args[0], "cd") == 0)
-		ft_cd(minishell, args);
+		ft_cd(minishell, &args[1]);
 	else if (strcmp(args[0], "echo") == 0)
-		ft_echo(args);
+		ft_echo(&args[1]);
 	else if (strcmp(args[0], "env") == 0)
-		ft_env(minishell, args);
+		ft_env(minishell, &args[1]);
 	else if (strcmp(args[0], "exit") == 0)
-		ft_exit(minishell, args);
+		ft_exit(minishell, &args[1]);
 	else if (strcmp(args[0], "export") == 0)
-		ft_export(minishell, args);
+		ft_export(minishell, &args[1]);
 	else if (strcmp(args[0], "pwd") == 0)
-		ft_pwd(minishell, args);
+		ft_pwd(minishell, &args[1]);
 	else if (strcmp(args[0], "unset") == 0)
-		ft_unset(minishell, args);
+		ft_unset(minishell, &args[1]);
 }
 
 char *ft_find_path(char *cmd)
@@ -109,13 +109,13 @@ char *ft_find_path(char *cmd)
 		sprintf(full_path, "%s/%s", paths[i], cmd);
 		if (access(full_path, X_OK) == 0) // Verifica se o comando existe e pode ser executado
 		{
-			//ft_free_split(paths); // Libera a matriz de caminhos
+			// ft_free_split(paths); // Libera a matriz de caminhos
 			return (full_path);
 		}
 		free(full_path);
 		i++;
 	}
-	//ft_free_split(paths); // Libera memória
+	// ft_free_split(paths); // Libera memória
 	return (NULL);
 }
 
@@ -212,6 +212,7 @@ void ft_exec_redir(t_minishell *minishell, t_redir *redir)
 
 void ft_execute(t_minishell *minishell, void *root)
 {
+	printf("root->type: %d\n", ((t_exec *)root)->type);
 	if (!root)
 		return;
 	if (((t_pipe *)root)->type == PIPE)

@@ -1,20 +1,20 @@
 #include "../../include/minishell.h"
 
-void	free_token(t_token *token)
+void free_token(t_token *token)
 {
 	if (!token)
-		return ;
+		return;
 	if (token->name)
 		free(token->name);
 	free(token);
 }
 
-void	free_token_list(t_token *head)
+void free_token_list(t_token *head)
 {
-	t_token	*tmp;
+	t_token *tmp;
 
 	if (!head)
-		return ;
+		return;
 	while (head)
 	{
 		tmp = head->next;
@@ -23,11 +23,11 @@ void	free_token_list(t_token *head)
 	}
 }
 
-void	*ft_pipe(t_token *start, t_token *aux)
+void *ft_pipe(t_token *start, t_token *aux)
 {
-	t_pipe	*pipe;
-	t_token	*left;
-	t_token	*right;
+	t_pipe *pipe;
+	t_token *left;
+	t_token *right;
 
 	if (!aux || !aux->next)
 		return (NULL);
@@ -48,9 +48,9 @@ void	*ft_pipe(t_token *start, t_token *aux)
 	return (pipe);
 }
 
-void	*ft_redir_in(t_token *start, t_token *aux)
+void *ft_redir_in(t_token *start, t_token *aux)
 {
-	t_redir	*redir;
+	t_redir *redir;
 
 	if (!aux || !aux->next)
 		return (NULL);
@@ -80,9 +80,9 @@ void	*ft_redir_in(t_token *start, t_token *aux)
 	return (redir);
 }
 
-void	*ft_redir_out(t_token *start, t_token *aux)
+void *ft_redir_out(t_token *start, t_token *aux)
 {
-	t_redir	*redir;
+	t_redir *redir;
 
 	if (!aux || !aux->next)
 		return (NULL);
@@ -112,7 +112,7 @@ void	*ft_redir_out(t_token *start, t_token *aux)
 	return (redir);
 }
 
-void	*free_args_on_error(char **args, int i)
+void *free_args_on_error(char **args, int i)
 {
 	while (i >= 0)
 		free(args[i--]);
@@ -120,11 +120,11 @@ void	*free_args_on_error(char **args, int i)
 	return (NULL);
 }
 
-char	**tokken_to_args(t_token *start)
+char **tokken_to_args(t_token *start)
 {
-	t_token	*aux;
-	char	**args;
-	int		i;
+	t_token *aux;
+	char **args;
+	int i;
 
 	aux = start;
 	i = 0;
@@ -148,9 +148,9 @@ char	**tokken_to_args(t_token *start)
 	args[i] = NULL;
 	return (args);
 }
-void	*ft_redir_app(t_token *start, t_token *aux)
+void *ft_redir_app(t_token *start, t_token *aux)
 {
-	t_redir	*redir;
+	t_redir *redir;
 
 	if (!aux || !aux->next)
 		return (NULL);
@@ -180,7 +180,7 @@ void	*ft_redir_app(t_token *start, t_token *aux)
 	return (redir);
 }
 
-void	*ft_tree(t_token *start)
+void *ft_tree(t_token *start)
 {
 	t_token	*aux;
 	void	*root;
@@ -202,20 +202,18 @@ void	*ft_tree(t_token *start)
 		aux = aux->next;
 	if (aux)
 		return (ft_redir_out(start, aux));
-	aux =  start;
-	while (aux && aux->type == REDIR_APP)
+	aux = start;
+	while (aux && aux->type != REDIR_APP)
 		aux = aux->next;
-	if(aux)
+	if (aux)
 		return (ft_redir_app(start, aux));
-	else
-	{
-		root = malloc(sizeof(t_exec));
-		if (!root)
-			return (NULL);
-		((t_exec *)root)->type = COMMAND;
-		((t_exec *)root)->args = tokken_to_args(start);
-		printf("comand\n");
-	}
+	root = malloc(sizeof(t_exec));
+	if (!root)
+		return (NULL);
+	((t_exec *)root)->type = COMMAND;
+	((t_exec *)root)->args = tokken_to_args(start);
+	printf("root->type: %d\n", ((t_exec *)root)->type);
+	printf("comand\n");
 	free_token_list(start);
 	return (root);
 }
