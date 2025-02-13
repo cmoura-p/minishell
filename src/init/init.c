@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
+/*   By: cmoura-p <cmoura-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 13:42:58 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/02/06 15:34:30 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/02/11 23:54:52 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ void	init_signals()
 	sa.sa_handler = &signal_handler;
 	sa.sa_flags = SA_RESTART;
 	sigemptyset(&sa.sa_mask);
+
 	if (sigaction(SIGINT, &sa, NULL) == -1)
 		exit(SIGNAL_ERROR);
 	signal(SIGQUIT, SIG_IGN);

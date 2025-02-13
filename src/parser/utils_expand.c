@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 21:17:10 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/01/25 19:39:19 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/02/09 23:50:28 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,25 +50,53 @@ char	*ft_getenv(t_envp *aux, char *var)
 	return (NULL);
 }
 
-int check_dollar(char *line, char **before, char **after)
+int	blank_in_expand(t_token *token, char *exp_var)
 {
-	char *dollar_sign;
+	char	*before;
+	char	*after;
+	t_token	*newtoken;
+
+	before = NULL;
+	after = NULL;
+	if (split_string(exp_var, &before, &after, ' '))
+	{
+		token->name = before;
+		token->type = WORD;
+		newtoken = ft_calloc(1, sizeof(t_token));
+		if (!newtoken)
+			return (0);
+		newtoken->name = ft_strdup(" ");
+		newtoken->type = BLANK;
+		newtoken->status = NO_QUOTE;
+		newtoken->prev = token;
+		newtoken->next = token->next;
+		token->next->prev = newtoken;
+		token->next = newtoken;
+		newtoken->next->name = after;
+		return (1);
+	}
+	return (0);
+}
+
+int split_string(char *line, char **before, char **after, char c)
+{
+	char *sign;
 	size_t before_len;
 
 	if (!line)
 		return (0);
-	dollar_sign = ft_strchr(line, '$');
-	if (!dollar_sign)
+	sign = ft_strchr(line, c);
+	if (!sign)
 		return (0);
 	else
 	{
-		before_len = dollar_sign - line;
+		before_len = sign - line;
 		*before = malloc(before_len + 1);
 		if (!*before)
 			return (0);
 		ft_strlcpy(*before, line, before_len + 1);
 		(*before)[before_len] = '\0';
-		*after = ft_strdup(dollar_sign + 1);
+		*after = ft_strdup(sign + 1);
 		if (!*after)
 		{
 			free(*before);
@@ -77,4 +105,3 @@ int check_dollar(char *line, char **before, char **after)
 	}
 	return 1;
 }
-

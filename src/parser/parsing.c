@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
+/*   By: cmoura-p <cmoura-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 13:58:23 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/02/06 17:03:23 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/02/12 00:08:42 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,9 @@ void	parsing(t_minishell *bash)
 	set_arguments(bash);
 	if (bash->heredoc)
 	{
-//		organizar sinais para heredoc
+		signal(SIGINT, SIG_IGN);
+		signal(SIGQUIT, SIG_IGN);
 		heredoc(bash);
-//		retornar os sinais inciais
+		init_signals();
 	}
 }

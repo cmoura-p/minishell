@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 10:51:43 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/02/06 16:56:58 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/02/12 15:57:31 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,16 @@
 # include <fcntl.h>
 # include <signal.h>
 # include <stdbool.h>
+# include <sys/wait.h>
+
+extern int	g_signal;
 
 # define SUCCESS_EXIT "exit\n"
+# define EXIT_PERMISSION_DENIED 126
+# define EXIT_CMD_NOT_FOUND 127
+# define EXIT_SIGINT 130
+# define EXIT_SIGQUIT 131
+
 
 enum e_type
 {
@@ -43,7 +51,7 @@ enum e_type
 	EXP_ENVP,			// $
 	COMMAND,			// command
 	ARGUMENT,			// argumento de comando
-	EXP_ARG,			// argumento de expansao
+	EXP_NULL,			// expansao nula
 	BUILTIN,			// built-in
 };
 
@@ -148,7 +156,6 @@ typedef struct s_exec
 //init
 t_minishell	*init_data(char **envp, char **prompt);
 void		init_signals();
-void		signal_handler(int signum);
 int			init_bash(t_minishell *minishell, char *prompt);
 void		load_envp(t_minishell *bash, char **envp);
 int			split_envp(const char *envp_line, char **before, char **after);
@@ -159,6 +166,13 @@ int			btw_quotes(char *line, int i);
 int			skip_blank(char *line, int i);
 char		*ft_minitrim(char *line);
 void        get_prompt(char **prompt);
+int 		split_string(char *line, char **before, char **after, char c);
+
+//signals
+void		signal_handler(int signum);
+void		set_heredoc_signals(void);
+void		heredoc_ctrl_c(t_minishell *bash);
+void		heredoc_signal_handler(int signum);
 
 //run
 void		run(t_minishell *bash);
@@ -178,7 +192,6 @@ int			d_quote(char *line, int i, t_minishell *bash);
 int			redir_in(char *line, int i, t_minishell *bash);
 int			redir_out(char *line, int i, t_minishell *bash);
 int			redir_app(char *line, int i, t_minishell *bash);
-//int			redir_heredoc(char *line, int i, t_minishell *bash);
 int			handle_blank(char *line, int i, t_minishell *bash);
 void		add_tokenlst(t_minishell **bash, char *name, \
 						enum e_type type, enum e_status status_q);
@@ -197,7 +210,6 @@ void		expandtokens(t_minishell *bash);
 void		joinexpand(t_token **token, char *name, char *name_exp);
 void		expand_var(t_token **aux, t_envp *aux_envp);
 void		expand_in_dq(t_minishell *bash, t_token **aux);
-int			check_dollar(char *line, char **before, char **after);
 int			valid_envp_char(char s, int i);
 char		*envp_name(char *name);
 char		*ft_getenv(t_envp *aux, char *name);
@@ -207,16 +219,20 @@ void		set_redir(t_minishell *bash);
 t_token		*set_redir_file(t_token *token, enum e_type type);
 void		remove_blank(t_minishell *bash);
 void		find_a_pipe(t_token **aux);
+int			blank_in_expand(t_token *token, char *exp_var);
+
 int			not_redirection(t_token *token);
 void		newtoken_after_parsing(t_token **aux, char *a_var);
 
 //heredoc
 void		heredoc(t_minishell *bash);
-int         set_heredoc(t_heredoc *hd, t_minishell *bash);
+int			set_heredoc(t_heredoc *hd, t_minishell *bash);
 void		init_heredoc(t_minishell *bash);
 void		create_hd_list(t_minishell *bash);
-int         read_hd_line(t_heredoc *hd, t_minishell *bash);
+void		change_hd_tokens(t_minishell *bash);
+int			read_hd_line(t_heredoc *hd, t_minishell *bash);
 void		add_heredoclst(t_heredoc **hd,char *name, enum e_status status_q);
+int			child_status(int hd_exit_status);
 
 //builtins
 //cd
@@ -251,6 +267,8 @@ void		free_to_quit(t_minishell *bash, char *prompt);
 void		free_to_restart(t_minishell *bash);
 void		free_bash(t_minishell *bash);
 void		free_envp(t_minishell *bash);
+void        clean_heredoc(t_minishell *bash);
+void        clean_tokens(t_minishell *bash);
 
 //testes
 void		ft_execute(t_minishell *minishell, void *root);

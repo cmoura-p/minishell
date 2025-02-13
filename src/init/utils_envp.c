@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_envp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brendon <brendon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 21:34:51 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/01/22 20:13:43 by brendon          ###   ########.fr       */
+/*   Updated: 2025/02/12 16:00:05 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,4 +88,28 @@ int	split_envp(const char *envp_line, char **before, char **after)
 		return (0);
 	}
 	return (1);
+}
+
+void	free_envp(t_minishell *bash)
+{
+	t_envp	*aux;
+
+	while (bash->envp)
+	{
+		aux = bash->envp;
+		bash->envp = bash->envp->next;
+		if (aux->name)
+		{
+			free(aux->name);
+			aux->name = NULL;
+		}
+		if (aux->content)
+		{
+			free(aux->content);
+			aux->content = NULL;
+		}
+		if (aux)
+			free(aux);
+	}
+	bash->envp = NULL;
 }

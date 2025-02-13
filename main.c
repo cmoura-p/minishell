@@ -3,44 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
+/*   By: cmoura-p <cmoura-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/15 11:57:24 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/01/22 20:25:12 by brendon          ###   ########.fr       */
+/*   Updated: 2025/02/10 23:48:19 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./include/minishell.h"
 
-void	test_builtin(t_minishell *bash)
-{
-	t_exec	exec;
-
-	exec.args = ft_split(bash->cmd_line, ' ');
-	if (!exec.args)
-	{
-		ft_putstr_fd("minishell: command not found: ", 2);
-		ft_putstr_fd(bash->cmd_line, 2);
-		ft_putstr_fd("\n", 2);
-		exit(127);
-	}
-	printf("args[0]: %s\n", exec.args[0]);
-	if (exec.args[0] && !ft_strcmp(exec.args[0], "cd"))
-		ft_cd(bash, &exec.args[1]);
-	else if (exec.args[0] && !ft_strcmp(exec.args[0], "echo"))
-		ft_echo(&exec.args[1]);
-	else if (exec.args[0] && !ft_strcmp(exec.args[0], "env"))
-		ft_env(bash, &exec.args[1]);
-	else if (exec.args[0] && !ft_strcmp(exec.args[0], "exit"))
-		ft_exit(bash, &exec.args[1]);
-	else if (exec.args[0] && !ft_strcmp(exec.args[0], "export"))
-		ft_export(bash, &exec.args[1]);
-	else if (exec.args[0] && !ft_strcmp(exec.args[0], "pwd"))
-		ft_pwd(bash, &exec.args[1]);
-	else if (exec.args[0] && !ft_strcmp(exec.args[0], "unset"))
-		ft_unset(bash, &exec.args[1]);
-	free(exec.args);
-}
+int	g_signal;
 
 int	main(int ac, char **av, char **envp)
 {
