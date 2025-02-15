@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 10:51:43 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/02/12 15:57:31 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/02/15 18:27:58 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -227,6 +227,7 @@ void		newtoken_after_parsing(t_token **aux, char *a_var);
 //heredoc
 void		heredoc(t_minishell *bash);
 int			set_heredoc(t_heredoc *hd, t_minishell *bash);
+void        check_expand_in_hd(char **line, t_minishell *bash);
 void		init_heredoc(t_minishell *bash);
 void		create_hd_list(t_minishell *bash);
 void		change_hd_tokens(t_minishell *bash);

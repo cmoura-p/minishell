@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 19:29:38 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/02/15 15:39:00 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/02/15 19:13:16 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,10 +54,8 @@ int read_hd_line(t_heredoc *hd, t_minishell *bash)
 			free(line);
 			return (0);
 		}
-//        check_expand_in_hd(line, bash);
-//      aqui tem uma avaliacao para expansao dentro do heredoc
-//		if (tmp_hd->eof_quote == NO_QUOTE)
-//			check_hd_expand(&line, bash);
+		if (hd->status == NO_QUOTE)
+			check_expand_in_hd(&line, bash);
 		write(hd->fd_heredoc, line, ft_strlen(line));
 		write(hd->fd_heredoc, "\n", 1);
 		free(line);
@@ -84,13 +82,28 @@ int	child_status(int hd_exit_status)
 	return (0);
 }
 
-/*
 void    check_expand_in_hd(char **line, t_minishell *bash)
 {
     char    *new_line;
+    char    *after;
+    char    *before;
+    char    *expand;
+    char    *sobra;
+    t_envp  *aux_exp;
 
-    new_line = check_dquote(bash, *line);
-    free(*line);
+    after = NULL;
+    before = NULL;
+    new_line = *line;
+    aux_exp = bash->envp;
+    if (split_string(*line, &before, &after, '$'))
+    {
+        expand = envp_name(after);
+        sobra = ft_substr((after), (ft_strlen(expand)), \
+			(ft_strlen(after)-1));
+	    expand = ft_getenv(aux_exp, expand);
+        after = ft_strjoin(expand, sobra);
+        new_line = ft_strjoin(before, after);
+    }
+//    free(*line);
     *line = new_line;
 }
- */

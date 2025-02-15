@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_expand.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmoura-p <cmoura-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 18:46:17 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/02/09 16:55:43 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/02/15 18:35:29 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,13 +53,13 @@ void	expand_var(t_token **aux, t_envp *aux_envp)
 		return;
 	env_var = envp_name((*aux)->next->name);
 	exp_var = ft_getenv(aux_envp, env_var);
-	if (!blank_in_expand((*aux), exp_var))
-		joinexpand(aux, env_var, exp_var);
-	if (((*aux)->prev != NULL) && ((*aux)->prev->type == WORD))
-	{
-		newname = ft_strjoin((*aux)->prev->name, (*aux)->name);
-		joinprev(aux, newname);
-	}
+    if (!blank_in_expand((*aux), exp_var))
+        joinexpand(aux, env_var, exp_var);
+    if (((*aux)->prev != NULL) && ((*aux)->prev->type == WORD))
+    {
+        newname = ft_strjoin((*aux)->prev->name, (*aux)->name);
+        joinprev(aux, newname);
+    }
 }
 
 void	expand_in_dq(t_minishell *bash, t_token **aux)
