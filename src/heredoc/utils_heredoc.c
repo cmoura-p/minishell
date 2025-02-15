@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 19:29:38 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/02/12 20:13:47 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/02/15 15:39:00 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,7 @@ int set_heredoc(t_heredoc *hd, t_minishell *bash)
 int read_hd_line(t_heredoc *hd, t_minishell *bash)
 {
 	char	*line;
-	(void)	*hd;
-	(void)	*bash;
+    (void)  *bash;
 
 	while(1)
 	{
@@ -55,6 +54,7 @@ int read_hd_line(t_heredoc *hd, t_minishell *bash)
 			free(line);
 			return (0);
 		}
+//        check_expand_in_hd(line, bash);
 //      aqui tem uma avaliacao para expansao dentro do heredoc
 //		if (tmp_hd->eof_quote == NO_QUOTE)
 //			check_hd_expand(&line, bash);
@@ -83,3 +83,14 @@ int	child_status(int hd_exit_status)
 	}
 	return (0);
 }
+
+/*
+void    check_expand_in_hd(char **line, t_minishell *bash)
+{
+    char    *new_line;
+
+    new_line = check_dquote(bash, *line);
+    free(*line);
+    *line = new_line;
+}
+ */
