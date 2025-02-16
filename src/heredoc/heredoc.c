@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
+/*   By: cmoura-p <cmoura-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 22:33:00 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/02/12 18:20:42 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/02/16 10:31:00 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	heredoc(t_minishell *bash)
 	}
 	change_hd_tokens(bash);
 }
-void	add_heredoclst(t_heredoc **hd,char *name, enum e_status status_q)
+void	add_heredoclst(t_heredoc **hd, char *name, enum e_status status_q)
 {
 	t_heredoc	*newhd;
 

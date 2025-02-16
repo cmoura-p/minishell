@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_heredoc.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
+/*   By: cmoura-p <cmoura-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 19:29:38 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/02/15 19:13:16 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/02/16 18:10:15 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int set_heredoc(t_heredoc *hd, t_minishell *bash)
 	while(1)
 	{
 		hd->fd_heredoc = open(hd->hd_path, O_CREAT \
-		| O_RDWR | O_TRUNC, 064 );
+		| O_RDWR | O_TRUNC, 0644 );
 		status = read_hd_line(hd, bash);
 		if (status == 1)
 			printf("warning: heredoc aborted - expected eof %s \n", hd->eo_heredoc);
@@ -49,7 +49,7 @@ int read_hd_line(t_heredoc *hd, t_minishell *bash)
 			else
 				return (1);
 		}
-        if (ft_strncmp(line, hd->eo_heredoc, ft_strlen(hd->eo_heredoc)) == 0)
+		if (ft_strncmp(line, hd->eo_heredoc, ft_strlen(line)) == 0)
 		{
 			free(line);
 			return (0);
@@ -106,4 +106,17 @@ void    check_expand_in_hd(char **line, t_minishell *bash)
     }
 //    free(*line);
     *line = new_line;
+}
+int	checked_for_hd(t_token *token)
+{
+	t_token	*aux;
+
+	aux = token;
+	while (aux && aux->prev)
+	{
+		if ((aux->type == WORD || aux->type == BLANK) && (aux->prev->type == HEREDOC))
+			return (1);
+		aux = aux->prev;
+	}
+	return (0);
 }

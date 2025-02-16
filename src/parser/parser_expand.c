@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_expand.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
+/*   By: cmoura-p <cmoura-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 18:46:17 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/02/15 18:35:29 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/02/16 11:12:02 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	expandtokens(t_minishell *bash)
 				expand_var(&aux, aux_envp);
 			else
 			{
-				if (aux->type == WORD && aux->status == DOUBLE_Q)
+				if ((aux->type == WORD && aux->status == DOUBLE_Q) && (checked_for_hd(aux) == 0))
 					expand_in_dq(bash, &aux);
 				else
 					aux = aux->next;
