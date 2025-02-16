@@ -74,7 +74,7 @@ void ft_export(t_minishell *minishell, char **args)
 	int	j;
 
 	i = -1;
-	if (!args || !args[0])
+	if (!args || !args[0] || !args[0][0])
 		ft_export_print(minishell->export);
 	else
 	{

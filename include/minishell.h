@@ -276,4 +276,5 @@ void		*ft_tree(t_token *start);
 void		ft_free_tree(void *root);
 void		free_token(t_token *token);
 void		free_token_list(t_token *head);
+void		free_args(char **args);
 #endif

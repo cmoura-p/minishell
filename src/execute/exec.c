@@ -1,4 +1,3 @@
-
 #include "../../include/minishell.h"
 
 char **ft_env_args(t_envp *envp)
@@ -121,33 +120,51 @@ char *ft_find_path(char *cmd)
 
 void ft_exec_cmd(t_minishell *minishell, t_exec *cmd)
 {
-	char *path;
-	char **env;
+    char *path;
+    char **env;
+    pid_t pid;
+    int status;
 
-	if (!cmd || !cmd->args || !cmd->args[0])
-		return;
+    if (!cmd || !cmd->args || !cmd->args[0])
+        return ;
+    
+    if (ft_is_builtin(cmd->args[0]))
+    {
+        ft_exec_builtin(minishell, cmd->args);
+        return ;
+    }
 
-	// Verifica se é um builtin
-	if (ft_is_builtin(cmd->args[0]))
-	{
-		ft_exec_builtin(minishell, cmd->args);
-		exit(0);
-	}
-
-	// Acha o caminho do comando
-	path = ft_find_path(cmd->args[0]);
-	if (!path)
-	{
-		fprintf(stderr, "minishell: %s: command not found\n", cmd->args[0]);
-		exit(127);
-	}
-
-	// Executa o comando
-	env = ft_env_args(minishell->envp);
-	execve(path, cmd->args, env);
-	perror("minishell");
-	free(path);
-	exit(127);
+    pid = fork();
+    if (pid == 0) // Processo filho
+    {
+        path = ft_find_path(cmd->args[0]);
+        if (!path)
+        {
+            fprintf(stderr, "minishell: %s: command not found\n", cmd->args[0]);
+            exit(127);
+        }
+        env = ft_env_args(minishell->envp);
+        if (!env)
+        {
+            perror("minishell: failed to allocate env");
+            free(path);
+            exit(1);
+        }
+        execve(path, cmd->args, env);
+        perror("minishell"); // Só ocorre se execve falhar
+        free(path);
+        free_args(env); // Libera env antes de sair
+        exit(127);
+    }
+    else if (pid > 0) // Processo pai
+    {
+        waitpid(pid, &status, 0);
+        minishell->exit_status = WIFEXITED(status) ? WEXITSTATUS(status) : 1;
+    }
+    else
+    {
+        perror("fork");
+    }
 }
 
 void ft_exec_pipe(t_minishell *minishell, t_pipe *pipeline)
@@ -187,32 +204,79 @@ void ft_exec_pipe(t_minishell *minishell, t_pipe *pipeline)
 
 void ft_exec_redir(t_minishell *minishell, t_redir *redir)
 {
-	int fd;
+    int fd;
+    int tmp_stdout;
+    int tmp_stdin;
 
-	if (redir->type == REDIR_IN)
-		fd = open(redir->file_name, O_RDONLY);
-	else if (redir->type == REDIR_OUT)
-		fd = open(redir->file_name, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-	else if (redir->type == REDIR_APP)
-		fd = open(redir->file_name, O_WRONLY | O_CREAT | O_APPEND, 0644);
-	else
-		return;
-	if (fd == -1)
-	{
-		perror("minishell");
-		return;
-	}
-	if (redir->type == REDIR_IN)
-		dup2(fd, STDIN_FILENO);
-	else
-		dup2(fd, STDOUT_FILENO);
-	close(fd);
-	ft_execute(minishell, redir->next);
+    tmp_stdout = dup(STDOUT_FILENO);
+    tmp_stdin = dup(STDIN_FILENO);
+
+    if (redir->type == REDIR_IN)
+    {
+        fd = open(redir->file_name, O_RDONLY);
+        if (fd == -1)
+        {
+            perror("minishell: input redirection failed");
+            minishell->exit_status = 1;
+            return;
+        }
+        if (dup2(fd, STDIN_FILENO) == -1)
+        {
+            perror("minishell: input redirection failed");
+            close(fd);
+            minishell->exit_status = 1;
+            return;
+        }
+        close(fd);
+    }
+    else if (redir->type == REDIR_OUT)
+    {
+        fd = open(redir->file_name, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+        if (fd == -1)
+        {
+            perror("minishell: output redirection failed");
+            minishell->exit_status = 1;
+            return;
+        }
+        if (dup2(fd, STDOUT_FILENO) == -1)
+        {
+            perror("minishell: output redirection failed");
+            close(fd);
+            minishell->exit_status = 1;
+            return;
+        }
+        close(fd);
+    }
+    else if (redir->type == REDIR_APP)
+    {
+        fd = open(redir->file_name, O_WRONLY | O_CREAT | O_APPEND, 0644);
+        if (fd == -1)
+        {
+            perror("minishell: append redirection failed");
+            minishell->exit_status = 1;
+            return;
+        }
+        if (dup2(fd, STDOUT_FILENO) == -1)
+        {
+            perror("minishell: append redirection failed");
+            close(fd);
+            minishell->exit_status = 1;
+            return;
+        }
+        close(fd);
+    }
+
+    ft_execute(minishell, redir->next);
+
+    dup2(tmp_stdout, STDOUT_FILENO);
+    dup2(tmp_stdin, STDIN_FILENO);
+    close(tmp_stdout);
+    close(tmp_stdin);
 }
 
 void ft_execute(t_minishell *minishell, void *root)
 {
-	printf("root->type: %d\n", ((t_exec *)root)->type);
+	//printf("root->type: %d\n", ((t_exec *)root)->type);
 	if (!root)
 		return;
 	if (((t_pipe *)root)->type == PIPE)
@@ -221,9 +285,9 @@ void ft_execute(t_minishell *minishell, void *root)
 		ft_exec_redir(minishell, (t_redir *)root);
 	else if (((t_exec *)root)->type == COMMAND)
 	{
-		pid_t pid = fork();
-		if (pid == 0)
-			ft_exec_cmd(minishell, (t_exec *)root);
-		waitpid(pid, NULL, 0);
+		//pid_t pid = fork();
+		//if (pid == 0)
+		//waitpid(pid, NULL, 0);
+		ft_exec_cmd(minishell, (t_exec *)root);
 	}
 }
