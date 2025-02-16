@@ -12,6 +12,18 @@
 
 #include "../../include/minishell.h"
 
+void	free_args(char **args)
+{
+	int	i;
+
+	if (!args)
+		return ;
+	i = 0;
+	while (args[i])
+		free(args[i++]);
+	free(args);
+}
+
 void	ft_free_exec(t_exec *cmd)
 {
 	int	i;
@@ -120,8 +132,8 @@ void	free_bash(t_minishell *bash)
 {
 	if (bash->envp)
         free_envp(bash);
-    if (bash->token)
-        clean_tokens(bash);
+   // if (bash->token)
+       // clean_tokens(bash);
     if (bash->heredoc)
         clean_heredoc(bash);
     free(bash);

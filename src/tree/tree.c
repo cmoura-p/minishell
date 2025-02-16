@@ -44,41 +44,50 @@ void *ft_pipe(t_token *start, t_token *aux)
 	pipe->type = PIPE;
 	pipe->left = ft_tree(left);
 	pipe->right = ft_tree(right);
-	printf("pipe\n");
+//	printf("pipe\n");
 	return (pipe);
 }
 
 void *ft_redir_in(t_token *start, t_token *aux)
 {
-	t_redir *redir;
+    t_redir *redir;
 
-	if (!aux || !aux->next)
-		return (NULL);
-	redir = malloc(sizeof(t_redir));
-	if (!redir)
-		return (NULL);
-	redir->type = REDIR_IN;
-	redir->file_name = ft_strdup(aux->next->name);
-	redir->fd = open(redir->file_name, O_RDONLY);
-	if (redir->fd < 0)
-	{
-		ft_putstr_fd("minishell: ", 2);
-		ft_putstr_fd(redir->file_name, 2);
-		ft_putstr_fd(": No such file or directory\n", 2);
-		free(redir->file_name);
-		free(redir);
-		return (NULL);
-	}
-	if (aux->prev)
-		aux->prev->next = aux->next->next;
-	if (aux->next->next)
-		aux->next->next->prev = aux->prev;
-	free_token(aux->next);
-	free_token(aux);
-	redir->next = ft_tree(start);
-	printf("redir_in\n");
-	return (redir);
+    if (!aux || !aux->next)
+        return (NULL);
+    
+    redir = malloc(sizeof(t_redir));
+    if (!redir)
+        return (NULL);
+    
+    redir->type = REDIR_IN;
+    redir->file_name = ft_strdup(aux->next->name);
+    
+    redir->fd = open(redir->file_name, O_RDONLY);
+    if (redir->fd < 0)
+    {
+        ft_putstr_fd("minishell: ", 2);
+        ft_putstr_fd(redir->file_name, 2);
+        ft_putstr_fd(": No such file or directory\n", 2);
+		// Definir erro, mas continuar a execução
+        free(redir->file_name);
+        free(redir);
+        return (ft_tree(start)); // Continua a construção da árvore sem o redirecionamento
+    }
+
+    // Removendo tokens corretamente
+    if (aux->prev)
+        aux->prev->next = aux->next->next;
+    if (aux->next->next)
+        aux->next->next->prev = aux->prev;
+
+    free_token(aux->next);
+    free_token(aux);
+
+    redir->next = ft_tree(start);
+   // printf("redir_in\n");
+    return (redir);
 }
+
 
 void *ft_redir_out(t_token *start, t_token *aux)
 {
@@ -108,7 +117,7 @@ void *ft_redir_out(t_token *start, t_token *aux)
 	free_token(aux->next);
 	free_token(aux);
 	redir->next = ft_tree(start);
-	printf("redir_out\n");
+	//printf("redir_out\n");
 	return (redir);
 }
 
@@ -176,7 +185,7 @@ void *ft_redir_app(t_token *start, t_token *aux)
 	free_token(aux->next);
 	free_token(aux);
 	redir->next = ft_tree(start);
-	printf("redir_app\n");
+	//printf("redir_app\n");
 	return (redir);
 }
 
@@ -212,8 +221,8 @@ void *ft_tree(t_token *start)
 		return (NULL);
 	((t_exec *)root)->type = COMMAND;
 	((t_exec *)root)->args = tokken_to_args(start);
-	printf("root->type: %d\n", ((t_exec *)root)->type);
-	printf("comand\n");
+	//printf("root->type: %d\n", ((t_exec *)root)->type);
+	//printf("comand\n");
 	free_token_list(start);
 	return (root);
 }
