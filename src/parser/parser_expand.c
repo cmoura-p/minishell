@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 18:46:17 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/02/16 11:12:02 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/02/18 00:45:46 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	expandtokens(t_minishell *bash)
 			return;
 		else
 		{
-			if (aux->type == EXP_ENVP)
+			if ((aux->type == EXP_ENVP) && (checked_for_hd(aux) == 0))
 				expand_var(&aux, aux_envp);
 			else
 			{

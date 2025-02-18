@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/15 11:57:24 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/02/10 23:48:19 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/02/17 13:33:55 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,11 @@ int	main(int ac, char **av, char **envp)
 			if (minishell->cmd_line[0] != '\0')
 			{
 				run(minishell);
-				
 			}
 		}
 		else
 			if (!minishell->cmd_line)
-				break ;
+				break;
 		if (minishell->cmd_line)
 			free(minishell->cmd_line);
 	}

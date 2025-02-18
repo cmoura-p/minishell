@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 19:29:38 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/02/16 18:10:15 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/02/18 10:09:00 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,8 @@ int read_hd_line(t_heredoc *hd, t_minishell *bash)
 			else
 				return (1);
 		}
-		if (ft_strncmp(line, hd->eo_heredoc, ft_strlen(line)) == 0)
+		if ((ft_strncmp(line, hd->eo_heredoc, ft_strlen(hd->eo_heredoc)) == 0) \
+			&& (ft_strlen(hd->eo_heredoc) == ft_strlen(line)))
 		{
 			free(line);
 			return (0);
@@ -102,11 +103,18 @@ void    check_expand_in_hd(char **line, t_minishell *bash)
 			(ft_strlen(after)-1));
 	    expand = ft_getenv(aux_exp, expand);
         after = ft_strjoin(expand, sobra);
+		check_expand_in_hd(&after, bash);
         new_line = ft_strjoin(before, after);
     }
-//    free(*line);
     *line = new_line;
 }
+
+
+// aqui funcionou parcialmente. o type do exp_envp esta word
+// mas nao esta resultando
+// tenho que olhar atentamente o parsing nessa condicao
+// e tambem tenho que olhar o jointokens
+
 int	checked_for_hd(t_token *token)
 {
 	t_token	*aux;
@@ -114,8 +122,12 @@ int	checked_for_hd(t_token *token)
 	aux = token;
 	while (aux && aux->prev)
 	{
-		if ((aux->type == WORD || aux->type == BLANK) && (aux->prev->type == HEREDOC))
+		if ((aux->type == WORD || aux->type == BLANK || aux->type == EXP_ENVP) \
+			&& (aux->prev->type == HEREDOC))
+		{
+			token->type = WORD;
 			return (1);
+		}
 		aux = aux->prev;
 	}
 	return (0);

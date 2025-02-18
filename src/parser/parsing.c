@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
+/*   By: cmoura-p <cmoura-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 13:58:23 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/02/15 16:43:39 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/02/18 10:10:16 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,13 @@
 void	parsing(t_minishell *bash)
 {
 	expandtokens(bash);
+    print_token_list(bash->token);
 	jointokens(bash);
+	print_token_list(bash->token);
 	set_redir(bash);
 	set_commands(bash);
 	remove_blank(bash);
 	set_arguments(bash);
-    print_token_list(bash->token);
 	if (bash->heredoc)
 	{
 		signal(SIGINT, SIG_IGN);

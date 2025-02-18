@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 16:44:23 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/01/26 23:15:06 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/02/18 00:29:35 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	token_pipe(char *line, int i, t_minishell *bash)
 int	token_dollar(char *line, int i, t_minishell *bash)
 {
 	char	*redir;
-
+	
 	if (line[i+1] == '?')
 	{
 		redir = ft_substr(line, i, 2);
