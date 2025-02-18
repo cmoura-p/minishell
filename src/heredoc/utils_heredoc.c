@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 19:29:38 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/02/18 10:09:00 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/02/18 20:09:54 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int read_hd_line(t_heredoc *hd, t_minishell *bash)
 			return (0);
 		}
 		if (hd->status == NO_QUOTE)
-			check_expand_in_hd(&line, bash);
+			check_exp_in_hd(&line, bash);
 		write(hd->fd_heredoc, line, ft_strlen(line));
 		write(hd->fd_heredoc, "\n", 1);
 		free(line);
@@ -83,7 +83,7 @@ int	child_status(int hd_exit_status)
 	return (0);
 }
 
-void    check_expand_in_hd(char **line, t_minishell *bash)
+void    check_exp_in_hd(char **line, t_minishell *bash)
 {
     char    *new_line;
     char    *after;
@@ -103,17 +103,11 @@ void    check_expand_in_hd(char **line, t_minishell *bash)
 			(ft_strlen(after)-1));
 	    expand = ft_getenv(aux_exp, expand);
         after = ft_strjoin(expand, sobra);
-		check_expand_in_hd(&after, bash);
+		check_exp_in_hd(&after, bash);
         new_line = ft_strjoin(before, after);
     }
     *line = new_line;
 }
-
-
-// aqui funcionou parcialmente. o type do exp_envp esta word
-// mas nao esta resultando
-// tenho que olhar atentamente o parsing nessa condicao
-// e tambem tenho que olhar o jointokens
 
 int	checked_for_hd(t_token *token)
 {

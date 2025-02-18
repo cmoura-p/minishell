@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 10:51:43 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/02/18 00:45:13 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/02/18 23:37:40 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -200,7 +200,7 @@ void		add_tokenlst_dq(t_minishell *bash, t_token **aux, char *name, \
 void		add_tokenlst_back(t_token **newtoken, t_token *lst);
 void		del_tokenlst(t_minishell *bash, t_token **token);
 int			ft_isword(char s);
-int			hd_eof_exp_token(char *line, int i, t_minishell *bash);
+int			expand_is_hd_eof(char *line, int i, char **redir);
 void		print_token_list(t_token *token);
 
 //parsing
@@ -228,7 +228,7 @@ void		newtoken_after_parsing(t_token **aux, char *a_var);
 //heredoc
 void		heredoc(t_minishell *bash);
 int			set_heredoc(t_heredoc *hd, t_minishell *bash);
-void        check_expand_in_hd(char **line, t_minishell *bash);
+void        check_exp_in_hd(char **line, t_minishell *bash);
 void		init_heredoc(t_minishell *bash);
 void		create_hd_list(t_minishell *bash);
 void		change_hd_tokens(t_minishell *bash);
