@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 21:39:01 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/02/18 23:37:25 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/02/19 23:09:39 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ void joinnext(t_token **token, char *name)
 	free(aux_next);
 }
 
+// testar pra ver o pq atualiza o next
 void joinprev(t_token **token, char *name)
 {
 	t_token	*aux;
@@ -66,7 +67,7 @@ void joinprev(t_token **token, char *name)
 	aux = (*token);
 	aux_prev = (*token)->prev;
 	aux_prev->name = name;
-	if ((aux->next) && (aux->next->type == WORD))
+	if ((aux->next) && aux->next->type == WORD && aux->type == WORD)
 		aux_prev->status = aux->status;
 	aux_prev->next = aux->next;
 	if (aux->next != NULL)
@@ -74,6 +75,7 @@ void joinprev(t_token **token, char *name)
 	if (aux->name)
 		free(aux->name);
 	free(aux);
+	aux = aux_prev;
 }
 void joinexpand(t_token **token, char *name, char *name_exp)
 {
@@ -99,3 +101,30 @@ void joinexpand(t_token **token, char *name, char *name_exp)
 		free(aux_next->name);
 	free(aux_next);
 }
+void	remove_exp_null(t_minishell *bash)
+{
+	t_token	*aux;
+	t_token	*aux_next;
+
+	aux = bash->token;
+	while (aux->next)
+	{
+		aux_next = aux->next;
+		if (aux->type == EXP_NULL)
+		{
+//			if (aux == bash->token)
+//				bash->token = aux_next;
+			if (!aux->prev)
+				bash->token = aux->next;
+			else
+				aux->prev->next = aux->next;
+			if (aux->next)
+				aux->next->prev = aux->prev;
+			if (aux->name)
+				free(aux->name);
+			free(aux);
+		}
+		aux = aux_next;
+	}
+}
+

@@ -121,4 +121,13 @@ informacoes importantes do projeto
 		> eofcmoura-peof
 		> eof$USEReof			so sai assim!!!
 
+	. teste da Dani que esta tirando meu juizo
+		echo $USER'$USER'$usre"$USER"
+
+	. testar com $ puro no final
+	. testar com "$USER{abc}"
+
+	. NOVO ERRO
+		echo abc$123 nao junta
+
 

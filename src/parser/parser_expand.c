@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 18:46:17 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/02/18 23:38:03 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/02/19 22:41:03 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	expandtokens(t_minishell *bash)
 	aux_envp = bash->envp;
 	while(aux)
 	{
+//		printf("entrou no token %s \n", aux->name);
 		if (aux->type == EXP_EXIT)
 //			expand_exit();
 			return;
@@ -36,9 +37,10 @@ void	expandtokens(t_minishell *bash)
 					aux = aux->next;
 			}
 		}
+//		print_token_list(bash->token);
 	}
 }
-/* void	expand_exitcode()
+/* void	expand_exit()
 {
 	return;
 }
