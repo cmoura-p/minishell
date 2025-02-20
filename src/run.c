@@ -18,10 +18,10 @@ void	run(t_minishell *bash)
 	//print_token_list(bash->token);
 	parsing(bash);
     if (!bash->token)
-        return;
-    //print_token_list(bash->token);
+		return;
+	print_token_list(bash->token);
     init_signals();
-	bash->root = ft_tree(bash->token);
+	bash->root = ft_tree(bash->token, bash);
 	if (!bash->root)
 		return;
 	ft_execute(bash, bash->root);

@@ -20,7 +20,7 @@ int set_heredoc(t_heredoc *hd, t_minishell *bash)
 	while(1)
 	{
 		hd->fd_heredoc = open(hd->hd_path, O_CREAT \
-		| O_RDWR | O_TRUNC, 064 );
+		| O_RDWR | O_TRUNC, 0644 );
 		status = read_hd_line(hd, bash);
 		if (status == 1)
 			printf("warning: heredoc aborted - expected eof %s \n", hd->eo_heredoc);

@@ -272,7 +272,7 @@ void        clean_tokens(t_minishell *bash);
 
 //testes
 void		ft_execute(t_minishell *minishell, void *root);
-void		*ft_tree(t_token *start);
+void		*ft_tree(t_token *start, t_minishell *bash);
 void		ft_free_tree(void *root);
 void		free_token(t_token *token);
 void		free_token_list(t_token *head);

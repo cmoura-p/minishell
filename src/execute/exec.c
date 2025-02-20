@@ -1,5 +1,17 @@
 #include "../../include/minishell.h"
 
+void ft_free_split(char **args)
+{
+	int i;
+
+	if (!args)
+		return;
+	i = 0;
+	while (args[i])
+		free(args[i++]);
+	free(args);
+}
+
 char **ft_env_args(t_envp *envp)
 {
 	char **args;
@@ -84,37 +96,28 @@ char *ft_find_path(char *cmd)
 	char **paths;
 	int i;
 
-	// Se o comando já contém '/', não precisa buscar no PATH
 	if (ft_strchr(cmd, '/'))
 		return (strdup(cmd));
-
-	// Obtém a variável de ambiente PATH
 	path = getenv("PATH");
 	if (!path)
 		return (NULL);
-
-	// Divide os caminhos do PATH
-	paths = ft_split(path, ':'); // Supondo que você tenha um ft_split() implementado
+	paths = ft_split(path, ':');
 	if (!paths)
 		return (NULL);
-
-	// Testa cada diretório do PATH
 	i = 0;
 	while (paths[i])
 	{
-		full_path = malloc(strlen(paths[i]) + strlen(cmd) + 2);
-		if (!full_path)
-			break;
-		sprintf(full_path, "%s/%s", paths[i], cmd);
+		full_path = ft_strjoin(paths[i], "/");
+		full_path = ft_strjoin(full_path, cmd);
 		if (access(full_path, X_OK) == 0) // Verifica se o comando existe e pode ser executado
 		{
-			// ft_free_split(paths); // Libera a matriz de caminhos
+			ft_free_split(paths); // Libera a matriz de caminhos
 			return (full_path);
 		}
 		free(full_path);
 		i++;
 	}
-	// ft_free_split(paths); // Libera memória
+	ft_free_split(paths);
 	return (NULL);
 }
 
