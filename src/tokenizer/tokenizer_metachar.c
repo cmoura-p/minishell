@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 16:44:23 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/02/18 21:15:27 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/02/20 16:02:18 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,13 @@ int	token_dollar(char *line, int i, t_minishell *bash)
 		add_tokenlst(&bash, redir, EXP_EXIT, NO_QUOTE);
 		return (i+1);
 	}
+	// aqui tinha um erro grosseiro
+	// tava colocando o status = DOUBLE_Q
+	// porque eu botei DOUBLE_Q? Nao sei
+	// Mas isso jamais permitiria expansao dentro do heredoc
 	if (expand_is_hd_eof(line, i, &redir) == 1)			// esse if eh bloco novo
 	{
-		add_tokenlst(&bash, redir, WORD, DOUBLE_Q);
+		add_tokenlst(&bash, redir, WORD, NO_QUOTE);
 		i = i + ft_strlen(redir);
 		return (i-1);
 	}

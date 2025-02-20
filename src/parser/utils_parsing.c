@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 21:39:01 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/02/20 14:03:46 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/02/20 15:14:51 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void jointokens(t_minishell *bash)
 	aux = bash->token;
 	while(aux)
 	{
-		if ((aux->status != NO_QUOTE) && (((aux->prev != NULL) && (aux->prev->type == WORD))
+		if ((aux->type == WORD) && (((aux->prev != NULL) && (aux->prev->type == WORD))
 			|| ((aux->next != NULL) && (aux->next->type == WORD))))
 		{
 			if ((aux->prev != NULL) && (aux->prev->type == WORD))
