@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 21:39:01 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/02/19 23:09:39 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/02/20 14:03:46 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ void joinnext(t_token **token, char *name)
 	free(aux_next);
 }
 
-// testar pra ver o pq atualiza o next
 void joinprev(t_token **token, char *name)
 {
 	t_token	*aux;
