@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_heredoc.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
+/*   By: cmoura-p <cmoura-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 19:29:38 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/02/15 15:39:00 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/02/18 20:09:54 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,15 +49,14 @@ int read_hd_line(t_heredoc *hd, t_minishell *bash)
 			else
 				return (1);
 		}
-        if (ft_strncmp(line, hd->eo_heredoc, ft_strlen(hd->eo_heredoc)) == 0)
+		if ((ft_strncmp(line, hd->eo_heredoc, ft_strlen(hd->eo_heredoc)) == 0) \
+			&& (ft_strlen(hd->eo_heredoc) == ft_strlen(line)))
 		{
 			free(line);
 			return (0);
 		}
-//        check_expand_in_hd(line, bash);
-//      aqui tem uma avaliacao para expansao dentro do heredoc
-//		if (tmp_hd->eof_quote == NO_QUOTE)
-//			check_hd_expand(&line, bash);
+		if (hd->status == NO_QUOTE)
+			check_exp_in_hd(&line, bash);
 		write(hd->fd_heredoc, line, ft_strlen(line));
 		write(hd->fd_heredoc, "\n", 1);
 		free(line);
@@ -84,13 +83,46 @@ int	child_status(int hd_exit_status)
 	return (0);
 }
 
-/*
-void    check_expand_in_hd(char **line, t_minishell *bash)
+void    check_exp_in_hd(char **line, t_minishell *bash)
 {
     char    *new_line;
+    char    *after;
+    char    *before;
+    char    *expand;
+    char    *sobra;
+    t_envp  *aux_exp;
 
-    new_line = check_dquote(bash, *line);
-    free(*line);
+    after = NULL;
+    before = NULL;
+    new_line = *line;
+    aux_exp = bash->envp;
+    if (split_string(*line, &before, &after, '$'))
+    {
+        expand = envp_name(after);
+        sobra = ft_substr((after), (ft_strlen(expand)), \
+			(ft_strlen(after)-1));
+	    expand = ft_getenv(aux_exp, expand);
+        after = ft_strjoin(expand, sobra);
+		check_exp_in_hd(&after, bash);
+        new_line = ft_strjoin(before, after);
+    }
     *line = new_line;
 }
- */
+
+int	checked_for_hd(t_token *token)
+{
+	t_token	*aux;
+
+	aux = token;
+	while (aux && aux->prev)
+	{
+		if ((aux->type == WORD || aux->type == BLANK || aux->type == EXP_ENVP) \
+			&& (aux->prev->type == HEREDOC))
+		{
+			token->type = WORD;
+			return (1);
+		}
+		aux = aux->prev;
+	}
+	return (0);
+}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
+/*   By: cmoura-p <cmoura-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 10:51:43 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/02/12 15:57:31 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/02/19 18:53:08 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -200,6 +200,7 @@ void		add_tokenlst_dq(t_minishell *bash, t_token **aux, char *name, \
 void		add_tokenlst_back(t_token **newtoken, t_token *lst);
 void		del_tokenlst(t_minishell *bash, t_token **token);
 int			ft_isword(char s);
+int			expand_is_hd_eof(char *line, int i, char **redir);
 void		print_token_list(t_token *token);
 
 //parsing
@@ -218,6 +219,7 @@ void		set_arguments(t_minishell *bash);
 void		set_redir(t_minishell *bash);
 t_token		*set_redir_file(t_token *token, enum e_type type);
 void		remove_blank(t_minishell *bash);
+void		remove_exp_null(t_minishell *bash);
 void		find_a_pipe(t_token **aux);
 int			blank_in_expand(t_token *token, char *exp_var);
 
@@ -227,12 +229,14 @@ void		newtoken_after_parsing(t_token **aux, char *a_var);
 //heredoc
 void		heredoc(t_minishell *bash);
 int			set_heredoc(t_heredoc *hd, t_minishell *bash);
+void        check_exp_in_hd(char **line, t_minishell *bash);
 void		init_heredoc(t_minishell *bash);
 void		create_hd_list(t_minishell *bash);
 void		change_hd_tokens(t_minishell *bash);
 int			read_hd_line(t_heredoc *hd, t_minishell *bash);
 void		add_heredoclst(t_heredoc **hd,char *name, enum e_status status_q);
 int			child_status(int hd_exit_status);
+int			checked_for_hd(t_token *token);
 
 //builtins
 //cd

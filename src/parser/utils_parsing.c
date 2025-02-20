@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 21:39:01 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/02/09 16:46:05 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/02/20 15:14:51 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void jointokens(t_minishell *bash)
 	aux = bash->token;
 	while(aux)
 	{
-		if ((aux->status != NO_QUOTE) && (((aux->prev != NULL) && (aux->prev->type == WORD))
+		if ((aux->type == WORD) && (((aux->prev != NULL) && (aux->prev->type == WORD))
 			|| ((aux->next != NULL) && (aux->next->type == WORD))))
 		{
 			if ((aux->prev != NULL) && (aux->prev->type == WORD))
@@ -66,7 +66,7 @@ void joinprev(t_token **token, char *name)
 	aux = (*token);
 	aux_prev = (*token)->prev;
 	aux_prev->name = name;
-	if ((aux->next) && (aux->next->type == WORD))
+	if ((aux->next) && aux->next->type == WORD && aux->type == WORD)
 		aux_prev->status = aux->status;
 	aux_prev->next = aux->next;
 	if (aux->next != NULL)
@@ -74,6 +74,7 @@ void joinprev(t_token **token, char *name)
 	if (aux->name)
 		free(aux->name);
 	free(aux);
+	aux = aux_prev;
 }
 void joinexpand(t_token **token, char *name, char *name_exp)
 {
@@ -99,3 +100,30 @@ void joinexpand(t_token **token, char *name, char *name_exp)
 		free(aux_next->name);
 	free(aux_next);
 }
+void	remove_exp_null(t_minishell *bash)
+{
+	t_token	*aux;
+	t_token	*aux_next;
+
+	aux = bash->token;
+	while (aux->next)
+	{
+		aux_next = aux->next;
+		if (aux->type == EXP_NULL)
+		{
+//			if (aux == bash->token)
+//				bash->token = aux_next;
+			if (!aux->prev)
+				bash->token = aux->next;
+			else
+				aux->prev->next = aux->next;
+			if (aux->next)
+				aux->next->prev = aux->prev;
+			if (aux->name)
+				free(aux->name);
+			free(aux);
+		}
+		aux = aux_next;
+	}
+}
+
