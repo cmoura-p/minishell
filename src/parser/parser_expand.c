@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 18:46:17 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/02/20 14:52:50 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/02/23 09:21:03 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ void	expandtokens(t_minishell *bash)
 					aux = aux->next;
 			}
 		}
-//		print_token_list(bash->token);
 	}
 }
 /* void	expand_exit()
@@ -94,8 +93,6 @@ void	expand_in_dq(t_minishell *bash, t_token **aux)
 		newtoken_after_parsing(aux, a_var);
 	else
 		del_tokenlst(bash, aux);
-	printf("pos expand_in_dq \n");
-	print_token_list(bash->token);
 }
 void	newtoken_after_parsing(t_token **aux, char *a_var)
 {

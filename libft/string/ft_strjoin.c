@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: cmoura-p <cmoura-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/11 17:34:14 by joseoliv          #+#    #+#             */
-/*   Updated: 2025/01/19 01:22:04 by cmoura-p         ###   ########.fr       */
+/*   Created: 2024/04/11 17:34:14 by cmoura-p          #+#    #+#             */
+/*   Updated: 2025/02/21 22:05:01 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 
 	if (!s1)
 		s1 = ft_strdup("");
-	if (!s2)						// Meti isso aqui!!!!!
+	if (!s2)
 		s2 = ft_strdup("");
 	result = (char *) malloc((ft_strlen(s1) + ft_strlen(s2) + 1));
 	if (result == NULL)
@@ -39,11 +39,3 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	result[i] = 0;
 	return (result);
 }
-
-/* int	main(void)
-{
-	char	s1[4] = "";
-	char	s2[4] = "5";
-
-	printf("%s", ft_strjoin(s1, s2));
-} */

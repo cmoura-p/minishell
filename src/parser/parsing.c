@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 13:58:23 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/02/20 14:37:14 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/02/23 09:21:39 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,8 @@
 void	parsing(t_minishell *bash)
 {
 	expandtokens(bash);
-	printf("pos expandtokens \n");
-    print_token_list(bash->token);
 	remove_exp_null(bash);
 	jointokens(bash);
-	printf("pos jointokens \n");
-	print_token_list(bash->token);
 	set_redir(bash);
 	set_commands(bash);
 	remove_blank(bash);
@@ -32,6 +28,4 @@ void	parsing(t_minishell *bash)
 		heredoc(bash);
 		init_signals();
 	}
-	printf("pos tudo \n");
-    print_token_list(bash->token);
 }

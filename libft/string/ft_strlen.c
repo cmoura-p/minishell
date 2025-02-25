@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: cmoura-p <cmoura-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/14 16:37:37 by joseoliv          #+#    #+#             */
-/*   Updated: 2025/01/19 00:17:40 by cmoura-p         ###   ########.fr       */
+/*   Created: 2024/04/14 16:37:37 by cmoura-p          #+#    #+#             */
+/*   Updated: 2025/02/21 22:05:34 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,3 @@ size_t	ft_strlen(const char *s)
 			i++;
 	return (i);
 }
-
-/* int	main(void)
-{
-	char	str[50] = " a";
-	printf("%zu", ft_strlen(str));
-} */

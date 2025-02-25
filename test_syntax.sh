@@ -6,7 +6,7 @@ function print_test_title() {
 }
 
 print_test_title "Expansao"
-echo "Testando expansao sem aspas"
+echo "Testando expansao com aspas duplas"
 ./minishell <<< "echo $USER"
 ./minishell <<< "echo abc$USER"
 ./minishell <<< "echo $USERxyz"
@@ -21,24 +21,9 @@ echo "Testando expansao sem aspas"
 read -n 1 -s -r
 
 print_test_title "Expansao"
-echo "Testando expansao com aspas duplas"
+echo "Testando expansao sem aspas"
 ./minishell <<< echo $USER
 ./minishell <<< echo abc$USER
-./minishell <<< echo $USERxyz
-./minishell <<< echo abc$USERxyz
-./minishell <<< echo abc$USER[xzy]
-./minishell <<< echo $USER$PWD$HOME
-./minishell <<< echo $A$USER$PWD$HOME
-./minishell <<< echo $USER$A$PWD$HOME
-./minishell <<< echo $USER$PWD$A$HOME
-./minishell <<< echo $USER$PWD$HOME$A
-./minishell <<< echo $A
-read -n 1 -s -r
-
-print_test_title "Expansao"
-echo "Testando expansao com aspas simples"
-./minishell <<< echo $USER'
-./minishell <<< echo abc$USER'
 ./minishell <<< echo $USERxyz
 ./minishell <<< echo abc$USERxyz
 ./minishell <<< echo abc$USER[xzy]

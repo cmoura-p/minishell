@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi_int.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joseoliv <joseoliv@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: cmoura-p <cmoura-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/14 16:28:53 by joseoliv          #+#    #+#             */
-/*   Updated: 2024/10/11 03:16:59 by joseoliv         ###   ########.fr       */
+/*   Created: 2024/04/14 16:28:53 by cmoura-p          #+#    #+#             */
+/*   Updated: 2025/02/21 22:32:37 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,3 @@ int	ft_atoi_int(const char *nptr)
 	}
 	return (result * check_value);
 }
-
-/* int	main(void)
-{
-	ft_atoi("  	-1234ppp");
-	printf("%d\n", atoi("       -1234ppp"));
-} */

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joseoliv <joseoliv@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: cmoura-p <cmoura-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/11 19:11:02 by joseoliv          #+#    #+#             */
-/*   Updated: 2024/10/11 02:59:29 by joseoliv         ###   ########.fr       */
+/*   Created: 2024/04/11 19:11:02 by cmoura-p          #+#    #+#             */
+/*   Updated: 2025/02/21 22:03:49 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,12 +77,3 @@ static int	count_words(char const *s, char c)
 	}
 	return (j);
 }
-
-/* int	main(void)
-{
- 	char **str;
- 	int	i;
-
- 	i = 0;
- 	str = ft_split("hello !", ' ');
-} */

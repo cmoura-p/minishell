@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joseoliv <joseoliv@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: cmoura-p <cmoura-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 17:11:52 by joseoliv          #+#    #+#             */
-/*   Updated: 2024/10/11 03:00:10 by joseoliv         ###   ########.fr       */
+/*   Updated: 2025/02/21 22:34:22 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,15 +83,3 @@ static char	*fill_str_ng(int n, int len, char *result)
 	result[0] = '-';
 	return (result);
 }
-/*
-int		main(void)
-{
-
-	char *str;
-
-	str = NULL;
-	str = ft_itoa(-445);
-	printf("%s", str);
-	free(str);
-}  
-*/

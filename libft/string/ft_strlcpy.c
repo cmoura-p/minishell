@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: cmoura-p <cmoura-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/13 16:45:26 by joseoliv          #+#    #+#             */
-/*   Updated: 2025/01/15 12:20:43 by cmoura-p         ###   ########.fr       */
+/*   Created: 2024/04/13 16:45:26 by cmoura-p          #+#    #+#             */
+/*   Updated: 2025/02/21 22:05:19 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,3 @@ size_t	ft_strlcpy(char *dest, const char *src, size_t size)
 	}
 	return (ft_strlen(src));
 }
-/*
-int	main(void)
-{
-	char	dest[60];
-
-	printf("%ld\n", ft_strlcpy(dest, "eraumavez", 4));
-	printf("%s\n", dest);
-}*/

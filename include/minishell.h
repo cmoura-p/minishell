@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 10:51:43 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/02/19 18:53:08 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/02/24 20:49:30 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,10 +121,10 @@ typedef struct s_minishell
 	enum e_exit_code	exit_status;
 	void				*root;
 	char				*path;
-	int					fd_in;			//ainda nao usei
-	int					fd_out;			//ainda nao usei
-	int					pid;			//ainda nao usei
-	int					process;		//ainda nao usei
+	int					fd_in;
+	int					fd_out;
+	int					pid;
+	int					process;
 }						t_minishell;
 
 /*--------------------------B-TREE----------------------*/
@@ -149,8 +149,8 @@ typedef struct s_exec
 {
 	enum e_type		type;
 	char			**args;
-	char			*path;		//?
-	int				builtin;	//?
+	char			*path;
+	int				builtin;
 }					t_exec;
 
 //init

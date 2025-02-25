@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: cmoura-p <cmoura-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/10 20:55:50 by joseoliv          #+#    #+#             */
-/*   Updated: 2025/01/11 10:37:00 by cmoura-p         ###   ########.fr       */
+/*   Created: 2024/04/10 20:55:50 by cmoura-p          #+#    #+#             */
+/*   Updated: 2025/02/21 22:06:41 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,3 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	return (result);
 }
 
-/* int	main(void)
-{
-	printf("%s", ft_substr("hole", 5, 2));
-} */

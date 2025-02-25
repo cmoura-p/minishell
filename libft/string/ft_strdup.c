@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joseoliv <joseoliv@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: cmoura-p <cmoura-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/14 16:32:27 by joseoliv          #+#    #+#             */
-/*   Updated: 2024/10/11 02:59:34 by joseoliv         ###   ########.fr       */
+/*   Created: 2024/04/14 16:32:27 by cmoura-p          #+#    #+#             */
+/*   Updated: 2025/02/21 22:04:26 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,3 @@ char	*ft_strdup(const char *s)
 	ft_strlcpy(new_string, s, len + 1);
 	return (new_string);
 }
-
-/* int	main(void)
-{
-	const	char	str[] = "fdfjkdf\n35346";
-	printf("%s", ft_strdup(str));
-} */
