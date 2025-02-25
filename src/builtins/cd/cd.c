@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brendon <brendon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: breda-si <breda-si@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 15:04:23 by brendon           #+#    #+#             */
-/*   Updated: 2025/01/20 08:57:27 by brendon          ###   ########.fr       */
+/*   Updated: 2025/02/25 16:15:57 by breda-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	ft_check_args(t_minishell *bash, char **args)
 	return (0);
 }
 
-void att_pwdold(t_minishell *minishell, char *oldpwd)
+void	att_pwdold(t_minishell *minishell, char *oldpwd)
 {
 	ft_expoinsert(&minishell->export, ft_exponew("PWD", getcwd(NULL, 0)));
 	ft_envadd(&minishell->envp, ft_exponew("PWD", getcwd(NULL, 0)));

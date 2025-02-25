@@ -60,4 +60,3 @@ void	ft_exit(t_minishell *minishell, char **args)
 	else
 		ft_printf("minishell: exit: %s: numeric argument required\n", args[1]);
 }
-

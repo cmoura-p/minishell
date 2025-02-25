@@ -12,6 +12,13 @@
 
 #include "../../../include/minishell.h"
 
+void	ft_freeexponode(t_envp *node)
+{
+	free(node->name);
+	free(node->content);
+	free(node);
+}
+
 static int	ft_insert_at_start(t_envp **export, t_envp *new)
 {
 	if (!*export || ft_strcmp((*export)->name, new->name) > 0)

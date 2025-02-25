@@ -52,6 +52,7 @@ SRC =		main.c \
 			src/builtins/pwd/pwd.c \
 			src/builtins/unset/unset.c \
 			src/tree/tree.c \
+			src/tree/tree_util.c \
 			src/execute/exec.c \
 			
 

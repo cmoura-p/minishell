@@ -12,12 +12,6 @@
 
 #include "../../../include/minishell.h"
 
-void	ft_freeexponode(t_envp *node)
-{
-	free(node->name);
-	free(node->content);
-	free(node);
-}
 
 t_envp	*ft_exponew(char *name, char *value)
 {
@@ -68,32 +62,36 @@ int	ft_validarg(char *arg)
 	return (1);
 }
 
-void ft_export(t_minishell *minishell, char **args)
+void	ft_expoenvatt(t_minishell *minishell, char **args)
 {
 	int	i;
 	int	j;
 
 	i = -1;
-	if (!args || !args[0] || !args[0][0])
-		ft_export_print(minishell->export);
-	else
+	while (args[++i] != NULL && args[i])
 	{
-		while (args[++i] != NULL && args[i])
+		if (!ft_validarg(args[i]))
+			continue ;
+		j = 0;
+		while (args[i][j] && args[i][j] != '=')
+			j++;
+		if (args[i][j] == '=')
 		{
-			if (!ft_validarg(args[i]))
-				continue ;
-			j = 0;
-			while (args[i][j] && args[i][j] != '=')
-				j++;
-			if (args[i][j] == '=')
-			{
-				args[i][j] = '\0';
-				ft_expoinsert(&minishell->export, ft_exponew(args[i], &args[i][j + 1]));
-				ft_envadd(&minishell->envp, ft_exponew(args[i], &args[i][j + 1]));
-			}
-			else
-				ft_expoinsert(&minishell->export, ft_exponew(args[i], NULL));
+			args[i][j] = '\0';
+			ft_expoinsert(&minishell->export,
+				ft_exponew(args[i], &args[i][j + 1]));
+			ft_envadd(&minishell->envp,
+				ft_exponew(args[i], &args[i][j + 1]));
 		}
+		else
+			ft_expoinsert(&minishell->export, ft_exponew(args[i], NULL));
 	}
 }
 
+void	ft_export(t_minishell *minishell, char **args)
+{
+	if (!args || !args[0] || !args[0][0])
+		ft_export_print(minishell->export);
+	else
+		ft_expoenvatt(minishell, args);
+}

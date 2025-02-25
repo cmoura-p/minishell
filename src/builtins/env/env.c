@@ -55,8 +55,6 @@ void	ft_envadd(t_envp **env, t_envp *new)
 	}
 }
 
-
-
 void	ft_env(t_minishell *minishell, char **args)
 {
 	t_envp	*tmp;

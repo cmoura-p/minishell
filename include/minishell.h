@@ -274,11 +274,16 @@ void		free_envp(t_minishell *bash);
 void        clean_heredoc(t_minishell *bash);
 void        clean_tokens(t_minishell *bash);
 
-//testes
-void		ft_execute(t_minishell *minishell, void *root);
+//tree
 void		*ft_tree(t_token *start, t_minishell *bash);
+char		**tokken_to_args(t_token *start);
+void		free_token_list(t_token *head);
 void		ft_free_tree(void *root);
 void		free_token(t_token *token);
-void		free_token_list(t_token *head);
+void		*free_args_on_error(char **args, int i);
+void		ft_remove_tokens(t_token *aux);
+
+//testes
+void		ft_execute(t_minishell *minishell, void *root);
 void		free_args(char **args);
 #endif
