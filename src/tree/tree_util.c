@@ -8,13 +8,22 @@ void	*free_args_on_error(char **args, int i)
 	return (NULL);
 }
 
-void	free_token(t_token *token)
+void	*ft_check_redir(t_token *start, t_minishell *bash)
 {
-	if (!token)
-		return ;
-	if (token->name)
-		free(token->name);
-	free(token);
+	t_token	*aux;
+
+	aux = start;
+	while (aux)
+{
+		if (aux->type == REDIR_IN)
+			return (ft_redir_in(start, aux, bash));
+		if (aux->type == REDIR_OUT)
+			return (ft_redir_out(start, aux, bash));
+		if (aux->type == REDIR_APP)
+			return (ft_redir_app(start, aux, bash));
+		aux = aux->next;
+	}
+	return (NULL);
 }
 
 void	free_token_list(t_token *head)

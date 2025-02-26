@@ -138,3 +138,12 @@ void	free_bash(t_minishell *bash)
         clean_heredoc(bash);
     free(bash);
 }
+
+void	free_token(t_token *token)
+{
+	if (!token)
+		return ;
+	if (token->name)
+		free(token->name);
+	free(token);
+}
