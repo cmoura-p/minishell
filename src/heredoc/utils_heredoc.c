@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_heredoc.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmoura-p <cmoura-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 19:29:38 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/02/18 20:09:54 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/02/28 00:33:04 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ void    check_exp_in_hd(char **line, t_minishell *bash)
     char    *after;
     char    *before;
     char    *expand;
+	char	*env_var;
     char    *sobra;
     t_envp  *aux_exp;
 
@@ -98,11 +99,13 @@ void    check_exp_in_hd(char **line, t_minishell *bash)
     aux_exp = bash->envp;
     if (split_string(*line, &before, &after, '$'))
     {
-        expand = envp_name(after);
-        sobra = ft_substr((after), (ft_strlen(expand)), \
+        env_var = envp_name(after);
+        sobra = ft_substr((after), (ft_strlen(env_var)), \
 			(ft_strlen(after)-1));
-	    expand = ft_getenv(aux_exp, expand);
+	    expand = ft_getenv(aux_exp, env_var);
         after = ft_strjoin(expand, sobra);
+		free(sobra);
+		free(env_var);
 		check_exp_in_hd(&after, bash);
         new_line = ft_strjoin(before, after);
     }

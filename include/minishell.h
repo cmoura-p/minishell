@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 10:51:43 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/02/24 20:49:30 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/02/25 14:45:50 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -200,7 +200,7 @@ void		add_tokenlst_dq(t_minishell *bash, t_token **aux, char *name, \
 void		add_tokenlst_back(t_token **newtoken, t_token *lst);
 void		del_tokenlst(t_minishell *bash, t_token **token);
 int			ft_isword(char s);
-int			expand_is_hd_eof(char *line, int i, char **redir);
+int			expand_is_hd_eof(char *line, int i, int j, char **redir);
 void		print_token_list(t_token *token);
 
 //parsing

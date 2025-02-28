@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 21:17:10 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/02/15 17:41:36 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/02/27 19:14:51 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,8 +80,8 @@ int	blank_in_expand(t_token *token, char *exp_var)
 
 int split_string(char *line, char **before, char **after, char c)
 {
-	char *sign;
-	size_t before_len;
+	char	*sign;
+	size_t	before_len;
 
 	if (!line)
 		return (0);

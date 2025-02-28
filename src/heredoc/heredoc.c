@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmoura-p <cmoura-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 22:15:38 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/02/21 22:17:50 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/02/28 00:12:39 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,7 @@ void	change_hd_tokens(t_minishell *bash)
 	{
 		if (aux->type == HEREDOC)
 		{
+			free(aux->next->name);
 			aux->next->name = hered->hd_path;
 			aux->next->type = FILE_IN;
 			aux->type = REDIR_IN;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_parsing.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmoura-p <cmoura-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 21:39:01 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/02/20 15:14:51 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/02/27 23:09:08 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ void joinnext(t_token **token, char *name)
 
 	aux = (*token);
 	aux_next = (*token)->next;
+	free(aux->name);
 	aux->name = name;
 	aux->status = aux_next->status;
 	aux->type = aux->next->type;
@@ -64,7 +65,8 @@ void joinprev(t_token **token, char *name)
 	t_token	*aux_prev;
 
 	aux = (*token);
-	aux_prev = (*token)->prev;
+	aux_prev = aux->prev;
+	free(aux_prev->name);
 	aux_prev->name = name;
 	if ((aux->next) && aux->next->type == WORD && aux->type == WORD)
 		aux_prev->status = aux->status;
@@ -74,7 +76,7 @@ void joinprev(t_token **token, char *name)
 	if (aux->name)
 		free(aux->name);
 	free(aux);
-	aux = aux_prev;
+	(*token) = aux_prev;
 }
 void joinexpand(t_token **token, char *name, char *name_exp)
 {
@@ -86,7 +88,9 @@ void joinexpand(t_token **token, char *name, char *name_exp)
 	aux = (*token);
 	sobra = ft_substr((aux->next->name), (ft_strlen(name)), \
 			(ft_strlen(aux->next->name)-1));
+	free(aux->name);														//AQUI
 	aux->name = ft_strjoin(name_exp, sobra);
+	free(sobra);															//AQUI
 	aux_next = aux->next;
 	if ((aux->name[0] == '\0') && (aux_next->status != SINGLE_Q))
 		aux->type = EXP_NULL;
@@ -111,8 +115,6 @@ void	remove_exp_null(t_minishell *bash)
 		aux_next = aux->next;
 		if (aux->type == EXP_NULL)
 		{
-//			if (aux == bash->token)
-//				bash->token = aux_next;
 			if (!aux->prev)
 				bash->token = aux->next;
 			else

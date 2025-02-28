@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 11:34:58 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/02/06 15:09:17 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/02/26 19:24:20 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ char	*ft_minitrim(char *line)
 		i++;
 	}
 	result[j] = '\0';
+	free(line);
 	return (result);
 }
 void	get_prompt(char **prompt)
