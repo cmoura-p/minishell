@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 22:15:38 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/02/28 00:12:39 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/03/01 12:48:23 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,26 @@ void	heredoc(t_minishell *bash)
 	}
 	change_hd_tokens(bash);
 }
+int set_heredoc(t_heredoc *hd, t_minishell *bash)
+{
+	int status;
+
+	set_heredoc_signals();
+	while(1)
+	{
+		hd->fd_heredoc = open(hd->hd_path, O_CREAT \
+		| O_RDWR | O_TRUNC, 0644 );
+		status = read_hd_line(hd, bash);
+		if (status == 1)
+			printf("warning: heredoc aborted - expected eof %s \n", hd->eo_heredoc);
+		close(hd->fd_heredoc);
+		if (status == 0 || status == 1)
+			exit(0);
+		if (status == 2)
+			exit(EXIT_SIGINT);
+	}
+}
+
 void	add_heredoclst(t_heredoc **hd, char *name, enum e_status status_q)
 {
 	t_heredoc	*newhd;

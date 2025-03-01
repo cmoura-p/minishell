@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 21:17:10 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/02/27 19:14:51 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/03/01 12:58:59 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ char	*ft_getenv(t_envp *aux, char *var)
 			return (aux->content);
 		aux = aux->next;
 	}
-	return (NULL);
+	return ("");
 }
 
 int	blank_in_expand(t_token *token, char *exp_var)
