@@ -6,13 +6,13 @@
 /*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 11:44:44 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/02/26 18:34:10 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/03/01 20:54:06 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int		handle_blank(char *line, int i, t_minishell *bash)
+int	handle_blank(char *line, int i, t_minishell *bash)
 {
 	char	*blank;
 
@@ -26,8 +26,8 @@ int		handle_blank(char *line, int i, t_minishell *bash)
 
 void	tokenizer(t_minishell *bash)
 {
-	int i;
-	char *line;
+	int		i;
+	char	*line;
 
 	i = 0;
 	line = bash->cmd_line;
@@ -36,7 +36,7 @@ void	tokenizer(t_minishell *bash)
 		if (line[i] == '\'' || line[i] == '\"')
 			i = tokenizer_quotes(line, i, bash);
 		else if (line[i] == '|' || line[i] == '$'
-				|| line[i] == '<' || line[i] == '>')
+			|| line[i] == '<' || line[i] == '>')
 			i = tokenizer_metachar(line, i, bash);
 		else if (line[i] == ' ' || (line[i] >= 9 && line[i] <= 13))
 			i = handle_blank(line, i, bash);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmoura-p <cmoura-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 10:51:43 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/02/25 14:45:50 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/03/01 19:21:54 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -210,6 +210,7 @@ void		joinprev(t_token **token, char *name);
 void		expandtokens(t_minishell *bash);
 void		joinexpand(t_token **token, char *name, char *name_exp);
 void		expand_var(t_token **aux, t_envp *aux_envp);
+void	    expand_exit(t_minishell *bash, char *aux);
 void		expand_in_dq(t_minishell *bash, t_token **aux);
 int			valid_envp_char(char s, int i);
 char		*envp_name(char *name);
@@ -222,7 +223,7 @@ void		remove_blank(t_minishell *bash);
 void		remove_exp_null(t_minishell *bash);
 void		find_a_pipe(t_token **aux);
 int			blank_in_expand(t_token *token, char *exp_var);
-
+void        get_sobra(t_token **aux, char *a_var, char *env_var);
 int			not_redirection(t_token *token);
 void		newtoken_after_parsing(t_token **aux, char *a_var);
 

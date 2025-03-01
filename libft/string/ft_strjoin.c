@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmoura-p <cmoura-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 17:34:14 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/02/25 23:02:22 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/03/01 19:42:07 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 {
 	char	*result;
 	int		i;
-	int 	j;
+	int		j;
 	size_t	size;
 
 	size = ft_strlen(s1) + ft_strlen(s2);

@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 11:34:58 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/02/26 19:24:20 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/03/01 20:20:23 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,14 @@ int	btw_quotes(char *line, int i)
 		i++;
 	return (i);
 }
+
 int	skip_blank(char *line, int i)
 {
 	while (line[i] && ((line[i] >= 9 && line[i] <= 13) || line[i] == ' '))
 		i++;
 	return (i);
 }
+
 char	*ft_minitrim(char *line)
 {
 	char	*result;
@@ -57,6 +59,7 @@ char	*ft_minitrim(char *line)
 	free(line);
 	return (result);
 }
+
 void	get_prompt(char **prompt)
 {
 	char	*pwd;

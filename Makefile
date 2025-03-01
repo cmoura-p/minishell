@@ -6,7 +6,7 @@
 #    By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/16 21:43:02 by cmoura-p          #+#    #+#              #
-#    Updated: 2025/02/06 16:57:35 by cmoura-p         ###   ########.fr        #
+#    Updated: 2025/03/01 21:26:53 by cmoura-p         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,6 +43,7 @@ SRC =		main.c \
 			src/parser/utils_parsing.c \
 			src/heredoc/heredoc.c \
 			src/heredoc/utils_heredoc.c \
+			src/heredoc/heredoc_extra.c \
 			src/builtins/cd/cd.c \
 			src/builtins/echo/echo.c \
 			src/builtins/env/env.c \
@@ -53,7 +54,7 @@ SRC =		main.c \
 			src/builtins/unset/unset.c \
 			src/tree/tree.c \
 			src/execute/exec.c \
-			
+
 
 OBJ_DIR = ./obj
 OBJS = $(addprefix $(OBJ_DIR)/, $(SRC:.c=.o))
@@ -73,8 +74,8 @@ $(OBJ_DIR)/%.o: %.c |	$(OBJ_DIR)/src/init $(OBJ_DIR)/src/clear $(OBJ_DIR)/src/pa
 						$(OBJ_DIR)/src/builtins/cd $(OBJ_DIR)/src/builtins/echo \
 						$(OBJ_DIR)/src/builtins/env $(OBJ_DIR)/src/builtins/exit  \
 						$(OBJ_DIR)/src/builtins/pwd $(OBJ_DIR)/src/builtins/unset $(OBJ_DIR) $(OBJ_DIR)/src/tree \
-						$(OBJ_DIR)/src/execute 
-	@mkdir -p $(dir $@)	
+						$(OBJ_DIR)/src/execute
+	@mkdir -p $(dir $@)
 	@$(CC) $(CFLAGS) -c $< -o $@
 
 # Regras para criar subdiretórios necessários no OBJ_DIR

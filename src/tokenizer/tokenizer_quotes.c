@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 16:43:26 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/02/26 18:33:28 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/03/01 20:45:19 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ int	tokenizer_quotes(char *line, int i, t_minishell *bash)
 		i = d_quote(line, i, bash);
 	return (i);
 }
+
 int	s_quote(char *line, int i, t_minishell *bash)
 {
 	int		j;
@@ -33,7 +34,7 @@ int	s_quote(char *line, int i, t_minishell *bash)
 			break ;
 		i++;
 	}
-	if (i-j == 1)
+	if (i - j == 1)
 		quote = ft_strdup("");
 	else
 		quote = ft_substr(line, j + 1, i - j - 1);
@@ -42,6 +43,7 @@ int	s_quote(char *line, int i, t_minishell *bash)
 	add_tokenlst(&bash, quote, WORD, SINGLE_Q);
 	return (i);
 }
+
 int	d_quote(char *line, int i, t_minishell *bash)
 {
 	int		j;
@@ -55,7 +57,7 @@ int	d_quote(char *line, int i, t_minishell *bash)
 			break ;
 		i++;
 	}
-	if (i-j == 1)
+	if (i - j == 1)
 		quote = ft_strdup("");
 	else
 		quote = ft_substr(line, j + 1, i - j - 1);

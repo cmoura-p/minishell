@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 22:15:38 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/03/01 12:48:23 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/03/01 19:57:22 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,24 +33,26 @@ void	heredoc(t_minishell *bash)
 		if (child_status(status) == EXIT_SIGINT)
 		{
 			heredoc_ctrl_c(bash);
-			return;
+			return ;
 		}
 		hd_node = hd_node->next;
 	}
 	change_hd_tokens(bash);
 }
-int set_heredoc(t_heredoc *hd, t_minishell *bash)
+
+int	set_heredoc(t_heredoc *hd, t_minishell *bash)
 {
-	int status;
+	int	status;
 
 	set_heredoc_signals();
-	while(1)
+	while (1)
 	{
 		hd->fd_heredoc = open(hd->hd_path, O_CREAT \
-		| O_RDWR | O_TRUNC, 0644 );
+		| O_RDWR | O_TRUNC, 0644);
 		status = read_hd_line(hd, bash);
 		if (status == 1)
-			printf("warning: heredoc aborted - expected eof %s \n", hd->eo_heredoc);
+			printf("warning: heredoc aborted - expected eof %s \n", \
+			hd->eo_heredoc);
 		close(hd->fd_heredoc);
 		if (status == 0 || status == 1)
 			exit(0);
@@ -72,10 +74,11 @@ void	add_heredoclst(t_heredoc **hd, char *name, enum e_status status_q)
 	newhd->eo_heredoc = ft_strdup(name);
 	newhd->hd_path = NULL;
 	newhd->status = status_q;
-	newhd->counter = ((*hd)->counter)+1;
+	newhd->counter = ((*hd)->counter) + 1;
 	newhd->next = NULL;
 	(*hd)->next = newhd;
 }
+
 void	create_hd_list(t_minishell *bash)
 {
 	t_token		*token;
@@ -85,7 +88,7 @@ void	create_hd_list(t_minishell *bash)
 	first_time = true;
 	token = bash->token;
 	hd_node = bash->heredoc;
-	while(token)
+	while (token)
 	{
 		if (token->type == HEREDOC)
 		{
@@ -96,11 +99,13 @@ void	create_hd_list(t_minishell *bash)
 				first_time = false;
 			}
 			else
-				add_heredoclst(&hd_node, token->next->name, token->next->status);
+				add_heredoclst(&hd_node, token->next->name, \
+				token->next->status);
 		}
 		token = token->next;
 	}
 }
+
 void	change_hd_tokens(t_minishell *bash)
 {
 	t_token		*aux;

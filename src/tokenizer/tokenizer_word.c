@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 16:44:48 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/02/26 18:33:17 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/03/01 20:36:01 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 int	tokenizer_word(char *line, int i, t_minishell *bash)
 {
-	int j;
-	char *word;
+	int		j;
+	char	*word;
 
 	j = i;
 	while (line[i] && ft_isword(line[i]))

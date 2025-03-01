@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 18:46:17 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/02/28 00:49:07 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/03/01 21:14:13 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,24 @@
 
 void	expandtokens(t_minishell *bash)
 {
-	t_token *aux;
+	t_token	*aux;
 	t_envp	*aux_envp;
 
 	aux = bash->token;
 	aux_envp = bash->envp;
-	while(aux)
+	while (aux)
 	{
 		if (aux->type == EXP_EXIT)
 //			expand_exit();
-			return;
+			return ;
 		else
 		{
 			if ((aux->type == EXP_ENVP) && (checked_for_hd(aux) == 0))
 				expand_var(&aux, aux_envp);
 			else
 			{
-				if ((aux->type == WORD && aux->status == DOUBLE_Q) && (checked_for_hd(aux) == 0))
+				if ((aux->type == WORD && aux->status == DOUBLE_Q)
+					&& (checked_for_hd(aux) == 0))
 					expand_in_dq(bash, &aux);
 				else
 					aux = aux->next;
@@ -42,7 +43,8 @@ void	expandtokens(t_minishell *bash)
 {
 	return;
 }
- */
+*/
+
 void	expand_var(t_token **aux, t_envp *aux_envp)
 {
 	char	*env_var;
@@ -50,22 +52,22 @@ void	expand_var(t_token **aux, t_envp *aux_envp)
 	char	*newname;
 
 	if (!(*aux)->next)
-		return;
+		return ;
 	env_var = envp_name((*aux)->next->name);
 	if (*env_var == '\0')
 	{
 		free(env_var);
 		(*aux) = (*aux)->next;
-		return;
+		return ;
 	}
 	exp_var = ft_getenv(aux_envp, env_var);
 	if (!blank_in_expand((*aux), exp_var))
-        joinexpand(aux, env_var, exp_var);
-    if (((*aux)->prev != NULL) && ((*aux)->prev->type == WORD))
-    {
-        newname = ft_strjoin((*aux)->prev->name, (*aux)->name);
-        joinprev(aux, newname);
-    }
+		joinexpand(aux, env_var, exp_var);
+	if (((*aux)->prev != NULL) && ((*aux)->prev->type == WORD))
+	{
+		newname = ft_strjoin((*aux)->prev->name, (*aux)->name);
+		joinprev(aux, newname);
+	}
 	free(env_var);
 }
 
@@ -79,15 +81,16 @@ void	expand_in_dq(t_minishell *bash, t_token **aux)
 	if (split_string((*aux)->name, &b_var, &a_var, '$') == 0)
 	{
 		(*aux) = (*aux)->next;
-		return;
+		return ;
 	}
 	if (b_var && *b_var != '\0')
 		add_tokenlst_dq(bash, aux, b_var, WORD, NO_QUOTE);
 	if (a_var && a_var[0] == '?')
-		{
-			add_tokenlst_dq(bash, aux, ft_strdup("$?"), EXP_EXIT, NO_QUOTE);
-			a_var = ft_substr(a_var, 1, ft_strlen(a_var)-1);					//PROBLEMA
-		}
+	{
+		add_tokenlst_dq(bash, aux, ft_strdup("$?"), EXP_EXIT, NO_QUOTE);
+//	problema
+		a_var = ft_substr(a_var, 1, ft_strlen(a_var) - 1);
+	}
 	else
 		add_tokenlst_dq(bash, aux, ft_strdup("$"), EXP_ENVP, NO_QUOTE);
 	if (a_var && *a_var != '\0')
@@ -97,11 +100,10 @@ void	expand_in_dq(t_minishell *bash, t_token **aux)
 	free(a_var);
 	free(b_var);
 }
+
 void	newtoken_after_parsing(t_token **aux, char *a_var)
 {
-	t_token	*newtoken;
 	char	*env_var;
-	char	*sobra;
 
 	(*aux)->type = WORD;
 	(*aux)->status = SINGLE_Q;
@@ -110,24 +112,10 @@ void	newtoken_after_parsing(t_token **aux, char *a_var)
 	if (*env_var != '\0')
 	{
 		ft_strcpy((*aux)->name, env_var);
-		sobra = ft_substr(a_var, (ft_strlen(env_var)), (ft_strlen(a_var)-1));
-		if (sobra && *sobra != '\0')
-		{
-			newtoken = (t_token *)malloc(sizeof(t_token));
-			if (!newtoken)
-				return ;
-			newtoken->name = sobra;
-			newtoken->type = WORD;
-			newtoken->status = DOUBLE_Q;
-			add_tokenlst_back(&newtoken, *aux);
-			newtoken->next = NULL;
-		}
-		else
-			free(sobra);
+		get_sobra(aux, a_var, env_var);
 	}
 	else
 		(*aux)->prev->type = WORD;
 	free(env_var);
 	(*aux) = (*aux)->prev;
 }
-

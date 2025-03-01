@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 20:59:59 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/01/30 17:59:35 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/03/01 21:03:39 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ void	set_arguments(t_minishell *bash)
 		aux = aux->next;
 	}
 }
+
 void	find_a_pipe(t_token **aux)
 {
 	while (*aux && (*aux)->type != PIPE)
@@ -62,6 +63,7 @@ void	find_a_pipe(t_token **aux)
 	if (*aux)
 		*aux = (*aux)->next;
 }
+
 void	remove_blank(t_minishell *bash)
 {
 	t_token	*aux;
@@ -88,6 +90,7 @@ void	remove_blank(t_minishell *bash)
 		aux = aux_next;
 	}
 }
+
 int	not_redirection(t_token *token)
 {
 	if (token->prev == NULL)

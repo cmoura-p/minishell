@@ -6,22 +6,23 @@
 /*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 21:39:01 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/02/27 23:09:08 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/03/01 21:22:00 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void jointokens(t_minishell *bash)
+void	jointokens(t_minishell *bash)
 {
-	t_token *aux;
+	t_token	*aux;
 	char	*newname;
 
 	aux = bash->token;
-	while(aux)
+	while (aux)
 	{
-		if ((aux->type == WORD) && (((aux->prev != NULL) && (aux->prev->type == WORD))
-			|| ((aux->next != NULL) && (aux->next->type == WORD))))
+		if ((aux->type == WORD) && (((aux->prev != NULL) \
+			&& (aux->prev->type == WORD)) || ((aux->next != NULL) \
+			&& (aux->next->type == WORD))))
 		{
 			if ((aux->prev != NULL) && (aux->prev->type == WORD))
 			{
@@ -40,7 +41,7 @@ void jointokens(t_minishell *bash)
 	}
 }
 
-void joinnext(t_token **token, char *name)
+void	joinnext(t_token **token, char *name)
 {
 	t_token	*aux;
 	t_token	*aux_next;
@@ -59,7 +60,7 @@ void joinnext(t_token **token, char *name)
 	free(aux_next);
 }
 
-void joinprev(t_token **token, char *name)
+void	joinprev(t_token **token, char *name)
 {
 	t_token	*aux;
 	t_token	*aux_prev;
@@ -78,7 +79,8 @@ void joinprev(t_token **token, char *name)
 	free(aux);
 	(*token) = aux_prev;
 }
-void joinexpand(t_token **token, char *name, char *name_exp)
+
+void	joinexpand(t_token **token, char *name, char *name_exp)
 {
 	t_token	*aux;
 	t_token	*aux_next;
@@ -87,10 +89,10 @@ void joinexpand(t_token **token, char *name, char *name_exp)
 	sobra = NULL;
 	aux = (*token);
 	sobra = ft_substr((aux->next->name), (ft_strlen(name)), \
-			(ft_strlen(aux->next->name)-1));
-	free(aux->name);														//AQUI
+			(ft_strlen(aux->next->name) - 1));
+	free(aux->name);
 	aux->name = ft_strjoin(name_exp, sobra);
-	free(sobra);															//AQUI
+	free(sobra);
 	aux_next = aux->next;
 	if ((aux->name[0] == '\0') && (aux_next->status != SINGLE_Q))
 		aux->type = EXP_NULL;
@@ -104,6 +106,7 @@ void joinexpand(t_token **token, char *name, char *name_exp)
 		free(aux_next->name);
 	free(aux_next);
 }
+
 void	remove_exp_null(t_minishell *bash)
 {
 	t_token	*aux;
@@ -128,4 +131,3 @@ void	remove_exp_null(t_minishell *bash)
 		aux = aux_next;
 	}
 }
-

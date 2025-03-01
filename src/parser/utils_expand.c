@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 21:17:10 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/03/01 12:58:59 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/03/01 21:15:06 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ char	*envp_name(char *name)
 		if (valid_envp_char(name[i], i))
 			i++;
 		else
-			break;
+			break ;
 	}
 	str = ft_substr(name, 0, i);
 	return (str);
@@ -78,7 +78,7 @@ int	blank_in_expand(t_token *token, char *exp_var)
 	return (0);
 }
 
-int split_string(char *line, char **before, char **after, char c)
+int	split_string(char *line, char **before, char **after, char c)
 {
 	char	*sign;
 	size_t	before_len;
@@ -103,5 +103,5 @@ int split_string(char *line, char **before, char **after, char c)
 			return (0);
 		}
 	}
-	return 1;
+	return (1);
 }
