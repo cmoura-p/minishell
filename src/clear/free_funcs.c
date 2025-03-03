@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_funcs.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmoura-p <cmoura-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 19:44:40 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/02/25 19:29:50 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/03/03 20:21:37 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ void	free_to_restart(t_minishell *bash)
 	if (bash->heredoc)
 		clean_heredoc(bash);
 }
+
 void	clean_tokens(t_minishell *bash)
 {
 	t_token	*aux;
@@ -98,6 +99,7 @@ void	clean_tokens(t_minishell *bash)
 	}
 	bash->token = NULL;
 }
+
 void	clean_heredoc(t_minishell *bash)
 {
 	t_heredoc	*aux;
@@ -135,7 +137,6 @@ void	free_bash(t_minishell *bash)
 		clean_tokens(bash);
 	if (bash->heredoc)
 		clean_heredoc(bash);
-		// fazer o free das outras estruturas
 	free(bash);
 }
 
@@ -159,3 +160,4 @@ void	ft_free_split(char **args)
 		free(args[i++]);
 	free(args);
 }
+

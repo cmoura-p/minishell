@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 18:46:17 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/03/01 21:14:13 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/03/03 21:04:32 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,7 @@ void	expandtokens(t_minishell *bash)
 	while (aux)
 	{
 		if (aux->type == EXP_EXIT)
-//			expand_exit();
-			return ;
+			expand_exit(bash, &aux);
 		else
 		{
 			if ((aux->type == EXP_ENVP) && (checked_for_hd(aux) == 0))
@@ -39,11 +38,17 @@ void	expandtokens(t_minishell *bash)
 		}
 	}
 }
-/* void	expand_exit()
+
+void	expand_exit(t_minishell *bash, t_token **token)
 {
-	return;
+    char    *exit_code;
+
+    exit_code = ft_itoa(bash->exit_status);
+    free((*token)->name);
+    (*token)->name = exit_code;
+    (*token) = (*token)->next;
+    return ;
 }
-*/
 
 void	expand_var(t_token **aux, t_envp *aux_envp)
 {
@@ -84,15 +89,14 @@ void	expand_in_dq(t_minishell *bash, t_token **aux)
 		return ;
 	}
 	if (b_var && *b_var != '\0')
-		add_tokenlst_dq(bash, aux, b_var, WORD, NO_QUOTE);
+		add_tokenlst_dq(bash, aux, b_var, WORD);
 	if (a_var && a_var[0] == '?')
 	{
-		add_tokenlst_dq(bash, aux, ft_strdup("$?"), EXP_EXIT, NO_QUOTE);
-//	problema
+		add_tokenlst_dq(bash, aux, ft_strdup("$?"), EXP_EXIT);
 		a_var = ft_substr(a_var, 1, ft_strlen(a_var) - 1);
 	}
 	else
-		add_tokenlst_dq(bash, aux, ft_strdup("$"), EXP_ENVP, NO_QUOTE);
+		add_tokenlst_dq(bash, aux, ft_strdup("$"), EXP_ENVP);
 	if (a_var && *a_var != '\0')
 		newtoken_after_parsing(aux, a_var);
 	else
@@ -119,3 +123,5 @@ void	newtoken_after_parsing(t_token **aux, char *a_var)
 	free(env_var);
 	(*aux) = (*aux)->prev;
 }
+
+//	problema futuro na linha 89

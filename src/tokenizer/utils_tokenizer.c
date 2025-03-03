@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 09:26:41 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/03/01 20:34:56 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/03/03 19:55:42 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,8 @@ void	add_tokenlst(t_minishell **bash, char *name, \
 	newtoken->next = NULL;
 }
 
-void	add_tokenlst_dq(t_minishell *bash, t_token **aux, char *name, \
-			enum e_type type, enum e_status status_q)
+void	add_tokenlst_dq(t_minishell *bash, t_token **aux, \
+		char *name, enum e_type type)
 {
 	t_token	*newtoken;
 
@@ -57,7 +57,7 @@ void	add_tokenlst_dq(t_minishell *bash, t_token **aux, char *name, \
 		return ;
 	newtoken->name = name;
 	newtoken->type = type;
-	newtoken->status = status_q;
+	newtoken->status = NO_QUOTE;
 	if ((*aux)->prev)
 	{
 		(*aux)->prev->next = newtoken;
