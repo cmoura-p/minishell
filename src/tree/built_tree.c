@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   built_tree.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: brendon <brendon@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/03 11:48:17 by brendon           #+#    #+#             */
+/*   Updated: 2025/03/03 11:48:18 by brendon          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
@@ -109,35 +120,20 @@ void	*ft_redir_app(t_token *start, t_token *aux, t_minishell *bash)
 void	*ft_tree(t_token *start, t_minishell *bash)
 {
 	t_token	*aux;
-	void	*root;
 
 	if (!start)
 		return (NULL);
-	aux = start;
-	while (aux && aux->type != PIPE)
-		aux = aux->next;
+	aux = find_token_by_type(start, PIPE);
 	if (aux)
-		return (ft_pipe(start, aux, bash));
-	aux = start;
-	while (aux && aux->type != REDIR_IN)
-		aux = aux->next;
+		return (handle_pipe(start, aux, bash));
+	aux = find_token_by_type(start, REDIR_IN);
 	if (aux)
-		return (ft_redir_in(start, aux, bash));
-	aux = start;
-	while (aux && aux->type != REDIR_OUT)
-		aux = aux->next;
+		return (handle_redir_in(start, aux, bash));
+	aux = find_token_by_type(start, REDIR_OUT);
 	if (aux)
-		return (ft_redir_out(start, aux, bash));
-	aux = start;
-	while (aux && aux->type != REDIR_APP)
-		aux = aux->next;
+		return (handle_redir_out(start, aux, bash));
+	aux = find_token_by_type(start, REDIR_APP);
 	if (aux)
-		return (ft_redir_app(start, aux, bash));
-	root = malloc(sizeof(t_exec));
-	if (!root)
-		return (NULL);
-	((t_exec *)root)->type = COMMAND;
-	((t_exec *)root)->args = tokken_to_args(start);
-	free_token_list(start);
-	return (root);
+		return (handle_redir_app(start, aux, bash));
+	return (handle_command(start));
 }

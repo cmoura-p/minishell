@@ -64,58 +64,57 @@ void	ft_free_tree(void *root)
 	if (!root)
 		return ;
 	if (((t_pipe *)root)->type == PIPE)
-		return(ft_free_pipe((t_pipe *)root));
+		return (ft_free_pipe((t_pipe *)root));
 	else if (((t_redir *)root)->type == REDIR_IN
 		|| ((t_redir *)root)->type == REDIR_OUT
 		|| ((t_redir *)root)->type == REDIR_APP)
-		return(ft_free_redir((t_redir *)root));
+		return (ft_free_redir((t_redir *)root));
 	else if (((t_exec *)root)->type == COMMAND)
-		return(ft_free_exec((t_exec *)root));
+		return (ft_free_exec((t_exec *)root));
 }
-
 
 void	free_to_restart(t_minishell *bash)
 {
 	if (bash->token)
-        clean_tokens(bash);
-    if (bash->heredoc)
-        clean_heredoc(bash);
+		clean_tokens(bash);
+	if (bash->heredoc)
+		clean_heredoc(bash);
 }
-void    clean_tokens(t_minishell *bash)
+void	clean_tokens(t_minishell *bash)
 {
-    t_token	*aux;
+	t_token	*aux;
 
-    while (bash->token)
-    {
-        aux = bash->token;
-        bash->token = bash->token->next;
-        if (aux->name)
-            {
-                free(aux->name);
-                aux->name = NULL;
-            }
-        if (aux)
-            free(aux);
-    }
-    bash->token = NULL;
+	while (bash->token)
+	{
+		aux = bash->token;
+		bash->token = bash->token->next;
+		if (aux->name)
+		{
+			free(aux->name);
+			aux->name = NULL;
+		}
+		if (aux)
+			free(aux);
+	}
+	bash->token = NULL;
 }
-void    clean_heredoc(t_minishell *bash)
+void	clean_heredoc(t_minishell *bash)
 {
-    t_heredoc	*aux;
+	t_heredoc	*aux;
 
-    while (bash->heredoc)
-    {
-        aux = bash->heredoc;
-        bash->heredoc = bash->heredoc->next;
-        if (aux->eo_heredoc)
-        {
-            free(aux->eo_heredoc);
-            aux->eo_heredoc = NULL;
-        }
-        if (aux)
-           free(aux);
-    }
-    bash->heredoc = NULL;
+	while (bash->heredoc)
+	{
+		aux = bash->heredoc;
+		bash->heredoc = bash->heredoc->next;
+		if (aux->eo_heredoc)
+		{
+			free(aux->eo_heredoc);
+			aux->eo_heredoc = NULL;
+		}
+		if (aux)
+			free(aux);
+	}
+	bash->heredoc = NULL;
 }
 
 void	free_to_quit(t_minishell *bash, char *prompt)
@@ -131,12 +130,12 @@ void	free_to_quit(t_minishell *bash, char *prompt)
 void	free_bash(t_minishell *bash)
 {
 	if (bash->envp)
-        free_envp(bash);
-   // if (bash->token)
-       // clean_tokens(bash);
-    if (bash->heredoc)
-        clean_heredoc(bash);
-    free(bash);
+		free_envp(bash);
+	// if (bash->token)
+	// clean_tokens(bash);
+	if (bash->heredoc)
+		clean_heredoc(bash);
+	free(bash);
 }
 
 void	free_token(t_token *token)
@@ -146,4 +145,16 @@ void	free_token(t_token *token)
 	if (token->name)
 		free(token->name);
 	free(token);
+}
+
+void	ft_free_split(char **args)
+{
+	int	i;
+
+	if (!args)
+		return ;
+	i = 0;
+	while (args[i])
+		free(args[i++]);
+	free(args);
 }

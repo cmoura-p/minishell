@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   tree_util.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: brendon <brendon@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/03 11:48:26 by brendon           #+#    #+#             */
+/*   Updated: 2025/03/03 11:48:27 by brendon          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/minishell.h"
 
 void	*free_args_on_error(char **args, int i)
@@ -5,24 +17,6 @@ void	*free_args_on_error(char **args, int i)
 	while (i >= 0)
 		free(args[i--]);
 	free(args);
-	return (NULL);
-}
-
-void	*ft_check_redir(t_token *start, t_minishell *bash)
-{
-	t_token	*aux;
-
-	aux = start;
-	while (aux)
-{
-		if (aux->type == REDIR_IN)
-			return (ft_redir_in(start, aux, bash));
-		if (aux->type == REDIR_OUT)
-			return (ft_redir_out(start, aux, bash));
-		if (aux->type == REDIR_APP)
-			return (ft_redir_app(start, aux, bash));
-		aux = aux->next;
-	}
 	return (NULL);
 }
 
@@ -77,4 +71,17 @@ void	ft_remove_tokens(t_token *aux)
 		aux->next->next->prev = aux->prev;
 	free_token(aux->next);
 	free_token(aux);
+}
+
+void	*handle_command(t_token *start)
+{
+	t_exec	*root;
+
+	root = malloc(sizeof(t_exec));
+	if (!root)
+		return (NULL);
+	root->type = COMMAND;
+	root->args = tokken_to_args(start);
+	free_token_list(start);
+	return (root);
 }

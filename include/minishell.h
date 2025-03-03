@@ -273,19 +273,34 @@ void		free_bash(t_minishell *bash);
 void		free_envp(t_minishell *bash);
 void        clean_heredoc(t_minishell *bash);
 void        clean_tokens(t_minishell *bash);
-
-//tree
-void		*ft_tree(t_token *start, t_minishell *bash);
-char		**tokken_to_args(t_token *start);
-void		free_token_list(t_token **head);
 void		ft_free_tree(void *root);
 void		free_token(t_token *token);
-void		*free_args_on_error(char **args, int i);
-void		ft_remove_tokens(t_token *aux);
-void		*ft_check_redir(t_token *start, t_minishell *bash);
-void		*ft_redir_in(t_token *start, t_token *aux, t_minishell *bash);
-void		*ft_redir_out(t_token *start, t_token *aux, t_minishell *bash);
+void		ft_free_split(char **args);
+
+//tree
+
+//build_tree
+void		*ft_tree(t_token *start, t_minishell *bash);
 void		*ft_redir_app(t_token *start, t_token *aux, t_minishell *bash);
+void		*ft_redir_out(t_token *start, t_token *aux, t_minishell *bash);
+void		*ft_redir_in(t_token *start, t_token *aux, t_minishell *bash);
+void		*ft_pipe(t_token *start, t_token *aux, t_minishell *bash);
+
+//tree_search_token
+void		*handle_redir_app(t_token *start, t_token *aux, t_minishell *bash);
+void		*handle_redir_out(t_token *start, t_token *aux, t_minishell *bash);
+void		*handle_redir_in(t_token *start, t_token *aux, t_minishell *bash);
+void		*handle_pipe(t_token *start, t_token *aux, t_minishell *bash);
+t_token		*find_token_by_type(t_token *start, enum e_type type);
+
+//tree_util
+void		*handle_command(t_token *start);
+void		ft_remove_tokens(t_token *aux);
+char		**tokken_to_args(t_token *start);
+void		free_token_list(t_token *head);
+void		*free_args_on_error(char **args, int i);
+
+
 //testes
 void		ft_execute(t_minishell *minishell, void *root);
 void		free_args(char **args);

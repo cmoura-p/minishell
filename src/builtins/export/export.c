@@ -12,7 +12,6 @@
 
 #include "../../../include/minishell.h"
 
-
 t_envp	*ft_exponew(char *name, char *value)
 {
 	t_envp	*new;
