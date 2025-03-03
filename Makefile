@@ -51,8 +51,9 @@ SRC =		main.c \
 			src/builtins/export/insert_expo.c \
 			src/builtins/pwd/pwd.c \
 			src/builtins/unset/unset.c \
-			src/tree/tree.c \
+			src/tree/built_tree.c \
 			src/tree/tree_util.c \
+			src/tree/tree_search_token.c \
 			src/execute/exec.c \
 			
 
