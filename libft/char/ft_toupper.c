@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_toupper.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joseoliv <joseoliv@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/14 16:40:06 by joseoliv          #+#    #+#             */
-/*   Updated: 2024/10/11 02:58:52 by joseoliv         ###   ########.fr       */
+/*   Created: 2025/03/01 17:44:40 by cmoura-p          #+#    #+#             */
+/*   Updated: 2025/03/01 18:36:15 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

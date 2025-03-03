@@ -3,12 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mde-souz <mde-souz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 17:53:27 by mde-souz          #+#    #+#             */
-/*   Updated: 2024/07/08 16:57:13 by mde-souz         ###   ########.fr       */
+/*   Updated: 2025/03/01 18:37:27 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "../libft.h"
 
 char	*ft_strcpy(char *dest, char *src)
 {

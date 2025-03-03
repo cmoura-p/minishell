@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 13:42:58 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/02/11 23:54:52 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/03/01 20:22:01 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ t_minishell	*init_data(char **envp, char **prompt)
 	load_envp(bash, envp);
 	return (bash);
 }
+
 int	init_bash(t_minishell *minishell, char *prompt)
 {
 	if (!minishell || !prompt)
@@ -39,7 +40,7 @@ int	init_bash(t_minishell *minishell, char *prompt)
 		add_history(minishell->cmd_line);
 		minishell->cmd_line = ft_minitrim(minishell->cmd_line);
 		if ((minishell->cmd_line) && minishell->cmd_line[0] == '\0')
-			return(2);
+			return (2);
 		if (!(check_syntax(minishell->cmd_line)))
 			return (0);
 	}
@@ -48,14 +49,13 @@ int	init_bash(t_minishell *minishell, char *prompt)
 	return (1);
 }
 
-void	init_signals()
+void	init_signals(void)
 {
 	struct sigaction	sa;
 
 	sa.sa_handler = &signal_handler;
 	sa.sa_flags = SA_RESTART;
 	sigemptyset(&sa.sa_mask);
-
 	if (sigaction(SIGINT, &sa, NULL) == -1)
 		exit(SIGNAL_ERROR);
 	signal(SIGQUIT, SIG_IGN);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_isalpha.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joseoliv <joseoliv@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/14 16:28:38 by joseoliv          #+#    #+#             */
-/*   Updated: 2024/10/11 02:58:39 by joseoliv         ###   ########.fr       */
+/*   Created: 2024/04/14 16:28:38 by cmoura-p          #+#    #+#             */
+/*   Updated: 2025/03/01 18:36:05 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

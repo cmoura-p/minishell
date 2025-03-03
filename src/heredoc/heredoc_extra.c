@@ -1,24 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   heredoc_extra.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/14 16:37:37 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/03/01 18:37:46 by cmoura-p         ###   ########.fr       */
+/*   Created: 2025/03/01 19:59:28 by cmoura-p          #+#    #+#             */
+/*   Updated: 2025/03/01 20:01:36 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libft.h"
+#include "../../include/minishell.h"
 
-size_t	ft_strlen(const char *s)
+int	child_status(int hd_exit_status)
 {
-	size_t	i;
-
-	i = 0;
-	if (s)
-		while (s[i])
-			i++;
-	return (i);
+	if (WIFEXITED(hd_exit_status))
+		return (WEXITSTATUS(hd_exit_status));
+	else if (WIFSIGNALED(hd_exit_status))
+	{
+		if (WTERMSIG(hd_exit_status) == SIGINT)
+		{
+			return (EXIT_SIGINT);
+		}
+		else if (WTERMSIG(hd_exit_status) == SIGQUIT)
+		{
+			return (EXIT_SIGQUIT);
+		}
+	}
+	return (0);
 }

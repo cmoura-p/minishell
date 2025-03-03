@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_funcs.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
+/*   By: cmoura-p <cmoura-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 19:44:40 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/02/12 21:02:30 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/02/25 19:29:50 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,10 +131,11 @@ void	free_bash(t_minishell *bash)
 {
 	if (bash->envp)
 		free_envp(bash);
-	// if (bash->token)
-	// clean_tokens(bash);
+	if (bash->token)
+		clean_tokens(bash);
 	if (bash->heredoc)
 		clean_heredoc(bash);
+		// fazer o free das outras estruturas
 	free(bash);
 }
 

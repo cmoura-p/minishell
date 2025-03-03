@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 19:47:42 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/01/25 19:43:45 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/03/01 20:29:56 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,11 @@
 
 static int	err_quotes(char *line)
 {
-	char quote = 0;
-	int i = 0;
+	char	quote;
+	int		i;
 
+	quote = 0;
+	i = 0;
 	while (line[i])
 	{
 		if ((line[i] == '\'' || line[i] == '\"') && quote == 0)
@@ -32,6 +34,7 @@ static int	err_quotes(char *line)
 	}
 	return (0);
 }
+
 static int	err_pipes(char *line)
 {
 	int		i;
@@ -58,6 +61,7 @@ static int	err_pipes(char *line)
 	}
 	return (0);
 }
+
 static int	err_redir(char *line)
 {
 	int		i;
@@ -85,6 +89,7 @@ static int	err_redir(char *line)
 	}
 	return (0);
 }
+
 static int	err_special_char(char *line)
 {
 	char	*special;
@@ -100,7 +105,7 @@ static int	err_special_char(char *line)
 		{
 			if (ft_strchr(special, line[i]))
 			{
-				ft_printf("Syntax error: unexpected special char '%c'\n", line[i]);
+				ft_printf("Syntax error: special char '%c'\n", line[i]);
 				return (1);
 			}
 		}
@@ -115,7 +120,7 @@ char	*check_syntax(char *cmd_line)
 	if (!cmd_line)
 		return (0);
 	if (err_quotes(cmd_line))
-		return(NULL);
+		return (NULL);
 	if (err_pipes(cmd_line))
 	{
 		ft_printf("Syntax error: wrong use of pipes\n");
@@ -127,7 +132,6 @@ char	*check_syntax(char *cmd_line)
 		return (NULL);
 	}
 	if (err_special_char(cmd_line))
-		return(NULL);
+		return (NULL);
 	return (cmd_line);
 }
-

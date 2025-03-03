@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmoura-p <cmoura-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 10:51:43 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/02/19 18:53:08 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/03/01 19:21:54 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,10 +121,10 @@ typedef struct s_minishell
 	enum e_exit_code	exit_status;
 	void				*root;
 	char				*path;
-	int					fd_in;			//ainda nao usei
-	int					fd_out;			//ainda nao usei
-	int					pid;			//ainda nao usei
-	int					process;		//ainda nao usei
+	int					fd_in;
+	int					fd_out;
+	int					pid;
+	int					process;
 }						t_minishell;
 
 /*--------------------------B-TREE----------------------*/
@@ -149,8 +149,8 @@ typedef struct s_exec
 {
 	enum e_type		type;
 	char			**args;
-	char			*path;		//?
-	int				builtin;	//?
+	char			*path;
+	int				builtin;
 }					t_exec;
 
 //init
@@ -200,7 +200,7 @@ void		add_tokenlst_dq(t_minishell *bash, t_token **aux, char *name, \
 void		add_tokenlst_back(t_token **newtoken, t_token *lst);
 void		del_tokenlst(t_minishell *bash, t_token **token);
 int			ft_isword(char s);
-int			expand_is_hd_eof(char *line, int i, char **redir);
+int			expand_is_hd_eof(char *line, int i, int j, char **redir);
 void		print_token_list(t_token *token);
 
 //parsing
@@ -210,6 +210,7 @@ void		joinprev(t_token **token, char *name);
 void		expandtokens(t_minishell *bash);
 void		joinexpand(t_token **token, char *name, char *name_exp);
 void		expand_var(t_token **aux, t_envp *aux_envp);
+void	    expand_exit(t_minishell *bash, char *aux);
 void		expand_in_dq(t_minishell *bash, t_token **aux);
 int			valid_envp_char(char s, int i);
 char		*envp_name(char *name);
@@ -222,7 +223,7 @@ void		remove_blank(t_minishell *bash);
 void		remove_exp_null(t_minishell *bash);
 void		find_a_pipe(t_token **aux);
 int			blank_in_expand(t_token *token, char *exp_var);
-
+void        get_sobra(t_token **aux, char *a_var, char *env_var);
 int			not_redirection(t_token *token);
 void		newtoken_after_parsing(t_token **aux, char *a_var);
 

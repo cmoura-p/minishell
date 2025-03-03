@@ -3,42 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   utils_heredoc.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmoura-p <cmoura-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 19:29:38 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/02/18 20:09:54 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/03/01 20:18:24 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int set_heredoc(t_heredoc *hd, t_minishell *bash)
+void	go_write(int fd_hd, char *line)
 {
-	int status;
-
-	set_heredoc_signals();
-	while(1)
-	{
-		hd->fd_heredoc = open(hd->hd_path, O_CREAT \
-		| O_RDWR | O_TRUNC, 0644 );
-		status = read_hd_line(hd, bash);
-		if (status == 1)
-			printf("warning: heredoc aborted - expected eof %s \n", hd->eo_heredoc);
-		close(hd->fd_heredoc);
-//		tem que ter free por aqui
-		if (status == 0 || status == 1)
-			exit(0);
-		if (status == 2)
-			exit(EXIT_SIGINT);
-	}
+	write(fd_hd, line, ft_strlen(line));
+	write(fd_hd, "\n", 1);
+	free(line);
 }
 
-int read_hd_line(t_heredoc *hd, t_minishell *bash)
+int	read_hd_line(t_heredoc *hd, t_minishell *bash)
 {
 	char	*line;
-    (void)  *bash;
 
-	while(1)
+	(void)	*bash;
+	while (1)
 	{
 		line = readline("> ");
 		if (!line)
@@ -57,56 +43,51 @@ int read_hd_line(t_heredoc *hd, t_minishell *bash)
 		}
 		if (hd->status == NO_QUOTE)
 			check_exp_in_hd(&line, bash);
-		write(hd->fd_heredoc, line, ft_strlen(line));
-		write(hd->fd_heredoc, "\n", 1);
-		free(line);
+		go_write(hd->fd_heredoc, line);
 	}
 	return (0);
 }
-int	child_status(int hd_exit_status)
+
+void	free_recursion(char *x, char *y, char *z, char **temp, char *a)
 {
-	if (WIFEXITED(hd_exit_status))
-		return (WEXITSTATUS(hd_exit_status));
-	else if (WIFSIGNALED(hd_exit_status))
+	if (!a)
+		a = "";
+	if (!y)
+		y = "";
+	*temp = ft_strjoin(a, y);
+	free(x);
+	free(y);
+	free(z);
+}
+
+void	check_exp_in_hd(char **line, t_minishell *bash)
+{
+	char	*new_line;
+	char	*after;
+	char	*before;
+	char	*expand;
+	char	*env_var;
+	char	*sobra;
+	char	*temp_after;
+	char	*temp_new_line;
+	t_envp	*aux_exp;
+
+	aux_exp = bash->envp;
+	new_line = *line;
+	after = NULL;
+	before = NULL;
+	if (split_string(*line, &before, &after, '$'))
 	{
-		if (WTERMSIG(hd_exit_status) == SIGINT)
-		{
-//			write(STDOUT_FILENO, "\n", 1);
-			return (EXIT_SIGINT);
-		}
-		else if (WTERMSIG(hd_exit_status) == SIGQUIT)
-		{
-//			write(STDOUT_FILENO, "Quit\n", 5);
-			return (EXIT_SIGQUIT);
-		}
-	}
-	return (0);
-}
-
-void    check_exp_in_hd(char **line, t_minishell *bash)
-{
-    char    *new_line;
-    char    *after;
-    char    *before;
-    char    *expand;
-    char    *sobra;
-    t_envp  *aux_exp;
-
-    after = NULL;
-    before = NULL;
-    new_line = *line;
-    aux_exp = bash->envp;
-    if (split_string(*line, &before, &after, '$'))
-    {
-        expand = envp_name(after);
-        sobra = ft_substr((after), (ft_strlen(expand)), \
-			(ft_strlen(after)-1));
-	    expand = ft_getenv(aux_exp, expand);
-        after = ft_strjoin(expand, sobra);
+		env_var = envp_name(after);
+		sobra = ft_substr(after, ft_strlen(env_var), \
+		ft_strlen(after) - ft_strlen(env_var));
+		expand = ft_getenv(aux_exp, env_var);
+		free_recursion(after, sobra, env_var, &temp_after, expand);
+		after = temp_after;
 		check_exp_in_hd(&after, bash);
-        new_line = ft_strjoin(before, after);
-    }
-    *line = new_line;
+		free_recursion(before, after, new_line, &temp_new_line, before);
+		*line = temp_new_line;
+	}
 }
 
 int	checked_for_hd(t_token *token)

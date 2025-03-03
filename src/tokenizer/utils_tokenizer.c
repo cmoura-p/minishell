@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_tokenizer.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmoura-p <cmoura-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 09:26:41 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/01/29 22:27:39 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/03/01 20:34:56 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,12 +73,12 @@ void	add_tokenlst_dq(t_minishell *bash, t_token **aux, char *name, \
 		bash->token = newtoken;
 	}
 }
+
 void	del_tokenlst(t_minishell *bash, t_token **token)
 {
-	t_token *aux;
+	t_token	*aux;
 
 	aux = *token;
-
 	if (aux == bash->token)
 		bash->token = aux->next;
 	if (aux->prev)

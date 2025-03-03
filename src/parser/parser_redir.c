@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 16:19:54 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/01/30 19:39:58 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/03/01 21:02:39 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,9 @@ void	set_redir(t_minishell *bash)
 			aux = aux->next;
 	}
 }
+
 t_token	*set_redir_file(t_token *token, enum e_type type)
 {
-
 	token = token->next;
 	if (token->type == BLANK)
 		token = token->next;
@@ -42,4 +42,3 @@ t_token	*set_redir_file(t_token *token, enum e_type type)
 	}
 	return (token);
 }
-

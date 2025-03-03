@@ -131,3 +131,8 @@ informacoes importantes do projeto
 		echo abc$123 nao junta
 
 
+Dia 03 marco
+- sobre exit_status
+    - readline
+    - revisar saida de malloc
+

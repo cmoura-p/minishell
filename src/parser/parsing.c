@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmoura-p <cmoura-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 13:58:23 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/02/20 14:37:14 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/03/01 21:01:36 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,8 @@
 void	parsing(t_minishell *bash)
 {
 	expandtokens(bash);
-	printf("pos expandtokens \n");
-    print_token_list(bash->token);
 	remove_exp_null(bash);
 	jointokens(bash);
-	printf("pos jointokens \n");
-	print_token_list(bash->token);
 	set_redir(bash);
 	set_commands(bash);
 	remove_blank(bash);
@@ -32,6 +28,25 @@ void	parsing(t_minishell *bash)
 		heredoc(bash);
 		init_signals();
 	}
-	printf("pos tudo \n");
-    print_token_list(bash->token);
+}
+
+void	get_sobra(t_token **aux, char *a_var, char *env_var)
+{
+	t_token	*newtoken;
+	char	*sobra;
+
+	sobra = ft_substr(a_var, (ft_strlen(env_var)), (ft_strlen(a_var) - 1));
+	if (sobra && *sobra != '\0')
+	{
+		newtoken = (t_token *)malloc(sizeof(t_token));
+		if (!newtoken)
+			return ;
+		newtoken->name = sobra;
+		newtoken->type = WORD;
+		newtoken->status = DOUBLE_Q;
+		add_tokenlst_back(&newtoken, *aux);
+		newtoken->next = NULL;
+	}
+	else
+		free(sobra);
 }

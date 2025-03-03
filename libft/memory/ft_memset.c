@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joseoliv <joseoliv@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/14 16:31:19 by joseoliv          #+#    #+#             */
-/*   Updated: 2024/10/11 02:59:17 by joseoliv         ###   ########.fr       */
+/*   Created: 2024/04/14 16:31:19 by cmoura-p          #+#    #+#             */
+/*   Updated: 2025/03/01 18:36:57 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,3 @@ void	*ft_memset(void *s, int c, size_t n)
 	}
 	return (s);
 }
-
-/* int	main(void)
-{
-	char str[9] = "eraumavez";
-	printf("%s\n", ft_memset(str, 'z', 5));
-	//printf("%s\n", memset(str, 'z', 5));
-	return (0);
-}
- */
