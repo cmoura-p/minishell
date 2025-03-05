@@ -314,8 +314,34 @@ char		**tokken_to_args(t_token *start);
 void		free_token_list(t_token *head);
 void		*free_args_on_error(char **args, int i);
 
+//duplicate_token_list
+t_token		*duplicate_token_list(t_token *head);
+
+//execute
+//ft_env_args.c
+char		**ft_env_args(t_envp *envp);
+
+//ft_exec_builtins.c
+void		ft_exec_builtin(t_minishell *minishell, char **args);
+int			ft_is_builtin(char *cmd);
+
+//ft_exec_cmd.c
+void		ft_exec_cmd(t_minishell *minishell, t_exec *cmd);
+
+//ft_exec_pipe.c
+void		ft_exec_pipe(t_minishell *minishell, t_pipe *pipeline);
+
+//ft_exec_redir.c
+void		ft_exec_redir(t_minishell *minishell, t_redir *redir);
+
+//ft_execute.c
+void		ft_execute(t_minishell *minishell, void *root);
+
+//ft_find_path.c
+char		*ft_find_path(char *cmd);
 
 //testes
 void		ft_execute(t_minishell *minishell, void *root);
 void		free_args(char **args);
+void		free_exit(t_minishell **minishell, int status);
 #endif

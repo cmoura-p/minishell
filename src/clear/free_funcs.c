@@ -96,8 +96,8 @@ void	clean_tokens(t_minishell *bash)
 		}
 		if (aux)
 			free(aux);
+		aux = NULL;
 	}
-	bash->token = NULL;
 }
 
 void	clean_heredoc(t_minishell *bash)
@@ -131,6 +131,8 @@ void	free_to_quit(t_minishell *bash, char *prompt)
 
 void	free_bash(t_minishell *bash)
 {
+	if(bash->cmd_line)
+		free(bash->cmd_line);//verificar se esta correto *brendon
 	if (bash->envp)
 		free_envp(bash);
 	if (bash->token)
@@ -147,6 +149,7 @@ void	free_token(t_token *token)
 	if (token->name)
 		free(token->name);
 	free(token);
+	token = NULL;
 }
 
 void	ft_free_split(char **args)
