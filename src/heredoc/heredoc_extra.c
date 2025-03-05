@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 19:59:28 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/03/03 19:30:30 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/03/05 18:26:02 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,4 +87,5 @@ void	check_exp_in_hd(char **line, t_minishell *bash)
 		join_sobra_out(aux_hr, &temp_new_line);
 		*line = temp_new_line;
 	}
+	free(aux_hr);
 }
