@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 11:34:58 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/03/01 20:20:23 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/03/05 12:47:55 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,4 +70,18 @@ void	get_prompt(char **prompt)
 	*prompt = ft_strjoin(pwd, ": ");
 	if (!(*prompt))
 		*prompt = pwd;
+}
+int	exit_status_line(char *line)
+{
+	int	x;
+
+	x = 0;
+	while (line[x])
+	{
+		if (line[x] == '$')
+			if (line[x + 1] && line[x + 1] == '?')
+				return (1);
+		x++;
+	}
+	return (0);
 }

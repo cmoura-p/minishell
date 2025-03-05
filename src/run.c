@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 23:00:17 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/03/03 19:36:29 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/03/05 11:59:14 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,11 @@ void	run(t_minishell *bash)
 	if (!bash->token)
 		return ;
 	print_token_list(bash->token);
-	init_signals();
-	bash->root = ft_tree(bash->token, bash);
-	if (!bash->root)
-		return ;
-	ft_execute(bash, bash->root);
-	ft_free_tree(bash->root);
+	//init_signals();
+	//bash->root = ft_tree(bash->token, bash);
+	//if (!bash->root)
+	//	return ;
+	//ft_execute(bash, bash->root);
+	//ft_free_tree(bash->root);
+	free_to_restart(bash);
 }

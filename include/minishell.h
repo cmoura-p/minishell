@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 10:51:43 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/03/03 21:03:58 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/03/05 12:49:32 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
 extern int	g_signal;
 
 # define SUCCESS_EXIT "exit\n"
+# define EXIT_SYNTAX_ERROR 2
 # define EXIT_PERMISSION_DENIED 126
 # define EXIT_CMD_NOT_FOUND 127
 # define EXIT_SIGINT 130
@@ -65,6 +66,7 @@ enum	e_status
 enum	e_exit_code
 {
 	SUCCESS,
+	SYNTAX_ERROR,
 	MALLOC_ERROR,
 	SIGNAL_ERROR,
     CMD_NOT_FOUND,
@@ -174,7 +176,8 @@ char		*check_syntax(char *line);
 int			btw_quotes(char *line, int i);
 int			skip_blank(char *line, int i);
 char		*ft_minitrim(char *line);
-void        get_prompt(char **prompt);
+int			exit_status_line(char *line);
+void		get_prompt(char **prompt);
 int 		split_string(char *line, char **before, char **after, char c);
 
 //signals

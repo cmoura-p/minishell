@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmoura-p <cmoura-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 13:42:58 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/03/01 20:22:01 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/03/05 12:44:09 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,12 @@ int	init_bash(t_minishell *minishell, char *prompt)
 		if ((minishell->cmd_line) && minishell->cmd_line[0] == '\0')
 			return (2);
 		if (!(check_syntax(minishell->cmd_line)))
+		{
+			minishell->exit_status = EXIT_SYNTAX_ERROR;
 			return (0);
+		}
+		if (!exit_status_line(minishell->cmd_line))
+			minishell->exit_status = 0;
 	}
 	else
 		return (0);
