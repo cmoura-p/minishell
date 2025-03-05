@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 10:51:43 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/03/05 17:42:27 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/03/05 19:35:04 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -281,7 +281,7 @@ void		ft_unset(t_minishell *minishell, char **args);
 void		ft_search_del(t_envp **env, char *key);
 
 //free
-void		free_to_quit(t_minishell *bash, char *prompt);
+void		free_to_quit(t_minishell *bash);
 void		free_to_restart(t_minishell *bash);
 void		free_bash(t_minishell *bash);
 void		free_envp(t_minishell *bash);

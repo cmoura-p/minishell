@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/15 11:57:24 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/03/05 17:51:36 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/03/05 19:35:26 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,6 @@ int	main(int ac, char **av, char **envp)
 		if (minishell->cmd_line)
 			free(minishell->cmd_line);
 	}
-	free_to_quit(minishell, prompt);
+	free_to_quit(minishell);
 	return (0);
 }

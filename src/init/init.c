@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 13:42:58 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/03/05 16:49:00 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/03/05 19:36:10 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ t_minishell	*init_data(char **envp, char **prompt)
 	bash->exit_status = SUCCESS;
 	bash->export = NULL;
 	bash->heredoc = NULL;
+	bash->prompt = (*prompt);
 	load_envp(bash, envp);
 	return (bash);
 }

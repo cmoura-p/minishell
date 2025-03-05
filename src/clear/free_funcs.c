@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 19:44:40 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/03/05 19:20:57 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/03/05 19:34:28 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,10 +119,10 @@ void	clean_heredoc(t_minishell *bash)
 	bash->heredoc = NULL;
 }
 
-void	free_to_quit(t_minishell *bash, char *prompt)
+void	free_to_quit(t_minishell *bash)
 {
-	if (prompt)
-		free(prompt);
+	if (bash->prompt)
+		free(bash->prompt);
 	free_bash(bash);
 	rl_clear_history();
 	ft_printf("%s", SUCCESS_EXIT);
