@@ -62,6 +62,7 @@ char	*ft_find_path(char *cmd)
 	if (!paths)
 		return (NULL);
 	result = search_paths(paths, cmd);
-	ft_free_split(paths);
+	if(result == NULL)
+		ft_free_split(paths);
 	return (result);
 }

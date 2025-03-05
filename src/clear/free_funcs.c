@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 19:44:40 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/03/03 20:21:37 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/03/05 19:20:57 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,7 +160,11 @@ void	ft_free_split(char **args)
 		return ;
 	i = 0;
 	while (args[i])
-		free(args[i++]);
+	{
+		free(args[i]);
+		args[i] = NULL;
+		i++;
+	}
 	free(args);
 }
 
