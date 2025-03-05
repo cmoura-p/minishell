@@ -28,7 +28,7 @@ static	void	exec_child_process(t_minishell *minishell, t_exec *cmd)
 	{
 		perror("minishell: failed to allocate env");
 		free(path);
-		exit(1);
+		free_exit(&minishell, 1);
 	}
 	execve(path, cmd->args, env);
 	perror("minishell");

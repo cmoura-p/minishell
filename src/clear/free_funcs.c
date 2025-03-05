@@ -159,6 +159,11 @@ void	ft_free_split(char **args)
 		return ;
 	i = 0;
 	while (args[i])
-		free(args[i++]);
+	{
+		free(args[i]);
+		args[i] = NULL;
+		i++;
+	}
 	free(args);
+	args = NULL;
 }
