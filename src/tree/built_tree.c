@@ -40,7 +40,7 @@ void	*ft_redir_in(t_token *start, t_token *aux, t_minishell *bash)
 {
 	t_redir	*redir;
 
-	if (!aux || !aux->next)
+	if (!aux || !aux->next || !aux->prev)
 		return (NULL);
 	redir = malloc(sizeof(t_redir));
 	if (!redir)
@@ -67,7 +67,7 @@ void	*ft_redir_out(t_token *start, t_token *aux, t_minishell *bash)
 {
 	t_redir	*redir;
 
-	if (!aux || !aux->next)
+	if (!aux || !aux->next || !aux->prev)
 		return (NULL);
 	redir = malloc(sizeof(t_redir));
 	if (!redir)
@@ -94,7 +94,7 @@ void	*ft_redir_app(t_token *start, t_token *aux, t_minishell *bash)
 {
 	t_redir	*redir;
 
-	if (!aux || !aux->next)
+	if (!aux || !aux->next || !aux->prev)
 		return (NULL);
 	redir = malloc(sizeof(t_redir));
 	if (!redir)

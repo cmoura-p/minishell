@@ -21,11 +21,13 @@ void	run(t_minishell *bash)
 		return ;
 	print_token_list(bash->token);
 	init_signals();
-/* 	bash->root = ft_tree(bash->token, bash);
+	bash->root = ft_tree(duplicate_token_list(bash->token), bash);
 	if (!bash->root)
-		return;
+	{
+		free_to_restart(bash);
+		return ;
+	}
 	ft_execute(bash, bash->root);
 	ft_free_tree(bash->root);
- */
 	free_to_restart(bash);
 }

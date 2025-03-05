@@ -14,6 +14,7 @@
 
 void	free_exit(t_minishell **minishell, int exit_code)
 {
+	ft_free_tree((*minishell)->root);
 	free_bash(*minishell);
 	rl_clear_history();
 	exit(exit_code);

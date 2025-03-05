@@ -55,7 +55,14 @@ SRC =		main.c \
 			src/tree/built_tree.c \
 			src/tree/tree_util.c \
 			src/tree/tree_search_token.c \
-			src/execute/exec.c \
+			src/tree/duplicate_token_list.c \
+			src/execute/ft_env_args.c \
+			src/execute/ft_exec_bultins.c \
+			src/execute/ft_exec_cmd.c \
+			src/execute/ft_exec_pipe.c \
+			src/execute/ft_exec_redir.c \
+			src/execute/ft_execute.c \
+			src/execute/ft_find_path.c \
 
 
 OBJ_DIR = ./obj
