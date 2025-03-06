@@ -52,9 +52,12 @@ SRC =		main.c \
 			src/builtins/export/insert_expo.c \
 			src/builtins/pwd/pwd.c \
 			src/builtins/unset/unset.c \
-			src/tree/built_tree.c \
+			src/tree/ft_tree.c \
+			src/tree/ft_pipe.c \
+			src/tree/ft_redir_in.c \
+			src/tree/ft_redir_out.c \
+			src/tree/ft_redir_app.c \
 			src/tree/tree_util.c \
-			src/tree/tree_search_token.c \
 			src/tree/duplicate_token_list.c \
 			src/execute/ft_env_args.c \
 			src/execute/ft_exec_bultins.c \

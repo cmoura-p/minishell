@@ -121,8 +121,6 @@ void	clean_heredoc(t_minishell *bash)
 
 void	free_to_quit(t_minishell *bash)
 {
-	if (bash->prompt)
-		free(bash->prompt);
 	free_bash(bash);
 	rl_clear_history();
 	ft_printf("%s", SUCCESS_EXIT);
@@ -139,6 +137,8 @@ void	free_bash(t_minishell *bash)
 		clean_tokens(bash);
 	if (bash->heredoc)
 		clean_heredoc(bash);
+	if(bash->prompt)
+		free(bash->prompt);
 	free(bash);
 }
 
@@ -168,3 +168,11 @@ void	ft_free_split(char **args)
 	free(args);
 }
 
+void	*free_null_redir(t_token *aux)
+{
+	if (aux->next)
+		free_token(aux->next);
+	if (aux)
+		free_token(aux);
+	return (NULL);
+}

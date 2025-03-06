@@ -73,15 +73,12 @@ void	ft_remove_tokens(t_token *aux)
 	free_token(aux);
 }
 
-void	*handle_command(t_token *start)
+void	*handle_redir_error(t_redir *redir, t_minishell *bash, t_token *aux)
 {
-	t_exec	*root;
-
-	root = malloc(sizeof(t_exec));
-	if (!root)
-		return (NULL);
-	root->type = COMMAND;
-	root->args = tokken_to_args(start);
-	free_token_list(start);
-	return (root);
+	ft_putstr_fd("minishell: ", 2);
+	perror(redir->file_name);
+	bash->exit_status = 1;
+	free(redir->file_name);
+	free(redir);
+	return (free_null_redir(aux));
 }
