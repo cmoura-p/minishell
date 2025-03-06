@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 18:46:17 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/03/03 21:04:32 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/03/06 17:02:30 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,10 +90,12 @@ void	expand_in_dq(t_minishell *bash, t_token **aux)
 	}
 	if (b_var && *b_var != '\0')
 		add_tokenlst_dq(bash, aux, b_var, WORD);
+	else
+		free(b_var);
 	if (a_var && a_var[0] == '?')
 	{
 		add_tokenlst_dq(bash, aux, ft_strdup("$?"), EXP_EXIT);
-		a_var = ft_substr(a_var, 1, ft_strlen(a_var) - 1);
+		fix_a_var(&a_var);
 	}
 	else
 		add_tokenlst_dq(bash, aux, ft_strdup("$"), EXP_ENVP);
@@ -102,7 +104,6 @@ void	expand_in_dq(t_minishell *bash, t_token **aux)
 	else
 		del_tokenlst(bash, aux);
 	free(a_var);
-	free(b_var);
 }
 
 void	newtoken_after_parsing(t_token **aux, char *a_var)
@@ -124,4 +125,3 @@ void	newtoken_after_parsing(t_token **aux, char *a_var)
 	(*aux) = (*aux)->prev;
 }
 
-//	problema futuro na linha 89
