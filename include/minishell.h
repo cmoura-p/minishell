@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 10:51:43 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/03/05 19:35:04 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/03/06 20:19:15 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -212,6 +212,7 @@ void		del_tokenlst(t_minishell *bash, t_token **token);
 int			ft_isword(char s);
 int			expand_is_hd_eof(char *line, int i, int j, char **redir);
 void		print_token_list(t_token *token);
+void		fix_a_var(char **a_var);
 
 //parsing
 void		jointokens(t_minishell *bash);
