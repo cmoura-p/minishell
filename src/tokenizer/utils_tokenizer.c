@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 09:26:41 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/03/03 19:55:42 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/03/06 16:23:13 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,9 +93,23 @@ void	del_tokenlst(t_minishell *bash, t_token **token)
 	if (aux->name)
 		free(aux->name);
 	free(aux);
-	if (!(*token)->next)
+	if ((!(*token)->next) && (*token)->type != EXP_EXIT)
 	{
-		(*token)->type = WORD;
 		(*token)->status = NO_QUOTE;
+		(*token)->type = WORD;
 	}
 }
+
+void	fix_a_var(char **a_var)
+{
+	char	*temp;
+
+	if (!(*a_var))
+		return ;
+	temp = ft_substr((*a_var), 1, ft_strlen((*a_var)) - 1);
+	if (!temp)
+		return ;
+	free(*a_var);
+	(*a_var) = temp;
+}
+

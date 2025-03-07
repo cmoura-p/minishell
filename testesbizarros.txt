@@ -1,10 +1,3 @@
-CONSIDERACAO IMPORTANTE
-Nos testes para unir tokens, existe
-alguma situacao em que o primeiro
-token seja o que vai ser freed?
-
-Por que dai temos que atualizar o
-ponteiro da estrutura principal
 
 
 echo $USER+este do brasil<cat cat
@@ -18,7 +11,7 @@ echo $USER[rimeira do Brasiloioicat cat
 
 echo teste qq>cat
 
-echo $USER"rimeira do Brasil"|cat cat
+echo $USER'rimeira do Brasil'|cat cat				//ERRO
 	teste qq			(era o conteudo de cat)
 
 echo $USERoioioi
@@ -63,7 +56,7 @@ echo $ ?
 	$ ?
 
 
-DANIMUR			echo "GG$?"
+DANIMUR			echo "GG$?"				//ERRO
 
 P
 							com a primeira alteracao			original
@@ -136,3 +129,646 @@ Dia 03 marco
     - readline
     - revisar saida de malloc
 
+SEQUNCIA DE ERROS INTERMITENTES
+
+cmoura-p@Latitude-E7270:~/minishell$ ./minishell
+/home/cmoura-p/minishell: echo $[?
+$[?
+/home/cmoura-p/minishell: echo $ ?
+$ ?
+/home/cmoura-p/minishell: echo "GG$?"
+�k9�X
+free(): double free detected in tcache 2
+Aborted (core dumped)
+
+
+
+/home/cmoura-p/minishell: "echo $USER"rimeira do Brasil"|cat cat"
+==7147== Invalid read of size 1
+==7147==    at 0x111074: ft_strlen (in /home/cmoura-p/minishell/minishell)
+==7147==    by 0x110EE9: ft_strjoin (in /home/cmoura-p/minishell/minishell)
+==7147==    by 0x10BFD1: expand_var (parser_expand.c:73)
+==7147==    by 0x10BE06: expandtokens (parser_expand.c:29)
+==7147==    by 0x10BBFE: parsing (parsing.c:17)
+==7147==    by 0x10A431: run (run.c:19)
+==7147==    by 0x109608: main (main.c:34)
+==7147==  Address 0x4b529b0 is 0 bytes inside a block of size 6 free'd
+==7147==    at 0x484988F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==7147==    by 0x10C171: expand_in_dq (parser_expand.c:105)
+==7147==    by 0x10BE42: expandtokens (parser_expand.c:34)
+==7147==    by 0x10BBFE: parsing (parsing.c:17)
+==7147==    by 0x10A431: run (run.c:19)
+==7147==    by 0x109608: main (main.c:34)
+==7147==  Block was alloc'd at
+==7147==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==7147==    by 0x10C917: split_string (utils_expand.c:94)
+==7147==    by 0x10C04C: expand_in_dq (parser_expand.c:86)
+==7147==    by 0x10BE42: expandtokens (parser_expand.c:34)
+==7147==    by 0x10BBFE: parsing (parsing.c:17)
+==7147==    by 0x10A431: run (run.c:19)
+==7147==    by 0x109608: main (main.c:34)
+==7147==
+==7147== Invalid read of size 1
+==7147==    at 0x110F5D: ft_strjoin (in /home/cmoura-p/minishell/minishell)
+==7147==    by 0x10BFD1: expand_var (parser_expand.c:73)
+==7147==    by 0x10BE06: expandtokens (parser_expand.c:29)
+==7147==    by 0x10BBFE: parsing (parsing.c:17)
+==7147==    by 0x10A431: run (run.c:19)
+==7147==    by 0x109608: main (main.c:34)
+==7147==  Address 0x4b529b0 is 0 bytes inside a block of size 6 free'd
+==7147==    at 0x484988F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==7147==    by 0x10C171: expand_in_dq (parser_expand.c:105)
+==7147==    by 0x10BE42: expandtokens (parser_expand.c:34)
+==7147==    by 0x10BBFE: parsing (parsing.c:17)
+==7147==    by 0x10A431: run (run.c:19)
+==7147==    by 0x109608: main (main.c:34)
+==7147==  Block was alloc'd at
+==7147==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==7147==    by 0x10C917: split_string (utils_expand.c:94)
+==7147==    by 0x10C04C: expand_in_dq (parser_expand.c:86)
+==7147==    by 0x10BE42: expandtokens (parser_expand.c:34)
+==7147==    by 0x10BBFE: parsing (parsing.c:17)
+==7147==    by 0x10A431: run (run.c:19)
+==7147==    by 0x109608: main (main.c:34)
+==7147==
+==7147== Invalid read of size 1
+==7147==    at 0x110F47: ft_strjoin (in /home/cmoura-p/minishell/minishell)
+==7147==    by 0x10BFD1: expand_var (parser_expand.c:73)
+==7147==    by 0x10BE06: expandtokens (parser_expand.c:29)
+==7147==    by 0x10BBFE: parsing (parsing.c:17)
+==7147==    by 0x10A431: run (run.c:19)
+==7147==    by 0x109608: main (main.c:34)
+==7147==  Address 0x4b529b0 is 0 bytes inside a block of size 6 free'd
+==7147==    at 0x484988F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==7147==    by 0x10C171: expand_in_dq (parser_expand.c:105)
+==7147==    by 0x10BE42: expandtokens (parser_expand.c:34)
+==7147==    by 0x10BBFE: parsing (parsing.c:17)
+==7147==    by 0x10A431: run (run.c:19)
+==7147==    by 0x109608: main (main.c:34)
+==7147==  Block was alloc'd at
+==7147==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==7147==    by 0x10C917: split_string (utils_expand.c:94)
+==7147==    by 0x10C04C: expand_in_dq (parser_expand.c:86)
+==7147==    by 0x10BE42: expandtokens (parser_expand.c:34)
+==7147==    by 0x10BBFE: parsing (parsing.c:17)
+==7147==    by 0x10A431: run (run.c:19)
+==7147==    by 0x109608: main (main.c:34)
+==7147==
+==7147== Invalid free() / delete / delete[] / realloc()
+==7147==    at 0x484988F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==7147==    by 0x10CC06: joinprev (utils_parsing.c:70)
+==7147==    by 0x10BFE8: expand_var (parser_expand.c:74)
+==7147==    by 0x10BE06: expandtokens (parser_expand.c:29)
+==7147==    by 0x10BBFE: parsing (parsing.c:17)
+==7147==    by 0x10A431: run (run.c:19)
+==7147==    by 0x109608: main (main.c:34)
+==7147==  Address 0x4b529b0 is 0 bytes inside a block of size 6 free'd
+==7147==    at 0x484988F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==7147==    by 0x10C171: expand_in_dq (parser_expand.c:105)
+==7147==    by 0x10BE42: expandtokens (parser_expand.c:34)
+==7147==    by 0x10BBFE: parsing (parsing.c:17)
+==7147==    by 0x10A431: run (run.c:19)
+==7147==    by 0x109608: main (main.c:34)
+==7147==  Block was alloc'd at
+==7147==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==7147==    by 0x10C917: split_string (utils_expand.c:94)
+==7147==    by 0x10C04C: expand_in_dq (parser_expand.c:86)
+==7147==    by 0x10BE42: expandtokens (parser_expand.c:34)
+==7147==    by 0x10BBFE: parsing (parsing.c:17)
+==7147==    by 0x10A431: run (run.c:19)
+==7147==    by 0x109608: main (main.c:34)
+==7147==
+minishell: echo cmoura-primeira: command not found
+==7153==
+==7153== HEAP SUMMARY:
+==7153==     in use at exit: 232,876 bytes in 235 blocks
+==7153==   total heap usage: 681 allocs, 447 frees, 260,262 bytes allocated
+==7153==
+==7153== LEAK SUMMARY:
+==7153==    definitely lost: 0 bytes in 0 blocks
+==7153==    indirectly lost: 0 bytes in 0 blocks
+==7153==      possibly lost: 0 bytes in 0 blocks
+==7153==    still reachable: 27 bytes in 1 blocks
+==7153==         suppressed: 232,849 bytes in 234 blocks
+==7153== Reachable blocks (those to which a pointer was found) are not shown.
+==7153== To see them, rerun with: --leak-check=full --show-leak-kinds=all
+==7153==
+==7153== ERROR SUMMARY: 18 errors from 4 contexts (suppressed: 0 from 0)
+==7153==
+==7153== 1 errors in context 1 of 4:
+==7153== Invalid free() / delete / delete[] / realloc()
+==7153==    at 0x484988F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==7153==    by 0x10CC06: joinprev (utils_parsing.c:70)
+==7153==    by 0x10BFE8: expand_var (parser_expand.c:74)
+==7153==    by 0x10BE06: expandtokens (parser_expand.c:29)
+==7153==    by 0x10BBFE: parsing (parsing.c:17)
+==7153==    by 0x10A431: run (run.c:19)
+==7153==    by 0x109608: main (main.c:34)
+==7153==  Address 0x4b529b0 is 0 bytes inside a block of size 6 free'd
+==7153==    at 0x484988F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==7153==    by 0x10C171: expand_in_dq (parser_expand.c:105)
+==7153==    by 0x10BE42: expandtokens (parser_expand.c:34)
+==7153==    by 0x10BBFE: parsing (parsing.c:17)
+==7153==    by 0x10A431: run (run.c:19)
+==7153==    by 0x109608: main (main.c:34)
+==7153==  Block was alloc'd at
+==7153==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==7153==    by 0x10C917: split_string (utils_expand.c:94)
+==7153==    by 0x10C04C: expand_in_dq (parser_expand.c:86)
+==7153==    by 0x10BE42: expandtokens (parser_expand.c:34)
+==7153==    by 0x10BBFE: parsing (parsing.c:17)
+==7153==    by 0x10A431: run (run.c:19)
+==7153==    by 0x109608: main (main.c:34)
+==7153==
+==7153==
+==7153== 5 errors in context 2 of 4:
+==7153== Invalid read of size 1
+==7153==    at 0x110F47: ft_strjoin (in /home/cmoura-p/minishell/minishell)
+==7153==    by 0x10BFD1: expand_var (parser_expand.c:73)
+==7153==    by 0x10BE06: expandtokens (parser_expand.c:29)
+==7153==    by 0x10BBFE: parsing (parsing.c:17)
+==7153==    by 0x10A431: run (run.c:19)
+==7153==    by 0x109608: main (main.c:34)
+==7153==  Address 0x4b529b0 is 0 bytes inside a block of size 6 free'd
+==7153==    at 0x484988F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==7153==    by 0x10C171: expand_in_dq (parser_expand.c:105)
+==7153==    by 0x10BE42: expandtokens (parser_expand.c:34)
+==7153==    by 0x10BBFE: parsing (parsing.c:17)
+==7153==    by 0x10A431: run (run.c:19)
+==7153==    by 0x109608: main (main.c:34)
+==7153==  Block was alloc'd at
+==7153==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==7153==    by 0x10C917: split_string (utils_expand.c:94)
+==7153==    by 0x10C04C: expand_in_dq (parser_expand.c:86)
+==7153==    by 0x10BE42: expandtokens (parser_expand.c:34)
+==7153==    by 0x10BBFE: parsing (parsing.c:17)
+==7153==    by 0x10A431: run (run.c:19)
+==7153==    by 0x109608: main (main.c:34)
+==7153==
+==7153==
+==7153== 6 errors in context 3 of 4:
+==7153== Invalid read of size 1
+==7153==    at 0x110F5D: ft_strjoin (in /home/cmoura-p/minishell/minishell)
+==7153==    by 0x10BFD1: expand_var (parser_expand.c:73)
+==7153==    by 0x10BE06: expandtokens (parser_expand.c:29)
+==7153==    by 0x10BBFE: parsing (parsing.c:17)
+==7153==    by 0x10A431: run (run.c:19)
+==7153==    by 0x109608: main (main.c:34)
+==7153==  Address 0x4b529b0 is 0 bytes inside a block of size 6 free'd
+==7153==    at 0x484988F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==7153==    by 0x10C171: expand_in_dq (parser_expand.c:105)
+==7153==    by 0x10BE42: expandtokens (parser_expand.c:34)
+==7153==    by 0x10BBFE: parsing (parsing.c:17)
+==7153==    by 0x10A431: run (run.c:19)
+==7153==    by 0x109608: main (main.c:34)
+==7153==  Block was alloc'd at
+==7153==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==7153==    by 0x10C917: split_string (utils_expand.c:94)
+==7153==    by 0x10C04C: expand_in_dq (parser_expand.c:86)
+==7153==    by 0x10BE42: expandtokens (parser_expand.c:34)
+==7153==    by 0x10BBFE: parsing (parsing.c:17)
+==7153==    by 0x10A431: run (run.c:19)
+==7153==    by 0x109608: main (main.c:34)
+==7153==
+==7153==
+==7153== 6 errors in context 4 of 4:
+==7153== Invalid read of size 1
+==7153==    at 0x111074: ft_strlen (in /home/cmoura-p/minishell/minishell)
+==7153==    by 0x110EE9: ft_strjoin (in /home/cmoura-p/minishell/minishell)
+==7153==    by 0x10BFD1: expand_var (parser_expand.c:73)
+==7153==    by 0x10BE06: expandtokens (parser_expand.c:29)
+==7153==    by 0x10BBFE: parsing (parsing.c:17)
+==7153==    by 0x10A431: run (run.c:19)
+==7153==    by 0x109608: main (main.c:34)
+==7153==  Address 0x4b529b0 is 0 bytes inside a block of size 6 free'd
+==7153==    at 0x484988F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==7153==    by 0x10C171: expand_in_dq (parser_expand.c:105)
+==7153==    by 0x10BE42: expandtokens (parser_expand.c:34)
+==7153==    by 0x10BBFE: parsing (parsing.c:17)
+==7153==    by 0x10A431: run (run.c:19)
+==7153==    by 0x109608: main (main.c:34)
+==7153==  Block was alloc'd at
+==7153==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==7153==    by 0x10C917: split_string (utils_expand.c:94)
+==7153==    by 0x10C04C: expand_in_dq (parser_expand.c:86)
+==7153==    by 0x10BE42: expandtokens (parser_expand.c:34)
+==7153==    by 0x10BBFE: parsing (parsing.c:17)
+==7153==    by 0x10A431: run (run.c:19)
+==7153==    by 0x109608: main (main.c:34)
+==7153==
+--7153--
+--7153-- used_suppression:     73 readline_memory_leak_suppression readline.supp:2 suppressed: 228,833 bytes in 233 blocks
+--7153-- used_suppression:      1 readline_memory_leak_suppression readline.supp:8 suppressed: 4,016 bytes in 1 blocks
+==7153==
+==7153== ERROR SUMMARY: 18 errors from 4 contexts (suppressed: 0 from 0)
+
+
+
+
+
+
+/home/cmoura-p/minishell: echo $USER"rimeira do Brasil"|cat cat
+teste qq
+==7159==
+==7159== HEAP SUMMARY:
+==7159==     in use at exit: 233,359 bytes in 243 blocks
+==7159==   total heap usage: 821 allocs, 580 frees, 263,890 bytes allocated
+==7159==
+==7159== LEAK SUMMARY:
+==7159==    definitely lost: 0 bytes in 0 blocks
+==7159==    indirectly lost: 0 bytes in 0 blocks
+==7159==      possibly lost: 0 bytes in 0 blocks
+==7159==    still reachable: 27 bytes in 1 blocks
+==7159==         suppressed: 233,332 bytes in 242 blocks
+==7159== Reachable blocks (those to which a pointer was found) are not shown.
+==7159== To see them, rerun with: --leak-check=full --show-leak-kinds=all
+==7159==
+==7159== ERROR SUMMARY: 36 errors from 4 contexts (suppressed: 0 from 0)
+==7159==
+==7159== 2 errors in context 1 of 4:
+==7159== Invalid free() / delete / delete[] / realloc()
+==7159==    at 0x484988F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==7159==    by 0x10CC06: joinprev (utils_parsing.c:70)
+==7159==    by 0x10BFE8: expand_var (parser_expand.c:74)
+==7159==    by 0x10BE06: expandtokens (parser_expand.c:29)
+==7159==    by 0x10BBFE: parsing (parsing.c:17)
+==7159==    by 0x10A431: run (run.c:19)
+==7159==    by 0x109608: main (main.c:34)
+==7159==  Address 0x4b529b0 is 0 bytes inside a block of size 6 free'd
+==7159==    at 0x484988F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==7159==    by 0x10C171: expand_in_dq (parser_expand.c:105)
+==7159==    by 0x10BE42: expandtokens (parser_expand.c:34)
+==7159==    by 0x10BBFE: parsing (parsing.c:17)
+==7159==    by 0x10A431: run (run.c:19)
+==7159==    by 0x109608: main (main.c:34)
+==7159==  Block was alloc'd at
+==7159==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==7159==    by 0x10C917: split_string (utils_expand.c:94)
+==7159==    by 0x10C04C: expand_in_dq (parser_expand.c:86)
+==7159==    by 0x10BE42: expandtokens (parser_expand.c:34)
+==7159==    by 0x10BBFE: parsing (parsing.c:17)
+==7159==    by 0x10A431: run (run.c:19)
+==7159==    by 0x109608: main (main.c:34)
+==7159==
+==7159==
+==7159== 10 errors in context 2 of 4:
+==7159== Invalid read of size 1
+==7159==    at 0x110F47: ft_strjoin (in /home/cmoura-p/minishell/minishell)
+==7159==    by 0x10BFD1: expand_var (parser_expand.c:73)
+==7159==    by 0x10BE06: expandtokens (parser_expand.c:29)
+==7159==    by 0x10BBFE: parsing (parsing.c:17)
+==7159==    by 0x10A431: run (run.c:19)
+==7159==    by 0x109608: main (main.c:34)
+==7159==  Address 0x4b529b0 is 0 bytes inside a block of size 6 free'd
+==7159==    at 0x484988F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==7159==    by 0x10C171: expand_in_dq (parser_expand.c:105)
+==7159==    by 0x10BE42: expandtokens (parser_expand.c:34)
+==7159==    by 0x10BBFE: parsing (parsing.c:17)
+==7159==    by 0x10A431: run (run.c:19)
+==7159==    by 0x109608: main (main.c:34)
+==7159==  Block was alloc'd at
+==7159==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==7159==    by 0x10C917: split_string (utils_expand.c:94)
+==7159==    by 0x10C04C: expand_in_dq (parser_expand.c:86)
+==7159==    by 0x10BE42: expandtokens (parser_expand.c:34)
+==7159==    by 0x10BBFE: parsing (parsing.c:17)
+==7159==    by 0x10A431: run (run.c:19)
+==7159==    by 0x109608: main (main.c:34)
+==7159==
+==7159==
+==7159== 12 errors in context 3 of 4:
+==7159== Invalid read of size 1
+==7159==    at 0x110F5D: ft_strjoin (in /home/cmoura-p/minishell/minishell)
+==7159==    by 0x10BFD1: expand_var (parser_expand.c:73)
+==7159==    by 0x10BE06: expandtokens (parser_expand.c:29)
+==7159==    by 0x10BBFE: parsing (parsing.c:17)
+==7159==    by 0x10A431: run (run.c:19)
+==7159==    by 0x109608: main (main.c:34)
+==7159==  Address 0x4b529b0 is 0 bytes inside a block of size 6 free'd
+==7159==    at 0x484988F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==7159==    by 0x10C171: expand_in_dq (parser_expand.c:105)
+==7159==    by 0x10BE42: expandtokens (parser_expand.c:34)
+==7159==    by 0x10BBFE: parsing (parsing.c:17)
+==7159==    by 0x10A431: run (run.c:19)
+==7159==    by 0x109608: main (main.c:34)
+==7159==  Block was alloc'd at
+==7159==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==7159==    by 0x10C917: split_string (utils_expand.c:94)
+==7159==    by 0x10C04C: expand_in_dq (parser_expand.c:86)
+==7159==    by 0x10BE42: expandtokens (parser_expand.c:34)
+==7159==    by 0x10BBFE: parsing (parsing.c:17)
+==7159==    by 0x10A431: run (run.c:19)
+==7159==    by 0x109608: main (main.c:34)
+==7159==
+==7159==
+==7159== 12 errors in context 4 of 4:
+==7159== Invalid read of size 1
+==7159==    at 0x111074: ft_strlen (in /home/cmoura-p/minishell/minishell)
+==7159==    by 0x110EE9: ft_strjoin (in /home/cmoura-p/minishell/minishell)
+==7159==    by 0x10BFD1: expand_var (parser_expand.c:73)
+==7159==    by 0x10BE06: expandtokens (parser_expand.c:29)
+==7159==    by 0x10BBFE: parsing (parsing.c:17)
+==7159==    by 0x10A431: run (run.c:19)
+==7159==    by 0x109608: main (main.c:34)
+==7159==  Address 0x4b529b0 is 0 bytes inside a block of size 6 free'd
+==7159==    at 0x484988F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==7159==    by 0x10C171: expand_in_dq (parser_expand.c:105)
+==7159==    by 0x10BE42: expandtokens (parser_expand.c:34)
+==7159==    by 0x10BBFE: parsing (parsing.c:17)
+==7159==    by 0x10A431: run (run.c:19)
+==7159==    by 0x109608: main (main.c:34)
+==7159==  Block was alloc'd at
+==7159==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==7159==    by 0x10C917: split_string (utils_expand.c:94)
+==7159==    by 0x10C04C: expand_in_dq (parser_expand.c:86)
+==7159==    by 0x10BE42: expandtokens (parser_expand.c:34)
+==7159==    by 0x10BBFE: parsing (parsing.c:17)
+==7159==    by 0x10A431: run (run.c:19)
+==7159==    by 0x109608: main (main.c:34)
+==7159==
+--7159--
+--7159-- used_suppression:     79 readline_memory_leak_suppression readline.supp:2 suppressed: 229,307 bytes in 239 blocks
+--7159-- used_suppression:      1 readline_memory_leak_suppression readline.supp:8 suppressed: 4,016 bytes in 1 blocks
+--7159-- used_suppression:      2 readline_memory_leak_suppression readline.supp:14 suppressed: 9 bytes in 2 blocks
+==7159==
+==7159== ERROR SUMMARY: 36 errors from 4 contexts (suppressed: 0 from 0)
+==7160==
+==7160== HEAP SUMMARY:
+==7160==     in use at exit: 233,359 bytes in 243 blocks
+==7160==   total heap usage: 821 allocs, 580 frees, 263,890 bytes allocated
+==7160==
+==7160== LEAK SUMMARY:
+==7160==    definitely lost: 0 bytes in 0 blocks
+==7160==    indirectly lost: 0 bytes in 0 blocks
+==7160==      possibly lost: 0 bytes in 0 blocks
+==7160==    still reachable: 27 bytes in 1 blocks
+==7160==         suppressed: 233,332 bytes in 242 blocks
+==7160== Reachable blocks (those to which a pointer was found) are not shown.
+==7160== To see them, rerun with: --leak-check=full --show-leak-kinds=all
+==7160==
+==7160== ERROR SUMMARY: 36 errors from 4 contexts (suppressed: 0 from 0)
+==7160==
+==7160== 2 errors in context 1 of 4:
+==7160== Invalid free() / delete / delete[] / realloc()
+==7160==    at 0x484988F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==7160==    by 0x10CC06: joinprev (utils_parsing.c:70)
+==7160==    by 0x10BFE8: expand_var (parser_expand.c:74)
+==7160==    by 0x10BE06: expandtokens (parser_expand.c:29)
+==7160==    by 0x10BBFE: parsing (parsing.c:17)
+==7160==    by 0x10A431: run (run.c:19)
+==7160==    by 0x109608: main (main.c:34)
+==7160==  Address 0x4b529b0 is 0 bytes inside a block of size 6 free'd
+==7160==    at 0x484988F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==7160==    by 0x10C171: expand_in_dq (parser_expand.c:105)
+==7160==    by 0x10BE42: expandtokens (parser_expand.c:34)
+==7160==    by 0x10BBFE: parsing (parsing.c:17)
+==7160==    by 0x10A431: run (run.c:19)
+==7160==    by 0x109608: main (main.c:34)
+==7160==  Block was alloc'd at
+==7160==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==7160==    by 0x10C917: split_string (utils_expand.c:94)
+==7160==    by 0x10C04C: expand_in_dq (parser_expand.c:86)
+==7160==    by 0x10BE42: expandtokens (parser_expand.c:34)
+==7160==    by 0x10BBFE: parsing (parsing.c:17)
+==7160==    by 0x10A431: run (run.c:19)
+==7160==    by 0x109608: main (main.c:34)
+==7160==
+==7160==
+==7160== 10 errors in context 2 of 4:
+==7160== Invalid read of size 1
+==7160==    at 0x110F47: ft_strjoin (in /home/cmoura-p/minishell/minishell)
+==7160==    by 0x10BFD1: expand_var (parser_expand.c:73)
+==7160==    by 0x10BE06: expandtokens (parser_expand.c:29)
+==7160==    by 0x10BBFE: parsing (parsing.c:17)
+==7160==    by 0x10A431: run (run.c:19)
+==7160==    by 0x109608: main (main.c:34)
+==7160==  Address 0x4b529b0 is 0 bytes inside a block of size 6 free'd
+==7160==    at 0x484988F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==7160==    by 0x10C171: expand_in_dq (parser_expand.c:105)
+==7160==    by 0x10BE42: expandtokens (parser_expand.c:34)
+==7160==    by 0x10BBFE: parsing (parsing.c:17)
+==7160==    by 0x10A431: run (run.c:19)
+==7160==    by 0x109608: main (main.c:34)
+==7160==  Block was alloc'd at
+==7160==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==7160==    by 0x10C917: split_string (utils_expand.c:94)
+==7160==    by 0x10C04C: expand_in_dq (parser_expand.c:86)
+==7160==    by 0x10BE42: expandtokens (parser_expand.c:34)
+==7160==    by 0x10BBFE: parsing (parsing.c:17)
+==7160==    by 0x10A431: run (run.c:19)
+==7160==    by 0x109608: main (main.c:34)
+==7160==
+==7160==
+==7160== 12 errors in context 3 of 4:
+==7160== Invalid read of size 1
+==7160==    at 0x110F5D: ft_strjoin (in /home/cmoura-p/minishell/minishell)
+==7160==    by 0x10BFD1: expand_var (parser_expand.c:73)
+==7160==    by 0x10BE06: expandtokens (parser_expand.c:29)
+==7160==    by 0x10BBFE: parsing (parsing.c:17)
+==7160==    by 0x10A431: run (run.c:19)
+==7160==    by 0x109608: main (main.c:34)
+==7160==  Address 0x4b529b0 is 0 bytes inside a block of size 6 free'd
+==7160==    at 0x484988F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==7160==    by 0x10C171: expand_in_dq (parser_expand.c:105)
+==7160==    by 0x10BE42: expandtokens (parser_expand.c:34)
+==7160==    by 0x10BBFE: parsing (parsing.c:17)
+==7160==    by 0x10A431: run (run.c:19)
+==7160==    by 0x109608: main (main.c:34)
+==7160==  Block was alloc'd at
+==7160==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==7160==    by 0x10C917: split_string (utils_expand.c:94)
+==7160==    by 0x10C04C: expand_in_dq (parser_expand.c:86)
+==7160==    by 0x10BE42: expandtokens (parser_expand.c:34)
+==7160==    by 0x10BBFE: parsing (parsing.c:17)
+==7160==    by 0x10A431: run (run.c:19)
+==7160==    by 0x109608: main (main.c:34)
+==7160==
+==7160==
+==7160== 12 errors in context 4 of 4:
+==7160== Invalid read of size 1
+==7160==    at 0x111074: ft_strlen (in /home/cmoura-p/minishell/minishell)
+==7160==    by 0x110EE9: ft_strjoin (in /home/cmoura-p/minishell/minishell)
+==7160==    by 0x10BFD1: expand_var (parser_expand.c:73)
+==7160==    by 0x10BE06: expandtokens (parser_expand.c:29)
+==7160==    by 0x10BBFE: parsing (parsing.c:17)
+==7160==    by 0x10A431: run (run.c:19)
+==7160==    by 0x109608: main (main.c:34)
+==7160==  Address 0x4b529b0 is 0 bytes inside a block of size 6 free'd
+==7160==    at 0x484988F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==7160==    by 0x10C171: expand_in_dq (parser_expand.c:105)
+==7160==    by 0x10BE42: expandtokens (parser_expand.c:34)
+==7160==    by 0x10BBFE: parsing (parsing.c:17)
+==7160==    by 0x10A431: run (run.c:19)
+==7160==    by 0x109608: main (main.c:34)
+==7160==  Block was alloc'd at
+==7160==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==7160==    by 0x10C917: split_string (utils_expand.c:94)
+==7160==    by 0x10C04C: expand_in_dq (parser_expand.c:86)
+==7160==    by 0x10BE42: expandtokens (parser_expand.c:34)
+==7160==    by 0x10BBFE: parsing (parsing.c:17)
+==7160==    by 0x10A431: run (run.c:19)
+==7160==    by 0x109608: main (main.c:34)
+==7160==
+--7160--
+--7160-- used_suppression:     79 readline_memory_leak_suppression readline.supp:2 suppressed: 229,307 bytes in 239 blocks
+--7160-- used_suppression:      1 readline_memory_leak_suppression readline.supp:8 suppressed: 4,016 bytes in 1 blocks
+--7160-- used_suppression:      2 readline_memory_leak_suppression readline.supp:14 suppressed: 9 bytes in 2 blocks
+==7160==
+==7160== ERROR SUMMARY: 36 errors from 4 contexts (suppressed: 0 from 0)
+/home/cmoura-p/minishell:
+exit
+==7147==
+==7147== HEAP SUMMARY:
+==7147==     in use at exit: 233,307 bytes in 240 blocks
+==7147==   total heap usage: 825 allocs, 587 frees, 263,964 bytes allocated
+==7147==
+==7147== LEAK SUMMARY:
+==7147==    definitely lost: 0 bytes in 0 blocks
+==7147==    indirectly lost: 0 bytes in 0 blocks
+==7147==      possibly lost: 0 bytes in 0 blocks
+==7147==    still reachable: 0 bytes in 0 blocks
+==7147==         suppressed: 233,307 bytes in 240 blocks
+==7147==
+==7147== ERROR SUMMARY: 36 errors from 4 contexts (suppressed: 0 from 0)
+==7147==
+==7147== 2 errors in context 1 of 4:
+==7147== Invalid free() / delete / delete[] / realloc()
+==7147==    at 0x484988F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==7147==    by 0x10CC06: joinprev (utils_parsing.c:70)
+==7147==    by 0x10BFE8: expand_var (parser_expand.c:74)
+==7147==    by 0x10BE06: expandtokens (parser_expand.c:29)
+==7147==    by 0x10BBFE: parsing (parsing.c:17)
+==7147==    by 0x10A431: run (run.c:19)
+==7147==    by 0x109608: main (main.c:34)
+==7147==  Address 0x4b529b0 is 0 bytes inside a block of size 6 free'd
+==7147==    at 0x484988F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==7147==    by 0x10C171: expand_in_dq (parser_expand.c:105)
+==7147==    by 0x10BE42: expandtokens (parser_expand.c:34)
+==7147==    by 0x10BBFE: parsing (parsing.c:17)
+==7147==    by 0x10A431: run (run.c:19)
+==7147==    by 0x109608: main (main.c:34)
+==7147==  Block was alloc'd at
+==7147==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==7147==    by 0x10C917: split_string (utils_expand.c:94)
+==7147==    by 0x10C04C: expand_in_dq (parser_expand.c:86)
+==7147==    by 0x10BE42: expandtokens (parser_expand.c:34)
+==7147==    by 0x10BBFE: parsing (parsing.c:17)
+==7147==    by 0x10A431: run (run.c:19)
+==7147==    by 0x109608: main (main.c:34)
+==7147==
+==7147==
+==7147== 10 errors in context 2 of 4:
+==7147== Invalid read of size 1
+==7147==    at 0x110F47: ft_strjoin (in /home/cmoura-p/minishell/minishell)
+==7147==    by 0x10BFD1: expand_var (parser_expand.c:73)
+==7147==    by 0x10BE06: expandtokens (parser_expand.c:29)
+==7147==    by 0x10BBFE: parsing (parsing.c:17)
+==7147==    by 0x10A431: run (run.c:19)
+==7147==    by 0x109608: main (main.c:34)
+==7147==  Address 0x4b529b0 is 0 bytes inside a block of size 6 free'd
+==7147==    at 0x484988F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==7147==    by 0x10C171: expand_in_dq (parser_expand.c:105)
+==7147==    by 0x10BE42: expandtokens (parser_expand.c:34)
+==7147==    by 0x10BBFE: parsing (parsing.c:17)
+==7147==    by 0x10A431: run (run.c:19)
+==7147==    by 0x109608: main (main.c:34)
+==7147==  Block was alloc'd at
+==7147==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==7147==    by 0x10C917: split_string (utils_expand.c:94)
+==7147==    by 0x10C04C: expand_in_dq (parser_expand.c:86)
+==7147==    by 0x10BE42: expandtokens (parser_expand.c:34)
+==7147==    by 0x10BBFE: parsing (parsing.c:17)
+==7147==    by 0x10A431: run (run.c:19)
+==7147==    by 0x109608: main (main.c:34)
+==7147==
+==7147==
+==7147== 12 errors in context 3 of 4:
+==7147== Invalid read of size 1
+==7147==    at 0x110F5D: ft_strjoin (in /home/cmoura-p/minishell/minishell)
+==7147==    by 0x10BFD1: expand_var (parser_expand.c:73)
+==7147==    by 0x10BE06: expandtokens (parser_expand.c:29)
+==7147==    by 0x10BBFE: parsing (parsing.c:17)
+==7147==    by 0x10A431: run (run.c:19)
+==7147==    by 0x109608: main (main.c:34)
+==7147==  Address 0x4b529b0 is 0 bytes inside a block of size 6 free'd
+==7147==    at 0x484988F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==7147==    by 0x10C171: expand_in_dq (parser_expand.c:105)
+==7147==    by 0x10BE42: expandtokens (parser_expand.c:34)
+==7147==    by 0x10BBFE: parsing (parsing.c:17)
+==7147==    by 0x10A431: run (run.c:19)
+==7147==    by 0x109608: main (main.c:34)
+==7147==  Block was alloc'd at
+==7147==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==7147==    by 0x10C917: split_string (utils_expand.c:94)
+==7147==    by 0x10C04C: expand_in_dq (parser_expand.c:86)
+==7147==    by 0x10BE42: expandtokens (parser_expand.c:34)
+==7147==    by 0x10BBFE: parsing (parsing.c:17)
+==7147==    by 0x10A431: run (run.c:19)
+==7147==    by 0x109608: main (main.c:34)
+==7147==
+==7147==
+==7147== 12 errors in context 4 of 4:
+==7147== Invalid read of size 1
+==7147==    at 0x111074: ft_strlen (in /home/cmoura-p/minishell/minishell)
+==7147==    by 0x110EE9: ft_strjoin (in /home/cmoura-p/minishell/minishell)
+==7147==    by 0x10BFD1: expand_var (parser_expand.c:73)
+==7147==    by 0x10BE06: expandtokens (parser_expand.c:29)
+==7147==    by 0x10BBFE: parsing (parsing.c:17)
+==7147==    by 0x10A431: run (run.c:19)
+==7147==    by 0x109608: main (main.c:34)
+==7147==  Address 0x4b529b0 is 0 bytes inside a block of size 6 free'd
+==7147==    at 0x484988F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==7147==    by 0x10C171: expand_in_dq (parser_expand.c:105)
+==7147==    by 0x10BE42: expandtokens (parser_expand.c:34)
+==7147==    by 0x10BBFE: parsing (parsing.c:17)
+==7147==    by 0x10A431: run (run.c:19)
+==7147==    by 0x109608: main (main.c:34)
+==7147==  Block was alloc'd at
+==7147==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==7147==    by 0x10C917: split_string (utils_expand.c:94)
+==7147==    by 0x10C04C: expand_in_dq (parser_expand.c:86)
+==7147==    by 0x10BE42: expandtokens (parser_expand.c:34)
+==7147==    by 0x10BBFE: parsing (parsing.c:17)
+==7147==    by 0x10A431: run (run.c:19)
+==7147==    by 0x109608: main (main.c:34)
+==7147==
+--7147--
+--7147-- used_suppression:     78 readline_memory_leak_suppression readline.supp:2 suppressed: 229,283 bytes in 238 blocks
+--7147-- used_suppression:      1 readline_memory_leak_suppression readline.supp:8 suppressed: 4,016 bytes in 1 blocks
+--7147-- used_suppression:      1 readline_memory_leak_suppression readline.supp:14 suppressed: 8 bytes in 1 blocks
+==7147==
+==7147== ERROR SUMMARY: 36 errors from 4 contexts (suppressed: 0 from 0)
+
+
+
+
+/home/cmoura-p/minishell: echo $USER+este do Brasil<cat cat
+minishell: cat: No such file or directory
+/home/cmoura-p/minishell:
+exit
+==9890==
+==9890== HEAP SUMMARY:
+==9890==     in use at exit: 233,224 bytes in 248 blocks
+==9890==   total heap usage: 656 allocs, 408 frees, 259,788 bytes allocated
+==9890==
+==9890== 375 (48 direct, 327 indirect) bytes in 1 blocks are definitely lost in loss record 28 of 77
+==9890==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==9890==    by 0x10F485: duplicate_token (duplicate_token_list.c:9)
+==9890==    by 0x10F541: duplicate_token_list (duplicate_token_list.c:35)
+==9890==    by 0x10A45C: run (run.c:24)
+==9890==    by 0x109608: main (main.c:34)
+==9890==
+==9890== LEAK SUMMARY:
+==9890==    definitely lost: 48 bytes in 1 blocks
+==9890==    indirectly lost: 327 bytes in 13 blocks
+==9890==      possibly lost: 0 bytes in 0 blocks
+==9890==    still reachable: 0 bytes in 0 blocks
+==9890==         suppressed: 232,849 bytes in 234 blocks
+==9890==
+==9890== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 0 from 0)
+--9890--
+--9890-- used_suppression:     72 readline_memory_leak_suppression readline.supp:2 suppressed: 228,825 bytes in 232 blocks
+--9890-- used_suppression:      1 readline_memory_leak_suppression readline.supp:8 suppressed: 4,016 bytes in 1 blocks
+--9890-- used_suppression:      1 readline_memory_leak_suppression readline.supp:14 suppressed: 8 bytes in 1 blocks
+==9890==
+==9890== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 0 from 0)
