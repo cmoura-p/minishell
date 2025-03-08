@@ -28,7 +28,7 @@ int	ft_flagverify(char *str)
 	return (0);
 }
 
-void	ft_echo(char **args)
+void	ft_echo(t_minishell *minishell, char **args)
 {
 	int	i;
 	int	trigger;
@@ -52,4 +52,5 @@ void	ft_echo(char **args)
 	}
 	if (!trigger)
 		ft_printf("\n");
+	minishell->exit_status = 0;
 }

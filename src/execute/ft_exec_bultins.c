@@ -40,7 +40,7 @@ void	ft_exec_builtin(t_minishell *minishell, char **args)
 	if (strcmp(args[0], "cd") == 0)
 		ft_cd(minishell, &args[1]);
 	else if (strcmp(args[0], "echo") == 0)
-		ft_echo(&args[1]);
+		ft_echo(minishell, &args[1]);
 	else if (strcmp(args[0], "env") == 0)
 		ft_env(minishell, &args[1]);
 	else if (strcmp(args[0], "exit") == 0)

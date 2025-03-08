@@ -28,6 +28,7 @@ t_minishell	*init_data(char **envp, char **prompt)
 	bash->heredoc = NULL;
 	bash->prompt = (*prompt);
 	load_envp(bash, envp);
+	load_expo(bash, ft_arraydup(envp));
 	return (bash);
 }
 

@@ -25,6 +25,7 @@ SRC =		main.c \
 			src/init/check_syntax.c \
 			src/init/utils_init.c \
 			src/init/utils_envp.c \
+			src/init/load_export.c \
 			src/run.c \
 			src/clear/free_funcs.c \
 			src/tokenizer/tokenizer.c \
@@ -52,6 +53,7 @@ SRC =		main.c \
 			src/builtins/export/insert_expo.c \
 			src/builtins/pwd/pwd.c \
 			src/builtins/unset/unset.c \
+			src/builtins/ft_fprintf.c \
 			src/tree/ft_tree.c \
 			src/tree/ft_pipe.c \
 			src/tree/ft_redir_in.c \

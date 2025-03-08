@@ -21,16 +21,19 @@ int	ft_check_args(t_minishell *bash, char **args)
 		i++;
 	if (i == 0)
 	{
+		bash->exit_status = 0;
 		chdir(ft_getenv(bash->envp, "HOME"));
 		return (0);
 	}
 	if (i > 1)
 	{
+		bash->exit_status = 1;
 		printf("minishell: cd: too many arguments\n");
 		return (1);
 	}
 	if (args[0][0] == '-' && args[0][1] != '\0')
 	{
+		bash->exit_status = 1;
 		printf("minishell: cd: %s: invalid option\n", args[0]);
 		return (1);
 	}
@@ -43,6 +46,17 @@ void	att_pwdold(t_minishell *minishell, char *oldpwd)
 	ft_envadd(&minishell->envp, ft_exponew("PWD", getcwd(NULL, 0)));
 	ft_expoinsert(&minishell->export, ft_exponew("OLDPWD", oldpwd));
 	ft_envadd(&minishell->envp, ft_exponew("OLDPWD", oldpwd));
+}
+
+void	handle_cd_error(t_minishell *minishell, char **args, char *oldpwd)
+{
+	if (!args || !args[0])
+		ft_printf("minishell: cd: HOME not set\n");
+	else
+		ft_printf("minishell: cd: %s: No such file or directory\n",
+			args[0]);
+	minishell->exit_status = 1;
+	free(oldpwd);
 }
 
 void	ft_cd(t_minishell *minishell, char **args)
@@ -61,13 +75,8 @@ void	ft_cd(t_minishell *minishell, char **args)
 	else if (ft_check_args(minishell, args))
 		return (free(oldpwd));
 	if (!path || chdir(path) == -1)
-	{
-		if (!args || !args[0])
-			printf("minishell: cd: HOME not set\n");
-		else
-			printf("minishell: cd: %s: No such file or directory\n", args[0]);
-		return (free(oldpwd));
-	}
+		return (handle_cd_error(minishell, args, oldpwd));
+	minishell->exit_status = 0;
 	att_pwdold(minishell, oldpwd);
 	free(oldpwd);
 }

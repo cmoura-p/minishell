@@ -55,23 +55,38 @@ void	ft_envadd(t_envp **env, t_envp *new)
 	}
 }
 
+void	env_error(t_minishell *minishell, char **args)
+{
+	int	i;
+
+	i = 0;
+	while (args[0][i] == '-')
+		i++;
+	if (i == 2 && !args[0][i])
+		return (ft_env(minishell, NULL));
+	if (args[0][0] == '-' && args[0][1])
+		ft_fprintf(STDERR_FILENO, "env: invalid option -- '%s'\n", &args[0][1]);
+	else if (args[0][0] != '-')
+		ft_fprintf(STDERR_FILENO, "env: ‘%s’: \
+		 No such file or directory\n", args[0]);
+	else if (args[0][0] == '-' && args[1])
+		ft_fprintf(STDERR_FILENO, "env: ‘%s’: \
+			 No such file or directory\n", args[1]);
+	minishell->exit_status = 1;
+}
+
 void	ft_env(t_minishell *minishell, char **args)
 {
 	t_envp	*tmp;
 
 	if (args && args[0] && args[0][0])
 	{
-		if (args[0][0] == '-' && args[0][1])
-			ft_printf("env: invalid option -- '%s'\n", &args[0][1]);
-		else if (args[0][0] != '-')
-			ft_printf("env: ‘%s’: No such file or directory\n", args[0]);
-		else if (args[0][0] == '-' && args[1])
-			ft_printf("env: ‘%s’: No such file or directory\n", args[1]);
+		env_error(minishell, args);
 		return ;
 	}
 	tmp = minishell->envp;
 	if (!tmp)
-		ft_printf("bash: env: No such file or directory\n");
+		write(STDERR_FILENO, "bash: env: No such file or directory\n", 37);
 	else
 	{
 		while (tmp)

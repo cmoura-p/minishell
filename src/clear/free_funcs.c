@@ -129,15 +129,17 @@ void	free_to_quit(t_minishell *bash)
 
 void	free_bash(t_minishell *bash)
 {
-	if(bash->cmd_line)
+	if (bash->cmd_line)
 		free(bash->cmd_line);//verificar se esta correto *brendon
 	if (bash->envp)
 		free_envp(bash);
+	if (bash->export)
+		free_expo(bash);
 	if (bash->token)
 		clean_tokens(bash);
 	if (bash->heredoc)
 		clean_heredoc(bash);
-	if(bash->prompt)
+	if (bash->prompt)
 		free(bash->prompt);
 	free(bash);
 }

@@ -178,6 +178,8 @@ int			skip_blank(char *line, int i);
 char		*ft_minitrim(char *line);
 void		get_prompt(char **prompt);
 int 		split_string(char *line, char **before, char **after, char c);
+void		load_expo(t_minishell *minishell, char **args);
+char		**ft_arraydup(char **array);
 
 //signals
 void		signal_handler(int signum);
@@ -259,7 +261,7 @@ void		ft_cd(t_minishell *minishell, char **args);
 int			ft_check_args(t_minishell *bash, char **args);
 
 //echo
-void		ft_echo(char **args);
+void		ft_echo(t_minishell *minishell, char **args);
 
 //env
 void		ft_env(t_minishell *minishell, char **args);
@@ -273,9 +275,13 @@ void		ft_export(t_minishell *minishell, char **args);
 void		ft_expoinsert(t_envp **export, t_envp *new);
 t_envp		*ft_exponew(char *name, char *content);
 void		ft_freeexponode(t_envp *node);
+int			ft_validarg(char *arg);
 
 //pwd
 void		ft_pwd(t_minishell *minishell, char **args);
+
+//ft_ftprintf
+void		ft_fprintf(int fd, const char *format, ...);
 
 //unset
 void		ft_unset(t_minishell *minishell, char **args);
@@ -292,6 +298,7 @@ void		ft_free_tree(void *root);
 void		free_token(t_token *token);
 void		ft_free_split(char **args);
 void		*free_null_redir(t_token *aux);
+void		free_expo(t_minishell *bash);
 
 //tree
 
