@@ -6,7 +6,7 @@
 #    By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/16 21:43:02 by cmoura-p          #+#    #+#              #
-#    Updated: 2025/03/01 21:26:53 by cmoura-p         ###   ########.fr        #
+#    Updated: 2025/03/08 19:25:36 by cmoura-p         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,9 @@ SRC =		main.c \
 			src/init/utils_envp.c \
 			src/init/load_export.c \
 			src/run.c \
-			src/clear/free_funcs.c \
+			src/clear/free_funcs_b.c \
+			src/clear/free_funcs_c.c \
+			src/clear/free_funcs_o.c \
 			src/tokenizer/tokenizer.c \
 			src/tokenizer/tokenizer_quotes.c \
 			src/tokenizer/tokenizer_metachar.c \
@@ -35,7 +37,6 @@ SRC =		main.c \
 			src/tokenizer/tokenizer_redir.c \
 			src/tokenizer/tokenizer_word.c \
 			src/tokenizer/utils_tokenizer.c \
-			src/tokenizer/token_prints.c \
 			src/parser/parsing.c \
 			src/parser/parser_expand.c \
 			src/parser/parser_redir.c \

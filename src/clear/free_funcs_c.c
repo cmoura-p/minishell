@@ -1,77 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_funcs.c                                       :+:      :+:    :+:   */
+/*   free_funcs_c.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 19:44:40 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/03/05 19:34:28 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/03/08 19:22:43 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-
-void	free_args(char **args)
-{
-	int	i;
-
-	if (!args)
-		return ;
-	i = 0;
-	while (args[i])
-		free(args[i++]);
-	free(args);
-}
-
-void	ft_free_exec(t_exec *cmd)
-{
-	int	i;
-
-	if (!cmd)
-		return ;
-	i = 0;
-	while (cmd->args && cmd->args[i])
-		free(cmd->args[i++]);
-	free(cmd->args);
-	free(cmd);
-}
-
-void	ft_free_redir(t_redir *redir)
-{
-	if (!redir)
-		return ;
-	if (redir->file_name)
-		free(redir->file_name);
-	if (redir->next)
-		ft_free_tree(redir->next);
-	free(redir);
-}
-
-void	ft_free_pipe(t_pipe *pipe)
-{
-	if (!pipe)
-		return ;
-	if (pipe->left)
-		ft_free_tree(pipe->left);
-	if (pipe->right)
-		ft_free_tree(pipe->right);
-	free(pipe);
-}
-
-void	ft_free_tree(void *root)
-{
-	if (!root)
-		return ;
-	if (((t_pipe *)root)->type == PIPE)
-		return (ft_free_pipe((t_pipe *)root));
-	else if (((t_redir *)root)->type == REDIR_IN
-		|| ((t_redir *)root)->type == REDIR_OUT
-		|| ((t_redir *)root)->type == REDIR_APP)
-		return (ft_free_redir((t_redir *)root));
-	else if (((t_exec *)root)->type == COMMAND)
-		return (ft_free_exec((t_exec *)root));
-}
 
 void	free_to_restart(t_minishell *bash)
 {
@@ -130,7 +69,7 @@ void	free_to_quit(t_minishell *bash)
 void	free_bash(t_minishell *bash)
 {
 	if (bash->cmd_line)
-		free(bash->cmd_line);//verificar se esta correto *brendon
+		free(bash->cmd_line);
 	if (bash->envp)
 		free_envp(bash);
 	if (bash->export)
@@ -142,39 +81,4 @@ void	free_bash(t_minishell *bash)
 	if (bash->prompt)
 		free(bash->prompt);
 	free(bash);
-}
-
-void	free_token(t_token *token)
-{
-	if (!token)
-		return ;
-	if (token->name)
-		free(token->name);
-	free(token);
-	token = NULL;
-}
-
-void	ft_free_split(char **args)
-{
-	int	i;
-
-	if (!args)
-		return ;
-	i = 0;
-	while (args[i])
-	{
-		free(args[i]);
-		args[i] = NULL;
-		i++;
-	}
-	free(args);
-}
-
-void	*free_null_redir(t_token *aux)
-{
-	if (aux->next)
-		free_token(aux->next);
-	if (aux)
-		free_token(aux);
-	return (NULL);
 }

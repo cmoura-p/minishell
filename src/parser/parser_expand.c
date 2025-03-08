@@ -41,13 +41,13 @@ void	expandtokens(t_minishell *bash)
 
 void	expand_exit(t_minishell *bash, t_token **token)
 {
-    char    *exit_code;
+	char	*exit_code;
 
-    exit_code = ft_itoa(bash->exit_status);
-    free((*token)->name);
-    (*token)->name = exit_code;
-    (*token) = (*token)->next;
-    return ;
+	exit_code = ft_itoa(bash->exit_status);
+	free((*token)->name);
+	(*token)->name = exit_code;
+	(*token) = (*token)->next;
+	return ;
 }
 
 void	expand_var(t_token **aux, t_envp *aux_envp)
@@ -124,4 +124,3 @@ void	newtoken_after_parsing(t_token **aux, char *a_var)
 	free(env_var);
 	(*aux) = (*aux)->prev;
 }
-

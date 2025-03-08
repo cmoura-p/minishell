@@ -70,7 +70,7 @@ echo "Testes mais bizarros"
 ./minishell <<< "echo $USER[rimeira|do Brasiloioicat cat"
 ./minishell <<< "echo $USER[rimeira do Brasiloioicat cat"
 ./minishell <<< "echo teste qq>cat"
-./minishell <<< "echo $USER'rimeira do Brasil'|cat cat"		// problema com valgrind
+./minishell <<< "echo $USER'rimeira do Brasil'|cat cat"
 ./minishell <<< "echo $USERoioioi"
 ./minishell <<< "echo $USER[oioioi"
 ./minishell <<< "echo esse eh barril >ls"

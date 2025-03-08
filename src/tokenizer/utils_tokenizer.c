@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 09:26:41 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/03/06 16:23:13 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/03/08 19:00:15 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,4 +112,3 @@ void	fix_a_var(char **a_var)
 	free(*a_var);
 	(*a_var) = temp;
 }
-
