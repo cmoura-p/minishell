@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 21:17:10 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/03/08 18:26:56 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/03/09 01:56:01 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,8 @@ char	*ft_getenv(t_envp *aux, char *var)
 	return ("");
 }
 
-int	blank_in_expand(t_token *token, char *exp_var)
+int	blank_in_expand(t_token *token, char *exp_var, char	*before, char *after)
 {
-	char	*before;
-	char	*after;
 	t_token	*newtoken;
 
 	before = NULL;

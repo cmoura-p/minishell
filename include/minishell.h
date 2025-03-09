@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 10:51:43 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/03/06 20:19:15 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/03/09 14:43:52 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ extern int	g_signal;
 # define EXIT_PERMISSION_DENIED 126
 # define EXIT_CMD_NOT_FOUND 127
 
-
 enum e_type
 {
 	BLANK,				// blank space
@@ -40,7 +39,7 @@ enum e_type
 	FILE_IN,
 	REDIR_OUT,			// >
 	FILE_OUT,
-	REDIR_APP,	 		// >>
+	REDIR_APP,			// >>
 	FILE_APP,
 	HEREDOC,			// <<
 	S_QUOTE,			// '
@@ -66,7 +65,7 @@ enum	e_exit_code
 	MALLOC_ERROR,
 	SYNTAX_ERROR,
 	SIGNAL_ERROR,
-    CMD_NOT_FOUND,
+	CMD_NOT_FOUND,
 	EXIT_SIGINT = 130,
 	EXIT_SIGQUIT = 131,
 	WHATEVER,
@@ -87,9 +86,11 @@ typedef struct s_help_recursion
 {
 	char			*after;
 	char			*before;
+	int				flag_expand;
 	char			*sobra;
 	char			*env_var;
 	char			*new_line;
+	char			*temp_after;
 }					t_help_recursion;
 
 typedef struct s_token
@@ -150,7 +151,7 @@ typedef struct s_pipe
 typedef struct s_redir
 {
 	enum e_type		type;
-	char 			*file_name;
+	char			*file_name;
 	int				fd;
 	int				id;
 	void			*next;
@@ -166,7 +167,7 @@ typedef struct s_exec
 
 //init
 t_minishell	*init_data(char **envp, char **prompt);
-void		init_signals();
+void		init_signals(void);
 int			init_bash(t_minishell *minishell, char *prompt);
 void		load_envp(t_minishell *bash, char **envp);
 int			split_envp(const char *envp_line, char **before, char **after);
@@ -177,7 +178,7 @@ int			btw_quotes(char *line, int i);
 int			skip_blank(char *line, int i);
 char		*ft_minitrim(char *line);
 void		get_prompt(char **prompt);
-int 		split_string(char *line, char **before, char **after, char c);
+int			split_string(char *line, char **before, char **after, char c);
 void		load_expo(t_minishell *minishell, char **args);
 char		**ft_arraydup(char **array);
 
@@ -207,8 +208,9 @@ int			redir_out(char *line, int i, t_minishell *bash);
 int			redir_app(char *line, int i, t_minishell *bash);
 int			handle_blank(char *line, int i, t_minishell *bash);
 void		add_tokenlst(t_minishell **bash, char *name, \
-						enum e_type type, enum e_status status_q);
-void		add_tokenlst_dq(t_minishell *bash, t_token **aux, char *name, enum e_type type);
+				enum e_type type, enum e_status status_q);
+void		add_tokenlst_dq(t_minishell *bash, t_token **aux, \
+				char *name, enum e_type type);
 void		add_tokenlst_back(t_token **newtoken, t_token *lst);
 void		del_tokenlst(t_minishell *bash, t_token **token);
 int			ft_isword(char s);
@@ -223,8 +225,9 @@ void		joinprev(t_token **token, char *name);
 void		expandtokens(t_minishell *bash);
 void		joinexpand(t_token **token, char *name, char *name_exp);
 void		expand_var(t_token **aux, t_envp *aux_envp);
-void	    expand_exit(t_minishell *bash, t_token **token);
-void		expand_in_dq(t_minishell *bash, t_token **aux);
+void		expand_exit(t_minishell *bash, t_token **token);
+void		expand_in_dq(t_minishell *bash, t_token **aux, \
+				char *b_var, char *a_var);
 int			valid_envp_char(char s, int i);
 char		*envp_name(char *name);
 char		*ft_getenv(t_envp *aux, char *name);
@@ -235,8 +238,9 @@ t_token		*set_redir_file(t_token *token, enum e_type type);
 void		remove_blank(t_minishell *bash);
 void		remove_exp_null(t_minishell *bash);
 void		find_a_pipe(t_token **aux);
-int			blank_in_expand(t_token *token, char *exp_var);
-void        get_sobra(t_token **aux, char *a_var, char *env_var);
+int			blank_in_expand(t_token *token, char *exp_var, \
+				char *before, char *after);
+void		get_sobra(t_token **aux, char *a_var, char *env_var);
 int			not_redirection(t_token *token);
 void		newtoken_after_parsing(t_token **aux, char *a_var);
 
@@ -246,14 +250,16 @@ int			set_heredoc(t_heredoc *hd, t_minishell *bash);
 void		init_heredoc(t_minishell *bash);
 void		create_hd_list(t_minishell *bash);
 void		change_hd_tokens(t_minishell *bash);
-void	    go_write(int fd_hd, char *line);
+void		go_write(int fd_hd, char *line);
 int			read_hd_line(t_heredoc *hd, t_minishell *bash);
-void		add_heredoclst(t_heredoc **hd,char *name, enum e_status status_q);
+void		add_heredoclst(t_heredoc **hd, char *name, enum e_status status_q);
 int			child_status(int hd_exit_status);
 int			checked_for_hd(t_token *token);
-void        check_exp_in_hd(char **line, t_minishell *bash);
-void	    join_sobra_out(t_help_recursion *aux_hr, char **temp);
-void	    join_sobra_in(t_help_recursion *aux_hr, char *expand, char **temp);
+void		check_exp_in_hd(char **line, t_minishell *bash);
+void		join_sobra_out(t_help_recursion *aux_hr, char **temp);
+void		join_sobra_in(t_help_recursion *aux_hr, char *expand, char **temp);
+void		ft_nao_expande(t_help_recursion *aux_hr);
+void		ft_expande(t_help_recursion *aux_hr, t_envp *aux_exp);
 
 //builtins
 //cd
@@ -316,7 +322,8 @@ void		ft_remove_tokens(t_token *aux);
 char		**tokken_to_args(t_token *start);
 void		free_token_list(t_token *head);
 void		*free_args_on_error(char **args, int i);
-void		*handle_redir_error(t_redir *redir, t_minishell *bash, t_token *aux);
+void		*handle_redir_error(t_redir *redir, \
+				t_minishell *bash, t_token *aux);
 
 //duplicate_token_list
 t_token		*duplicate_token_list(t_token *head);

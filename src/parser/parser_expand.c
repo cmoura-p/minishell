@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 18:46:17 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/03/06 17:02:30 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/03/09 02:02:28 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	expandtokens(t_minishell *bash)
 			{
 				if ((aux->type == WORD && aux->status == DOUBLE_Q)
 					&& (checked_for_hd(aux) == 0))
-					expand_in_dq(bash, &aux);
+					expand_in_dq(bash, &aux, "", "");
 				else
 					aux = aux->next;
 			}
@@ -66,7 +66,7 @@ void	expand_var(t_token **aux, t_envp *aux_envp)
 		return ;
 	}
 	exp_var = ft_getenv(aux_envp, env_var);
-	if (!blank_in_expand((*aux), exp_var))
+	if (!blank_in_expand((*aux), exp_var, "", ""))
 		joinexpand(aux, env_var, exp_var);
 	if (((*aux)->prev != NULL) && ((*aux)->prev->type == WORD))
 	{
@@ -76,11 +76,8 @@ void	expand_var(t_token **aux, t_envp *aux_envp)
 	free(env_var);
 }
 
-void	expand_in_dq(t_minishell *bash, t_token **aux)
+void	expand_in_dq(t_minishell *bash, t_token **aux, char *b_var, char *a_var)
 {
-	char	*b_var;
-	char	*a_var;
-
 	b_var = NULL;
 	a_var = NULL;
 	if (split_string((*aux)->name, &b_var, &a_var, '$') == 0)

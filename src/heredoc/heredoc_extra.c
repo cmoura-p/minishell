@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 19:59:28 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/03/05 18:26:02 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/03/09 14:30:36 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,12 @@
 
 void	join_sobra_out(t_help_recursion *aux_hr, char **temp)
 {
-	if (!aux_hr->before)
-		aux_hr->before = "";
-	if (!aux_hr->after)
-		aux_hr->after = "";
+	if (aux_hr->flag_expand)
+	{
+		*temp = ft_strjoin(aux_hr->before, "$");
+		free(aux_hr->before);
+		aux_hr->before = *temp;
+	}
 	*temp = ft_strjoin(aux_hr->before, aux_hr->after);
 	if (aux_hr->after)
 	{
@@ -63,10 +65,8 @@ void	join_sobra_in(t_help_recursion *aux_hr, char *expand, char **temp)
 void	check_exp_in_hd(char **line, t_minishell *bash)
 {
 	t_help_recursion	*aux_hr;
-	char				*expand;
-	char				*temp_after;
-	char				*temp_new_line;
 	t_envp				*aux_exp;
+	char				*temp_new_line;
 
 	aux_exp = bash->envp;
 	aux_hr = malloc(sizeof(t_help_recursion));
@@ -75,17 +75,42 @@ void	check_exp_in_hd(char **line, t_minishell *bash)
 	aux_hr->new_line = *line;
 	aux_hr->after = NULL;
 	aux_hr->before = NULL;
+	aux_hr->sobra = NULL;
+	aux_hr->flag_expand = 0;
 	if (split_string(*line, &aux_hr->before, &aux_hr->after, '$'))
 	{
 		aux_hr->env_var = envp_name(aux_hr->after);
-		aux_hr->sobra = ft_substr(aux_hr->after, ft_strlen(aux_hr->env_var), \
-		ft_strlen(aux_hr->after) - ft_strlen(aux_hr->env_var));
-		expand = ft_getenv(aux_exp, aux_hr->env_var);
-		join_sobra_in(aux_hr, expand, &temp_after);
-		aux_hr->after = temp_after;
+		if (aux_hr->env_var && (aux_hr->env_var[0] == '\0'))
+			ft_nao_expande(aux_hr);
+		else
+			ft_expande(aux_hr, aux_exp);
 		check_exp_in_hd(&aux_hr->after, bash);
 		join_sobra_out(aux_hr, &temp_new_line);
 		*line = temp_new_line;
 	}
 	free(aux_hr);
+}
+
+void	ft_nao_expande(t_help_recursion *aux_hr)
+{
+	char	*expand;
+
+	aux_hr->flag_expand = 1;
+	aux_hr->sobra = ft_substr(aux_hr->after, ft_strlen(aux_hr->env_var), \
+		ft_strlen(aux_hr->after) - ft_strlen(aux_hr->env_var));
+	expand = strdup("");
+	join_sobra_in(aux_hr, expand, &aux_hr->temp_after);
+	free(expand);
+	aux_hr->after = aux_hr->temp_after;
+}
+
+void	ft_expande(t_help_recursion *aux_hr, t_envp *aux_exp)
+{
+	char	*expand;
+
+	aux_hr->sobra = ft_substr(aux_hr->after, ft_strlen(aux_hr->env_var), \
+		ft_strlen(aux_hr->after) - ft_strlen(aux_hr->env_var));
+	expand = ft_getenv(aux_exp, aux_hr->env_var);
+	join_sobra_in(aux_hr, expand, &aux_hr->temp_after);
+	aux_hr->after = aux_hr->temp_after;
 }
