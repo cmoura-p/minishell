@@ -6,7 +6,7 @@
 /*   By: breda-si <breda-si@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 23:37:21 by brendon           #+#    #+#             */
-/*   Updated: 2025/03/04 23:40:35 by breda-si         ###   ########.fr       */
+/*   Updated: 2025/03/10 15:56:23 by breda-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static	char	*search_paths(char **paths, char *cmd)
 	return (NULL);
 }
 
-char	*ft_find_path(char *cmd)
+char	*ft_find_path(t_minishell *minishell, char *cmd)
 {
 	char	*path;
 	char	**paths;
@@ -55,7 +55,7 @@ char	*ft_find_path(char *cmd)
 
 	if (ft_strchr(cmd, '/'))
 		return (ft_strdup(cmd));
-	path = getenv("PATH");
+	path = ft_strdup(ft_getenv(minishell->envp, "PATH"));
 	if (!path)
 		return (NULL);
 	paths = ft_split(path, ':');
@@ -64,5 +64,6 @@ char	*ft_find_path(char *cmd)
 	result = search_paths(paths, cmd);
 	if (result == NULL)
 		ft_free_split(paths);
+	free(path);
 	return (result);
 }

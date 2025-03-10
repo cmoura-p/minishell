@@ -6,7 +6,7 @@
 /*   By: breda-si <breda-si@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 23:40:14 by breda-si          #+#    #+#             */
-/*   Updated: 2025/03/04 23:40:15 by breda-si         ###   ########.fr       */
+/*   Updated: 2025/03/10 16:11:07 by breda-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static	void	exec_child_process(t_minishell *minishell, t_exec *cmd)
 	char	*path;
 	char	**env;
 
-	path = ft_find_path(cmd->args[0]);
+	path = ft_find_path(minishell, cmd->args[0]);
 	if (!path)
 	{
 		ft_fprintf(STDERR_FILENO, "minishell: %s: command not found\n",
