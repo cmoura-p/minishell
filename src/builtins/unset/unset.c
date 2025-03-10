@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brendon <brendon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: breda-si <breda-si@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 17:46:35 by brendon           #+#    #+#             */
-/*   Updated: 2025/01/20 10:15:01 by brendon          ###   ########.fr       */
+/*   Updated: 2025/03/10 10:58:15 by breda-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,8 @@ void	ft_unset(t_minishell *minishell, char **args)
 		return ;
 	if (args[i][0] == '-')
 	{
-		printf("minishell: unset: %s: invalid option\n", args[i]);
+		ft_fprintf(STDERR_FILENO, \
+			"minishell: unset: %s: invalid option\n", args[i]);
 		return ;
 	}
 	while (args[i])
