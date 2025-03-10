@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: breda-si <breda-si@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 10:51:43 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/03/10 10:06:27 by breda-si         ###   ########.fr       */
+/*   Updated: 2025/03/10 12:15:50 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -355,4 +355,6 @@ char		*ft_find_path(char *cmd);
 void		ft_execute(t_minishell *minishell, void *root);
 void		free_args(char **args);
 void		free_exit(t_minishell **minishell, int status);
+
+void	print_token_list(t_token *token);
 #endif

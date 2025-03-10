@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 18:46:17 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/03/09 02:02:28 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/03/10 13:46:06 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,9 +107,14 @@ void	newtoken_after_parsing(t_token **aux, char *a_var)
 {
 	char	*env_var;
 
+	ft_strcpy((*aux)->name, a_var);
+	if ((*aux)->prev->type == EXP_EXIT)
+	{
+		(*aux) = (*aux)->prev;
+		return ;
+	}
 	(*aux)->type = WORD;
 	(*aux)->status = SINGLE_Q;
-	ft_strcpy((*aux)->name, a_var);
 	env_var = envp_name(a_var);
 	if (*env_var != '\0')
 	{
