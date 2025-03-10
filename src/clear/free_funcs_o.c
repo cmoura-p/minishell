@@ -1,31 +1,48 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   run.c                                              :+:      :+:    :+:   */
+/*   free_funcs_o.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/03 23:00:17 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/03/08 18:55:43 by cmoura-p         ###   ########.fr       */
+/*   Created: 2025/03/08 19:19:07 by cmoura-p          #+#    #+#             */
+/*   Updated: 2025/03/08 19:21:55 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../../include/minishell.h"
 
-void	run(t_minishell *bash)
+void	free_token(t_token *token)
 {
-	tokenizer(bash);
-	parsing(bash);
-	if (!bash->token)
+	if (!token)
 		return ;
-	init_signals();
-	bash->root = ft_tree(duplicate_token_list(bash->token), bash);
-	if (!bash->root)
+	if (token->name)
+		free(token->name);
+	free(token);
+	token = NULL;
+}
+
+void	ft_free_split(char **args)
+{
+	int	i;
+
+	if (!args)
+		return ;
+	i = 0;
+	while (args[i])
 	{
-		free_to_restart(bash);
-		return ;
+		free(args[i]);
+		args[i] = NULL;
+		i++;
 	}
-	ft_execute(bash, bash->root);
-	ft_free_tree(bash->root);
-	free_to_restart(bash);
+	free(args);
+}
+
+void	*free_null_redir(t_token *aux)
+{
+	if (aux->next)
+		free_token(aux->next);
+	if (aux)
+		free_token(aux);
+	return (NULL);
 }

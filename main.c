@@ -35,7 +35,7 @@ int	main(int ac, char **av, char **envp)
 		}
 		else
 			if (!minishell->cmd_line)
-				break;
+				break ;
 		if (minishell->cmd_line)
 			free(minishell->cmd_line);
 	}
