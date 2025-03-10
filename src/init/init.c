@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 13:42:58 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/03/05 19:36:10 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/03/10 17:29:38 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	init_bash(t_minishell *minishell, char *prompt)
 	if ((minishell->cmd_line) && (*(minishell->cmd_line) != '\0'))
 	{
 		add_history(minishell->cmd_line);
-		minishell->cmd_line = ft_minitrim(minishell->cmd_line);
+		minishell->cmd_line = ft_minitrim(minishell->cmd_line, 0, 0);
 		if ((minishell->cmd_line) && minishell->cmd_line[0] == '\0')
 			return (2);
 		if (!(check_syntax(minishell->cmd_line)))

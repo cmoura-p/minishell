@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 10:51:43 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/03/10 12:15:50 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/03/10 18:02:39 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,7 +176,7 @@ void		add_envplst_back(t_envp **newenvp, t_envp *lst);
 char		*check_syntax(char *line);
 int			btw_quotes(char *line, int i);
 int			skip_blank(char *line, int i);
-char		*ft_minitrim(char *line);
+char		*ft_minitrim(char *line, int i, int j);
 void		get_prompt(char **prompt);
 int			split_string(char *line, char **before, char **after, char c);
 void		load_expo(t_minishell *minishell, char **args);
@@ -356,5 +356,5 @@ void		ft_execute(t_minishell *minishell, void *root);
 void		free_args(char **args);
 void		free_exit(t_minishell **minishell, int status);
 
-void	print_token_list(t_token *token);
+void		print_token_list(t_token *token);
 #endif

@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 11:34:58 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/03/05 16:19:20 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/03/10 18:01:52 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,30 +32,28 @@ int	skip_blank(char *line, int i)
 	return (i);
 }
 
-char	*ft_minitrim(char *line)
+char	*ft_minitrim(char *line, int i, int j)
 {
 	char	*result;
 	int		size;
-	int		i;
-	int		j;
 
-	size = ft_strlen(line);
-	i = skip_blank(line, 0);
-	j = size - 1;
-	while (line[j] && ((line[j] >= 9 && line[j] <= 13) || line[j] == ' '))
-		j--;
-	size = j - i + 1;
-	result = (char *) malloc(size * sizeof(char) + 1);
-	if (!result)
-		return (ft_strdup(""));
-	j = 0;
-	while (line[i] && (j < size))
-	{
-		result[j] = line [i];
-		j++;
+	size = strlen(line);
+	i = 0;
+	while (line[i] && ((line[i] >= 9 && line[i] <= 13) || line[i] == ' '))
 		i++;
-	}
-	result[j] = '\0';
+	j = size - 1;
+	while (j >= i && ((line[j] >= 9 && line[j] <= 13) || line[j] == ' '))
+		j--;
+	if (j >= i)
+		size = j - i + 1;
+	else
+		size = 0;
+	result = (char *)malloc((size + 1) * sizeof(char));
+	if (!result)
+		return (strdup(""));
+	ft_strlcpy(result, line + i, size + 1);
+	strncpy(result, line + i, size);
+	result[size] = '\0';
 	free(line);
 	return (result);
 }
