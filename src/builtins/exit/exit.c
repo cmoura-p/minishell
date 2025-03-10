@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brendon <brendon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: breda-si <breda-si@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 17:42:44 by brendon           #+#    #+#             */
-/*   Updated: 2025/01/22 01:43:54 by brendon          ###   ########.fr       */
+/*   Updated: 2025/03/10 10:22:34 by breda-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,23 +41,24 @@ void	ft_exit(t_minishell *minishell, char **args)
 
 	if (!args || !args[0] || !args[0][0])
 	{
-		printf("exit\n");
+		ft_fprintf(STDERR_FILENO, "exit\n");
 		free_exit(&minishell, 0);
 	}
 	exit_code = 0;
-	if (args[1])
-	{
-		ft_printf("minishell: exit: too many arguments\n");
-		free_exit(&minishell, 2);
-	}
-	if (ft_strisdigit(args[0]))
+	if (ft_strisdigit(args[0]) && !args[1])
 	{
 		exit_code = ft_atoi_int(args[0]) % 256;
 		if (exit_code < 0)
 			exit_code += 256;
-		printf("exit\n");
+		ft_fprintf(STDERR_FILENO, "exit\n");
 		free_exit(&minishell, exit_code);
 	}
-	else
-		ft_printf("minishell: exit: %s: numeric argument required\n", args[1]);
+	if (!ft_strisdigit(args[0]) && !args[0][1])
+	{
+		ft_fprintf(STDERR_FILENO,
+			"minishell: exit: %s: numeric argument required\n", args[0]);
+		free_exit(&minishell, 2);
+	}
+	minishell->exit_status = 1;
+	ft_fprintf(STDERR_FILENO, "minishell: exit: too many arguments\n");
 }

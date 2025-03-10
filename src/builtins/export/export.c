@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brendon <brendon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: breda-si <breda-si@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 16:40:41 by brendon           #+#    #+#             */
-/*   Updated: 2025/01/22 01:09:03 by brendon          ###   ########.fr       */
+/*   Updated: 2025/03/10 09:57:25 by breda-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,21 +40,25 @@ void	ft_export_print(t_envp *export)
 	}
 }
 
-int	ft_validarg(char *arg)
+int	ft_validarg(char *arg, t_minishell *minishell)
 {
 	int	i;
 
 	i = -1;
 	if (!(ft_isalpha(arg[0]) || arg[0] == '_'))
 	{
-		ft_printf("minishell: export: `%s': not a valid identifier\n", arg);
+		ft_fprintf(STDERR_FILENO,
+			"minishell: export: `%s': not a valid identifier\n", arg);
+		minishell->exit_status = 1;
 		return (0);
 	}
 	while (arg[++i] && arg[i] != '=')
 	{
 		if (!(ft_isalnum(arg[i]) || arg[i] == '_' || arg[i] == '='))
 		{
-			ft_printf("minishell: export: `%s': not a valid identifier\n", arg);
+			ft_fprintf(STDERR_FILENO,
+				"minishell: export: `%s': not a valid identifier\n", arg);
+			minishell->exit_status = 1;
 			return (0);
 		}
 	}
@@ -67,9 +71,10 @@ void	ft_expoenvatt(t_minishell *minishell, char **args)
 	int	j;
 
 	i = -1;
+	minishell->exit_status = 0;
 	while (args[++i] != NULL && args[i])
 	{
-		if (!ft_validarg(args[i]))
+		if (!ft_validarg(args[i], minishell))
 			continue ;
 		j = 0;
 		while (args[i][j] && args[i][j] != '=')

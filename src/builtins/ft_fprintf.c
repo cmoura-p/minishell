@@ -1,7 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_fprintf.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: breda-si <breda-si@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/10 09:21:03 by breda-si          #+#    #+#             */
+/*   Updated: 2025/03/10 09:22:23 by breda-si         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/minishell.h"
-#include <unistd.h>
-#include <stdarg.h>
-#include <string.h>
 
 void	ft_fprintf(int fd, const char *format, ...)
 {

@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 10:51:43 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/03/10 11:10:06 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/03/10 11:18:50 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -281,7 +281,7 @@ void		ft_export(t_minishell *minishell, char **args);
 void		ft_expoinsert(t_envp **export, t_envp *new);
 t_envp		*ft_exponew(char *name, char *content);
 void		ft_freeexponode(t_envp *node);
-int			ft_validarg(char *arg);
+int			ft_validarg(char *arg, t_minishell *minishell);
 
 //pwd
 void		ft_pwd(t_minishell *minishell, char **args);

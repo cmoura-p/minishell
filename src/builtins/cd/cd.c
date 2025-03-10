@@ -6,7 +6,7 @@
 /*   By: breda-si <breda-si@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 15:04:23 by brendon           #+#    #+#             */
-/*   Updated: 2025/02/25 16:15:57 by breda-si         ###   ########.fr       */
+/*   Updated: 2025/03/10 09:56:59 by breda-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,12 @@ int	ft_check_args(t_minishell *bash, char **args)
 	if (i > 1)
 	{
 		bash->exit_status = 1;
-		printf("minishell: cd: too many arguments\n");
-		return (1);
-	}
-	if (args[0][0] == '-' && args[0][1] != '\0')
-	{
-		bash->exit_status = 1;
-		printf("minishell: cd: %s: invalid option\n", args[0]);
+		if (args[0][0] == '-' && (args[0][1] != '\0' ||
+			(args[0][1] == '-' && args[0][2] == '\0')))
+			ft_fprintf(STDERR_FILENO,
+				"minishell: cd: %s: invalid option\n", args[0]);
+		else
+			ft_fprintf(STDERR_FILENO, "minishell: cd: too many arguments\n");
 		return (1);
 	}
 	return (0);
@@ -51,9 +50,12 @@ void	att_pwdold(t_minishell *minishell, char *oldpwd)
 void	handle_cd_error(t_minishell *minishell, char **args, char *oldpwd)
 {
 	if (!args || !args[0])
-		ft_printf("minishell: cd: HOME not set\n");
+		ft_fprintf(STDERR_FILENO, "minishell: cd: HOME not set\n");
+	else if (ft_strcmp(args[0], "-") == 0)
+		ft_fprintf(STDERR_FILENO, "minishell: cd: OLDPWD not set\n");
 	else
-		ft_printf("minishell: cd: %s: No such file or directory\n",
+		ft_fprintf(STDERR_FILENO,
+			"minishell: cd: %s: No such file or directory\n",
 			args[0]);
 	minishell->exit_status = 1;
 	free(oldpwd);
@@ -71,7 +73,11 @@ void	ft_cd(t_minishell *minishell, char **args)
 	if (!args || !args[0])
 		path = ft_getenv(minishell->envp, "HOME");
 	else if (ft_strcmp(args[0], "-") == 0)
+	{
 		path = ft_getenv(minishell->envp, "OLDPWD");
+		if (!path)
+			handle_cd_error(minishell, args, oldpwd);
+	}
 	else if (ft_check_args(minishell, args))
 		return (free(oldpwd));
 	if (!path || chdir(path) == -1)

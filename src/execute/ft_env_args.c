@@ -6,11 +6,30 @@
 /*   By: breda-si <breda-si@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 23:37:16 by brendon           #+#    #+#             */
-/*   Updated: 2025/03/04 23:40:07 by breda-si         ###   ########.fr       */
+/*   Updated: 2025/03/10 10:43:29 by breda-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+
+char	*ft_strjoin_c(char c, char *s1, char *s2)
+{
+	char	*result;
+	size_t	len1;
+	size_t	len2;
+
+	if (!s1 || !s2)
+		return (NULL);
+	len1 = ft_strlen(s1);
+	len2 = ft_strlen(s2);
+	result = (char *)malloc(len1 + len2 + 2);
+	if (!result)
+		return (NULL);
+	ft_strcpy(result, s1);
+	result[len1] = c;
+	ft_strcpy(result + len1 + 1, s2);
+	return (result);
+}
 
 static	int	count_envp(t_envp *envp)
 {
@@ -40,7 +59,7 @@ static	char	**allocate_args(t_envp *envp, int count)
 	tmp = envp;
 	while (tmp)
 	{
-		args[i] = (char *)malloc(strlen(tmp->name) + strlen(tmp->content) + 2);
+		args[i] = ft_strjoin_c('=', tmp->name, tmp->content);
 		if (!args[i])
 		{
 			while (i > 0)
@@ -48,7 +67,6 @@ static	char	**allocate_args(t_envp *envp, int count)
 			free(args);
 			return (NULL);
 		}
-		sprintf(args[i], "%s=%s", tmp->name, tmp->content);
 		i++;
 		tmp = tmp->next;
 	}
