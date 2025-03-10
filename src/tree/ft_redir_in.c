@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_redir_in.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: breda-si <breda-si@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/10 10:02:22 by breda-si          #+#    #+#             */
+/*   Updated: 2025/03/10 10:02:23 by breda-si         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/minishell.h"
 
 void	*ft_redir_in(t_token *start, t_token *aux, t_minishell *bash)
@@ -13,7 +25,7 @@ void	*ft_redir_in(t_token *start, t_token *aux, t_minishell *bash)
 	redir->file_name = ft_strdup(aux->next->name);
 	redir->fd = open(redir->file_name, O_RDONLY);
 	if (redir->fd < 0)
-		return (handle_redir_error(redir, bash, aux));
+		return (handle_redir_error(redir, bash, start));
 	if (!aux->prev && aux->next->next)
 		start = aux->next->next;
 	else if (!aux->prev && !aux->next->next)

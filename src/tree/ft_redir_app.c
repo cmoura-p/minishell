@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_redir_app.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: breda-si <breda-si@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/10 10:02:26 by breda-si          #+#    #+#             */
+/*   Updated: 2025/03/10 10:02:27 by breda-si         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/minishell.h"
 
 void	*ft_redir_app(t_token *start, t_token *aux, t_minishell *bash)
@@ -12,8 +24,6 @@ void	*ft_redir_app(t_token *start, t_token *aux, t_minishell *bash)
 	redir->type = REDIR_APP;
 	redir->file_name = ft_strdup(aux->next->name);
 	redir->fd = open(redir->file_name, O_WRONLY | O_CREAT | O_APPEND, 0644);
-	if (redir->fd < 0)
-		return (handle_redir_error(redir, bash, aux));
 	if (!aux->prev && aux->next->next)
 		start = aux->next->next;
 	else if (!aux->prev && !aux->next->next)

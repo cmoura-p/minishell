@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: breda-si <breda-si@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/04 23:37:27 by brendon           #+#    #+#             */
-/*   Updated: 2025/03/04 23:40:25 by breda-si         ###   ########.fr       */
+/*   Created: 2025/03/10 09:58:42 by breda-si          #+#    #+#             */
+/*   Updated: 2025/03/10 10:01:01 by breda-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,10 @@ static	void	exec_redir_in(t_minishell *minishell, t_redir *redir)
 {
 	int	fd;
 
-	fd = open(redir->file_name, O_RDONLY);
+	fd = redir->fd;
 	if (fd == -1)
 	{
-		perror("minishell: input redirection failed");
+		perror("minishell");
 		minishell->exit_status = 1;
 		return ;
 	}
@@ -37,10 +37,10 @@ static	void	exec_redir_out(t_minishell *minishell, t_redir *redir)
 {
 	int	fd;
 
-	fd = open(redir->file_name, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	fd = redir->fd;
 	if (fd == -1)
 	{
-		perror("minishell: output redirection failed");
+		perror("minishell");
 		minishell->exit_status = 1;
 		return ;
 	}
@@ -58,16 +58,16 @@ static	void	exec_redir_app(t_minishell *minishell, t_redir *redir)
 {
 	int	fd;
 
-	fd = open(redir->file_name, O_WRONLY | O_CREAT | O_APPEND, 0644);
+	fd = redir->fd;
 	if (fd == -1)
 	{
-		perror("minishell: append redirection failed");
+		perror("minishell");
 		minishell->exit_status = 1;
 		return ;
 	}
 	if (dup2(fd, STDOUT_FILENO) == -1)
 	{
-		perror("minishell: append redirection failed");
+		perror("minishell: output redirection failed");
 		close(fd);
 		minishell->exit_status = 1;
 		return ;

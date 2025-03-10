@@ -275,7 +275,7 @@ void		ft_export(t_minishell *minishell, char **args);
 void		ft_expoinsert(t_envp **export, t_envp *new);
 t_envp		*ft_exponew(char *name, char *content);
 void		ft_freeexponode(t_envp *node);
-int			ft_validarg(char *arg);
+int			ft_validarg(char *arg, t_minishell *minishell);
 
 //pwd
 void		ft_pwd(t_minishell *minishell, char **args);
@@ -316,7 +316,7 @@ void		ft_remove_tokens(t_token *aux);
 char		**tokken_to_args(t_token *start);
 void		free_token_list(t_token *head);
 void		*free_args_on_error(char **args, int i);
-void		*handle_redir_error(t_redir *redir, t_minishell *bash, t_token *aux);
+void		*handle_redir_error(t_redir *redir, t_minishell *bash, t_token *start);
 
 //duplicate_token_list
 t_token		*duplicate_token_list(t_token *head);

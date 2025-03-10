@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   load_export.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: breda-si <breda-si@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/10 09:24:03 by breda-si          #+#    #+#             */
+/*   Updated: 2025/03/10 09:24:04 by breda-si         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/minishell.h"
 
 int	count_strings(char **array)
@@ -45,7 +57,7 @@ void	load_expo(t_minishell *minishell, char **args)
 	i = -1;
 	while (args[++i] != NULL && args[i])
 	{
-		if (!ft_validarg(args[i]))
+		if (!ft_validarg(args[i], minishell))
 			continue ;
 		j = 0;
 		while (args[i][j] && args[i][j] != '=')

@@ -20,7 +20,8 @@ static	void	exec_child_process(t_minishell *minishell, t_exec *cmd)
 	path = ft_find_path(cmd->args[0]);
 	if (!path)
 	{
-		fprintf(stderr, "minishell: %s: command not found\n", cmd->args[0]);
+		ft_fprintf(STDERR_FILENO, "minishell: %s: command not found\n",
+			cmd->args[0]);
 		free_exit(&minishell, 127);
 	}
 	env = ft_env_args(minishell->envp);
@@ -34,7 +35,7 @@ static	void	exec_child_process(t_minishell *minishell, t_exec *cmd)
 	perror("minishell");
 	free(path);
 	free_args(env);
-	exit(127);
+	free_exit(&minishell, 127);
 }
 
 void	ft_exec_cmd(t_minishell *minishell, t_exec *cmd)
