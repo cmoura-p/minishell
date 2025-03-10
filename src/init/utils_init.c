@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 11:34:58 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/03/10 18:01:52 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/03/10 18:36:29 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,16 +56,4 @@ char	*ft_minitrim(char *line, int i, int j)
 	result[size] = '\0';
 	free(line);
 	return (result);
-}
-
-void	get_prompt(char **prompt)
-{
-	char	*pwd;
-
-	pwd = getenv("PWD");
-	if (!pwd)
-		pwd = "erro pwd ";
-	*prompt = ft_strjoin(pwd, ": ");
-	if (!(*prompt))
-		*prompt = pwd;
 }

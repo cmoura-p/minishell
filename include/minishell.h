@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 10:51:43 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/03/10 18:02:39 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/03/10 18:35:36 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,6 @@ typedef struct s_heredoc
 typedef struct s_minishell
 {
 	char				*cmd_line;
-	char				*prompt;
 	t_envp				*envp;
 	t_heredoc			*heredoc;
 	t_token				*token;
@@ -166,9 +165,9 @@ typedef struct s_exec
 }					t_exec;
 
 //init
-t_minishell	*init_data(char **envp, char **prompt);
+t_minishell	*init_data(char **envp);
 void		init_signals(void);
-int			init_bash(t_minishell *minishell, char *prompt);
+int			init_bash(t_minishell *minishell);
 void		load_envp(t_minishell *bash, char **envp);
 int			split_envp(const char *envp_line, char **before, char **after);
 void		add_envplst(t_minishell *bash, char *name, char *content);
@@ -177,7 +176,6 @@ char		*check_syntax(char *line);
 int			btw_quotes(char *line, int i);
 int			skip_blank(char *line, int i);
 char		*ft_minitrim(char *line, int i, int j);
-void		get_prompt(char **prompt);
 int			split_string(char *line, char **before, char **after, char c);
 void		load_expo(t_minishell *minishell, char **args);
 char		**ft_arraydup(char **array);

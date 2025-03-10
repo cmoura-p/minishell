@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/15 11:57:24 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/03/05 19:35:26 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/03/10 18:35:04 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ int	g_signal;
 
 int	main(int ac, char **av, char **envp)
 {
-	char			*prompt;
 	t_minishell		*minishell;
 
 	(void)av;
@@ -25,10 +24,10 @@ int	main(int ac, char **av, char **envp)
 		ft_printf("Minishell: argument is not allowed -> %s \n", av[1]);
 		exit(SUCCESS);
 	}
-	minishell = init_data(envp, &prompt);
+	minishell = init_data(envp);
 	while (1)
 	{
-		if (init_bash(minishell, prompt) != 0)
+		if (init_bash(minishell) != 0)
 		{
 			if (minishell->cmd_line[0] != '\0')
 				run(minishell);
