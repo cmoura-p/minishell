@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tree_util.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
+/*   By: breda-si <breda-si@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 11:48:26 by brendon           #+#    #+#             */
-/*   Updated: 2025/03/10 11:17:59 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/03/10 18:10:45 by breda-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,7 @@ void	ft_remove_tokens(t_token *aux)
 
 void	*handle_redir_error(t_redir *redir, t_minishell *bash, t_token *start)
 {
-	ft_putstr_fd("minishell: ", 2);
-	perror(redir->file_name);
+	perror("minishell");
 	bash->exit_status = 1;
 	free(redir->file_name);
 	free(redir);
