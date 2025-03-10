@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 10:51:43 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/03/10 18:35:36 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/03/10 23:08:06 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,6 +136,7 @@ typedef struct s_minishell
 	int					fd_out;
 	int					pid;
 	int					process;
+	int					flag_exp_exit;
 }						t_minishell;
 
 /*--------------------------B-TREE----------------------*/
@@ -185,6 +186,8 @@ void		signal_handler(int signum);
 void		set_heredoc_signals(void);
 void		heredoc_ctrl_c(t_minishell *bash);
 void		heredoc_signal_handler(int signum);
+void		handle_ctrl_c(t_minishell *bash);
+void		handle_ctrl_d(t_minishell *bash);
 
 //run
 void		run(t_minishell *bash);
@@ -241,6 +244,9 @@ int			blank_in_expand(t_token *token, char *exp_var, \
 void		get_sobra(t_token **aux, char *a_var, char *env_var);
 int			not_redirection(t_token *token);
 void		newtoken_after_parsing(t_token **aux, char *a_var);
+void		join_exitcode(t_minishell *bash);
+void		join_fw(t_minishell *bash, t_token **aux);
+void		join_bw(t_token **aux);
 
 //heredoc
 void		heredoc(t_minishell *bash);
@@ -354,5 +360,4 @@ void		ft_execute(t_minishell *minishell, void *root);
 void		free_args(char **args);
 void		free_exit(t_minishell **minishell, int status);
 
-void		print_token_list(t_token *token);
 #endif
