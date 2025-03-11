@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 22:15:38 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/03/11 10:40:48 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/03/11 11:41:43 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int	set_heredoc(t_heredoc *hd, t_minishell *bash)
 			printf("warning: heredoc aborted - expected eof %s \n", \
 			hd->eo_heredoc);
 		close(hd->fd_heredoc);
-//		FREE do HEREDOC
+		free_exit(&bash, status);
 		if (status == 0 || status == 1)
 			exit(0);
 		if (status == 2)

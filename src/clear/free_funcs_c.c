@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 19:44:40 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/03/11 10:41:34 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/03/11 11:45:09 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,11 @@ void	clean_heredoc(t_minishell *bash)
 	{
 		aux = bash->heredoc;
 		bash->heredoc = bash->heredoc->next;
+		if (aux->hd_path)
+		{
+			free(aux->hd_path);
+			aux->hd_path = NULL;
+		}
 		if (aux->eo_heredoc)
 		{
 			free(aux->eo_heredoc);
