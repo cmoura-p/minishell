@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 19:44:40 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/03/10 18:35:59 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/03/11 10:41:34 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	clean_tokens(t_minishell *bash)
 			free(aux);
 		aux = NULL;
 	}
+	bash->token = NULL;
 }
 
 void	clean_heredoc(t_minishell *bash)
