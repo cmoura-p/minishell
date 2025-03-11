@@ -6,11 +6,12 @@
 /*   By: breda-si <breda-si@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 23:37:21 by brendon           #+#    #+#             */
-/*   Updated: 2025/03/10 15:56:23 by breda-si         ###   ########.fr       */
+/*   Updated: 2025/03/11 10:18:07 by breda-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+#include <sys/stat.h>
 
 static	char	*join_path(char *dir, char *cmd)
 {
@@ -49,12 +50,20 @@ static	char	*search_paths(char **paths, char *cmd)
 
 char	*ft_find_path(t_minishell *minishell, char *cmd)
 {
-	char	*path;
-	char	**paths;
-	char	*result;
+	char		*path;
+	char		**paths;
+	char		*result;
+	struct stat	sb;
 
 	if (ft_strchr(cmd, '/'))
+	{
+		if (stat(cmd, &sb) == 0 && S_ISDIR(sb.st_mode))
+		{
+			ft_fprintf(STDERR_FILENO, "bash: %s: Is a directory\n", cmd);
+			free_exit(&minishell, 126);
+		}
 		return (ft_strdup(cmd));
+	}
 	path = ft_strdup(ft_getenv(minishell->envp, "PATH"));
 	if (!path)
 		return (NULL);

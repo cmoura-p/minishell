@@ -6,7 +6,7 @@
 /*   By: breda-si <breda-si@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 19:14:03 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/03/10 23:18:58 by breda-si         ###   ########.fr       */
+/*   Updated: 2025/03/11 10:31:58 by breda-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	ft_free_exec(t_exec *cmd)
 	i = 0;
 	while (cmd->args && cmd->args[i])
 	{
-		if(cmd->args[i])
+		if (cmd->args[i])
 			free(cmd->args[i++]);
 	}
 	free(cmd->args);

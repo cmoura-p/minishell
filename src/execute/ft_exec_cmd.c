@@ -6,11 +6,12 @@
 /*   By: breda-si <breda-si@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 23:40:14 by breda-si          #+#    #+#             */
-/*   Updated: 2025/03/10 16:11:07 by breda-si         ###   ########.fr       */
+/*   Updated: 2025/03/11 10:56:09 by breda-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+#include <errno.h>
 
 static	void	exec_child_process(t_minishell *minishell, t_exec *cmd)
 {
@@ -35,6 +36,8 @@ static	void	exec_child_process(t_minishell *minishell, t_exec *cmd)
 	perror("minishell");
 	free(path);
 	free_args(env);
+	if (errno == EACCES)
+		free_exit(&minishell, 126);
 	free_exit(&minishell, 127);
 }
 
