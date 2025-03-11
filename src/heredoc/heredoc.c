@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 22:15:38 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/03/11 11:41:43 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/03/11 12:54:53 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,7 @@ void	change_hd_tokens(t_minishell *bash)
 		if (aux->type == HEREDOC)
 		{
 			free(aux->next->name);
-			aux->next->name = hered->hd_path;
+			aux->next->name = ft_strdup(hered->hd_path);
 			aux->next->type = FILE_IN;
 			aux->type = REDIR_IN;
 			hered = hered->next;
