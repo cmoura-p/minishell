@@ -6,7 +6,7 @@
 /*   By: breda-si <breda-si@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 23:37:33 by brendon           #+#    #+#             */
-/*   Updated: 2025/03/04 23:40:22 by breda-si         ###   ########.fr       */
+/*   Updated: 2025/03/11 08:35:15 by breda-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	exec_left_child(t_minishell *minishell, t_pipe *pipeline, int *fd)
 	dup2(fd[1], STDOUT_FILENO);
 	close(fd[1]);
 	ft_execute(minishell, pipeline->left);
-	free_exit(&minishell, 0);
+	free_exit(&minishell, minishell->exit_status);
 }
 
 void	exec_right_child(t_minishell *minishell, t_pipe *pipeline, int *fd)
@@ -27,7 +27,7 @@ void	exec_right_child(t_minishell *minishell, t_pipe *pipeline, int *fd)
 	dup2(fd[0], STDIN_FILENO);
 	close(fd[0]);
 	ft_execute(minishell, pipeline->right);
-	free_exit(&minishell, 0);
+	free_exit(&minishell, minishell->exit_status);
 }
 
 void	ft_exec_pipe(t_minishell *minishell, t_pipe *pipeline)
@@ -35,6 +35,7 @@ void	ft_exec_pipe(t_minishell *minishell, t_pipe *pipeline)
 	int		fd[2];
 	pid_t	pid_left;
 	pid_t	pid_right;
+	int		status;
 
 	if (pipe(fd) == -1)
 	{
@@ -49,6 +50,7 @@ void	ft_exec_pipe(t_minishell *minishell, t_pipe *pipeline)
 		exec_right_child(minishell, pipeline, fd);
 	close(fd[0]);
 	close(fd[1]);
-	waitpid(pid_left, NULL, 0);
-	waitpid(pid_right, NULL, 0);
+	waitpid(pid_left, &status, 0);
+	waitpid(pid_right, &status, 0);
+	minishell->exit_status = WEXITSTATUS(status);
 }

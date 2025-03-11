@@ -6,7 +6,7 @@
 /*   By: breda-si <breda-si@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 17:42:44 by brendon           #+#    #+#             */
-/*   Updated: 2025/03/10 11:13:09 by breda-si         ###   ########.fr       */
+/*   Updated: 2025/03/10 23:02:03 by breda-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 void	free_exit(t_minishell **minishell, int exit_code)
 {
-	ft_free_tree((*minishell)->root);
+	if ((*minishell)->root)
+		ft_free_tree((*minishell)->root);
 	free_bash(*minishell);
 	rl_clear_history();
 	exit(exit_code);
