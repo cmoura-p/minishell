@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 23:00:17 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/03/11 10:48:46 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/03/11 19:14:29 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	run(t_minishell *bash)
 	aux = bash->token;
 	if (bash->token->name[0] == '\0')
 		aux = bash->token->next;
+//	print_token_list(bash->token);
 	bash->root = ft_tree(duplicate_token_list(aux), bash);
 	if (!bash->root)
 	{

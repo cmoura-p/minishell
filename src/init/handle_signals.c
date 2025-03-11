@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 19:46:03 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/03/10 22:45:35 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/03/11 18:40:21 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,10 @@ void	heredoc_signal_handler(int signum)
 {
 	if (signum == SIGINT)
 	{
+		rl_replace_line("", 0);
+		rl_on_new_line();
+		printf("\n");
+		rl_redisplay();
 		g_signal = SIGINT;
 		close(STDIN_FILENO);
 	}
