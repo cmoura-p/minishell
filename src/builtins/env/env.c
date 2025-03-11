@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brendon <brendon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: breda-si <breda-si@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 19:52:48 by brendon           #+#    #+#             */
-/*   Updated: 2025/01/22 01:37:19 by brendon          ###   ########.fr       */
+/*   Updated: 2025/03/10 14:57:02 by breda-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,9 @@ void	ft_update_env_value(t_envp *existing, t_envp *new)
 		existing->content = ft_strdup(new->content);
 	else
 		existing->content = NULL;
+	free(new->name);
+	free(new->content);
+	free(new);
 }
 
 t_envp	*ft_find_env(t_envp *env, char *name)

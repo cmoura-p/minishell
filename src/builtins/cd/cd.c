@@ -6,7 +6,7 @@
 /*   By: breda-si <breda-si@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 15:04:23 by brendon           #+#    #+#             */
-/*   Updated: 2025/03/10 09:56:59 by breda-si         ###   ########.fr       */
+/*   Updated: 2025/03/10 14:59:43 by breda-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,14 @@ int	ft_check_args(t_minishell *bash, char **args)
 
 void	att_pwdold(t_minishell *minishell, char *oldpwd)
 {
-	ft_expoinsert(&minishell->export, ft_exponew("PWD", getcwd(NULL, 0)));
-	ft_envadd(&minishell->envp, ft_exponew("PWD", getcwd(NULL, 0)));
+	char	*tmp;
+
+	tmp = getcwd(NULL, 0);
+	ft_expoinsert(&minishell->export, ft_exponew("PWD", tmp));
+	ft_envadd(&minishell->envp, ft_exponew("PWD", tmp));
 	ft_expoinsert(&minishell->export, ft_exponew("OLDPWD", oldpwd));
 	ft_envadd(&minishell->envp, ft_exponew("OLDPWD", oldpwd));
+	free(tmp);
 }
 
 void	handle_cd_error(t_minishell *minishell, char **args, char *oldpwd)
