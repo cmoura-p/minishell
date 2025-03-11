@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: breda-si <breda-si@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 10:51:43 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/03/10 15:53:21 by breda-si         ###   ########.fr       */
+/*   Updated: 2025/03/11 10:51:33 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,6 @@ typedef struct s_heredoc
 typedef struct s_minishell
 {
 	char				*cmd_line;
-	char				*prompt;
 	t_envp				*envp;
 	t_heredoc			*heredoc;
 	t_token				*token;
@@ -137,6 +136,7 @@ typedef struct s_minishell
 	int					fd_out;
 	int					pid;
 	int					process;
+	int					flag_exp_exit;
 }						t_minishell;
 
 /*--------------------------B-TREE----------------------*/
@@ -166,9 +166,9 @@ typedef struct s_exec
 }					t_exec;
 
 //init
-t_minishell	*init_data(char **envp, char **prompt);
+t_minishell	*init_data(char **envp);
 void		init_signals(void);
-int			init_bash(t_minishell *minishell, char *prompt);
+int			init_bash(t_minishell *minishell);
 void		load_envp(t_minishell *bash, char **envp);
 int			split_envp(const char *envp_line, char **before, char **after);
 void		add_envplst(t_minishell *bash, char *name, char *content);
@@ -176,8 +176,7 @@ void		add_envplst_back(t_envp **newenvp, t_envp *lst);
 char		*check_syntax(char *line);
 int			btw_quotes(char *line, int i);
 int			skip_blank(char *line, int i);
-char		*ft_minitrim(char *line);
-void		get_prompt(char **prompt);
+char		*ft_minitrim(char *line, int i, int j);
 int			split_string(char *line, char **before, char **after, char c);
 void		load_expo(t_minishell *minishell, char **args);
 char		**ft_arraydup(char **array);
@@ -187,6 +186,8 @@ void		signal_handler(int signum);
 void		set_heredoc_signals(void);
 void		heredoc_ctrl_c(t_minishell *bash);
 void		heredoc_signal_handler(int signum);
+void		handle_ctrl_c(t_minishell *bash);
+void		handle_ctrl_d(t_minishell *bash);
 
 //run
 void		run(t_minishell *bash);
@@ -243,6 +244,9 @@ int			blank_in_expand(t_token *token, char *exp_var, \
 void		get_sobra(t_token **aux, char *a_var, char *env_var);
 int			not_redirection(t_token *token);
 void		newtoken_after_parsing(t_token **aux, char *a_var);
+void		join_exitcode(t_minishell *bash);
+void		join_fw(t_minishell *bash, t_token **aux);
+void		join_bw(t_token **aux);
 
 //heredoc
 void		heredoc(t_minishell *bash);
@@ -356,5 +360,4 @@ void		ft_execute(t_minishell *minishell, void *root);
 void		free_args(char **args);
 void		free_exit(t_minishell **minishell, int status);
 
-void	print_token_list(t_token *token);
 #endif

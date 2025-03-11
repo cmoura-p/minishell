@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 18:46:17 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/03/10 13:46:06 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/03/10 19:47:43 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	expandtokens(t_minishell *bash)
 
 	aux = bash->token;
 	aux_envp = bash->envp;
+	bash->flag_exp_exit = 0;
 	while (aux)
 	{
 		if (aux->type == EXP_EXIT)
@@ -44,6 +45,9 @@ void	expand_exit(t_minishell *bash, t_token **token)
 	char	*exit_code;
 
 	exit_code = ft_itoa(bash->exit_status);
+	if (((*token)->next && (*token)->next->type != BLANK)
+		|| ((*token)->prev && (*token)->prev->type != BLANK))
+		bash->flag_exp_exit = 1;
 	free((*token)->name);
 	(*token)->name = exit_code;
 	(*token) = (*token)->next;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   run.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: breda-si <breda-si@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 23:00:17 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/03/11 08:37:39 by breda-si         ###   ########.fr       */
+/*   Updated: 2025/03/11 10:48:46 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,7 @@ void	run(t_minishell *bash)
 	t_token	*aux;
 
 	tokenizer(bash);
-	print_token_list(bash->token);
 	parsing(bash);
-	print_token_list(bash->token);
 	if (!bash->token)
 		return ;
 	init_signals();
