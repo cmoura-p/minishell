@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
+/*   By: breda-si <breda-si@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 22:15:38 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/03/11 12:54:53 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/03/11 23:55:09 by breda-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,11 +54,10 @@ int	set_heredoc(t_heredoc *hd, t_minishell *bash)
 			printf("warning: heredoc aborted - expected eof %s \n", \
 			hd->eo_heredoc);
 		close(hd->fd_heredoc);
-		free_exit(&bash, status);
 		if (status == 0 || status == 1)
-			exit(0);
+			free_exit(&bash, 0);
 		if (status == 2)
-			exit(EXIT_SIGINT);
+			free_exit(&bash, SIGINT);
 	}
 }
 
