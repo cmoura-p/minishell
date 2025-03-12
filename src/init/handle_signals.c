@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_signals.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
+/*   By: breda-si <breda-si@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 19:46:03 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/03/11 18:40:21 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/03/12 01:45:01 by breda-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,5 +52,6 @@ void	handle_ctrl_d(t_minishell *bash)
 	final_exit_status = bash->exit_status;
 	free_bash(bash);
 	rl_clear_history();
+	ft_printf("exit\n");
 	exit(final_exit_status);
 }
