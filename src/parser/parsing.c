@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 13:58:23 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/03/10 22:48:14 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/03/12 20:42:16 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	parsing(t_minishell *bash)
 		join_exitcode(bash);
 	remove_exp_null(bash);
 	jointokens(bash);
+   	print_token_list(bash->token);
 	set_redir(bash);
 	set_commands(bash);
 	remove_blank(bash);
@@ -27,6 +28,7 @@ void	parsing(t_minishell *bash)
 	{
 		signal(SIGINT, SIG_IGN);
 		signal(SIGQUIT, SIG_IGN);
+        signal(SIGTSTP, SIG_IGN);
 		heredoc(bash);
 		init_signals();
 	}

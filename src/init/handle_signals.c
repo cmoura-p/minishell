@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_signals.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: breda-si <breda-si@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 19:46:03 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/03/12 01:45:01 by breda-si         ###   ########.fr       */
+/*   Updated: 2025/03/12 19:31:40 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void	set_heredoc_signals(void)
 {
 	signal(SIGINT, heredoc_signal_handler);
 	signal(SIGQUIT, SIG_DFL);
+    signal(SIGTSTP, SIG_IGN);
 }
 
 void	handle_ctrl_c(t_minishell *bash)
