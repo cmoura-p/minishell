@@ -6,11 +6,21 @@
 /*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 23:40:14 by breda-si          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2025/03/12 19:30:57 by cmoura-p         ###   ########.fr       */
+=======
+/*   Updated: 2025/03/12 19:51:56 by breda-si         ###   ########.fr       */
+>>>>>>> main
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+
+void	ft_execperror(char *str, char *cmd)
+{
+	ft_fprintf(STDERR_FILENO, "%s: %s: ", str, cmd);
+	perror("");
+}
 
 void	fork_siginal(int mode)
 {
@@ -63,7 +73,7 @@ static	void	exec_child_process(t_minishell *minishell, t_exec *cmd)
 		free_exit(&minishell, 1);
 	}
 	execve(path, cmd->args, env);
-	perror("minishell");
+	ft_execperror("minishell", cmd->args[0]);
 	free(path);
 	free_args(env);
 	if (errno == EACCES)
