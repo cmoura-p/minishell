@@ -22,7 +22,7 @@
 - [x] Comando: echo "append" >> file.txt
 - Resultado Esperado: Adiciona "append" ao final de file.txt.
 
-## 3. Variáveis de Ambiente [ok]
+## 3. Variáveis de Ambiente []
 
 - [x] Comando: env
 - Resultado Esperado: Lista as variáveis de ambiente atuais.
