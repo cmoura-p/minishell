@@ -6,7 +6,7 @@
 /*   By: breda-si <breda-si@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 22:15:38 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/03/11 23:55:09 by breda-si         ###   ########.fr       */
+/*   Updated: 2025/03/12 00:15:22 by breda-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,9 @@ int	set_heredoc(t_heredoc *hd, t_minishell *bash)
 			hd->eo_heredoc);
 		close(hd->fd_heredoc);
 		if (status == 0 || status == 1)
-			free_exit(&bash, 0);
+			free_exit(&bash, status);
 		if (status == 2)
-			free_exit(&bash, SIGINT);
+			free_exit(&bash, EXIT_SIGINT);
 	}
 }
 
