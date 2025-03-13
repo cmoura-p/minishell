@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 09:26:41 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/03/08 19:00:15 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/03/13 11:11:48 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void	add_tokenlst(t_minishell **bash, char *name, \
 	if (!newtoken)
 		return ;
 	newtoken->name = name;
+	newtoken->env_null = ft_strdup("");
 	newtoken->type = type;
 	newtoken->status = status_q;
 	if (!(*bash)->token)

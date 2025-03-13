@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 16:19:54 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/03/13 02:29:47 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/03/13 11:31:13 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ void	set_redir(t_minishell *bash)
 t_token	*set_redir_file(t_token *token, enum e_type type)
 {
 	token = token->next;
+	if (!token)					// AQUI
+		return (token);			// AQUI
 	if (token->type == BLANK)
 		token = token->next;
 	while (token && token->type == WORD)
@@ -67,4 +69,13 @@ char	*envp_trimmed(const char *str)
 	}
 	cleaned[j] = '\0';
 	return (cleaned);
+}
+
+void	check_exp_null(t_token *aux, char *exp_var, char *env_var)
+{
+	if (*exp_var == '\0')
+	{
+		free(aux->env_null);
+		aux->env_null = ft_strjoin("$", env_var);
+	}
 }

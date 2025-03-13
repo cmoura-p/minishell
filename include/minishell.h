@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 10:51:43 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/03/13 02:09:02 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/03/13 11:06:36 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,7 @@ typedef struct s_token
 	enum e_status	status;
 	int				i;
 	char			*name;
+	char			*env_null;
 	int				expand;
 	struct s_token	*prev;
 	struct s_token	*next;
@@ -249,6 +250,7 @@ void		join_exitcode(t_minishell *bash);
 void		join_fw(t_minishell *bash, t_token **aux);
 void		join_bw(t_token **aux);
 char		*envp_trimmed(const char *str);
+void		check_exp_null(t_token *aux, char *exp_var, char *env_var);
 
 //heredoc
 void		heredoc(t_minishell *bash);
