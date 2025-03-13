@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 19:47:42 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/03/13 09:32:23 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/03/13 15:17:31 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,11 +80,9 @@ static int	err_redir(char *line)
 				i = skip_blank(line, i + 1);
 				if (line[i] == '\0' || line[i] == '<' || line[i] == '>')
 					return (1);
-/* 				if (line[i] == '\0' || line[i] == '|')
+				if (check_pipe_in_redir(line, i) == 0)
 					return (1);
-				else if (line[i] == '<' || line[i] == '>')
-					return (1);
- */			}
+			}
 			else
 				i++;
 		}

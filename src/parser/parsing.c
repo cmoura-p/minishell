@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 13:58:23 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/03/13 10:39:41 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/03/13 18:08:44 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,8 @@ void	join_fw(t_minishell *bash, t_token **aux)
 	}
 	if ((*aux)->name)
 		free((*aux)->name);
+	if ((*aux)->env_null)
+		free((*aux)->env_null);
 	free(*aux);
 }
 
@@ -116,5 +118,7 @@ void	join_bw(t_token **aux)
 		(*aux)->prev->next = (*aux)->prev;
 	if ((*aux)->name)
 		free((*aux)->name);
+	if ((*aux)->env_null)
+		free((*aux)->env_null);
 	free(*aux);
 }

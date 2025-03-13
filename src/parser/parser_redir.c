@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 16:19:54 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/03/13 11:31:13 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/03/13 16:15:18 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ t_token	*set_redir_file(t_token *token, enum e_type type)
 	token = token->next;
 	if (!token)					// AQUI
 		return (token);			// AQUI
-	if (token->type == BLANK)
+	if (token->type == BLANK || token->type == PIPE)
 		token = token->next;
 	while (token && token->type == WORD)
 	{

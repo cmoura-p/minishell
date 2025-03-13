@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 10:51:43 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/03/13 11:06:36 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/03/13 16:01:17 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -210,6 +210,7 @@ int			redir_in(char *line, int i, t_minishell *bash);
 int			redir_out(char *line, int i, t_minishell *bash);
 int			redir_app(char *line, int i, t_minishell *bash);
 int			handle_blank(char *line, int i, t_minishell *bash);
+int			check_pipe_in_redir(char *line, int i);
 void		add_tokenlst(t_minishell **bash, char *name, \
 				enum e_type type, enum e_status status_q);
 void		add_tokenlst_dq(t_minishell *bash, t_token **aux, \

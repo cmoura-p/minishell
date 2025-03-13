@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 21:39:01 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/03/12 21:58:10 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/03/13 17:56:19 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,8 @@ void	joinnext(t_token **token, char *name)
 		aux_next->next->prev = aux_next->prev;
 	if (aux_next->name)
 		free(aux_next->name);
+	if (aux_next->env_null)
+		free(aux_next->env_null);
 	free(aux_next);
 }
 
@@ -78,6 +80,8 @@ void	joinprev(t_token **token, char *name)
 		aux->next->prev = aux->prev;
 	if (aux->name)
 		free(aux->name);
+	if (aux->env_null)
+		free(aux->env_null);
 	free(aux);
 	(*token) = aux_prev;
 }
@@ -106,6 +110,8 @@ void	joinexpand(t_token **token, char *name, char *name_exp)
 		aux_next->next->prev = aux_next->prev;
 	if (aux_next->name)
 		free(aux_next->name);
+	if (aux_next->env_null)
+		free(aux_next->env_null);
 	free(aux_next);
 }
 
@@ -128,6 +134,8 @@ void	remove_exp_null(t_minishell *bash)
 				aux->next->prev = aux->prev;
 			if (aux->name)
 				free(aux->name);
+			if (aux->env_null)
+				free(aux->env_null);
 			free(aux);
 		}
 		aux = aux_next;
