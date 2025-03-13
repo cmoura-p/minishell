@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 18:46:17 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/03/10 19:47:43 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/03/13 02:15:49 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ void	expand_var(t_token **aux, t_envp *aux_envp)
 		joinprev(aux, newname);
 	}
 	free(env_var);
+	free(exp_var);
 }
 
 void	expand_in_dq(t_minishell *bash, t_token **aux, char *b_var, char *a_var)

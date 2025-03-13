@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 10:51:43 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/03/12 19:49:05 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/03/13 02:09:02 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -248,6 +248,7 @@ void		newtoken_after_parsing(t_token **aux, char *a_var);
 void		join_exitcode(t_minishell *bash);
 void		join_fw(t_minishell *bash, t_token **aux);
 void		join_bw(t_token **aux);
+char		*envp_trimmed(const char *str);
 
 //heredoc
 void		heredoc(t_minishell *bash);

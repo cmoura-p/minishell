@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 21:17:10 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/03/12 23:37:19 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/03/13 02:09:33 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,13 +44,10 @@ char	*ft_getenv(t_envp *aux, char *var)
 	while (aux)
 	{
 		if (ft_strcmp(aux->name, var) == 0)
-            // tratar uma copia sem brancos do content
-            // isso eh que vai retornar
-			return (aux->content);
+			return (envp_trimmed(aux->content));
 		aux = aux->next;
 	}
-//    return (ft_strdup(""));
-	return ("");
+    return (ft_strdup(""));
 }
 
 int	blank_in_expand(t_token *token, char *exp_var, char	*before, char *after)
