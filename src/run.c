@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   run.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
+/*   By: breda-si <breda-si@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 23:00:17 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/03/12 20:41:07 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/03/14 12:15:33 by breda-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ void	run(t_minishell *bash)
 		return ;
 	init_signals();
 	aux = bash->token;
-	if (bash->token->name[0] == '\0')
-		aux = bash->token->next;
+	//if (bash->token->name[0] == '\0')
+	//	aux = bash->token->next;
 	bash->root = ft_tree(duplicate_token_list(aux), bash);
 	if (!bash->root)
 	{

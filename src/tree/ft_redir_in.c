@@ -6,7 +6,7 @@
 /*   By: breda-si <breda-si@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 10:02:22 by breda-si          #+#    #+#             */
-/*   Updated: 2025/03/10 10:02:23 by breda-si         ###   ########.fr       */
+/*   Updated: 2025/03/14 12:07:14 by breda-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	*ft_redir_in(t_token *start, t_token *aux, t_minishell *bash)
 {
 	t_redir	*redir;
 
-	if (!aux || !aux->next)
+	if (!aux)
 		return (free_null_redir(aux));
 	redir = malloc(sizeof(t_redir));
 	if (!redir)

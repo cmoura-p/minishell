@@ -6,7 +6,7 @@
 /*   By: breda-si <breda-si@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 23:37:21 by brendon           #+#    #+#             */
-/*   Updated: 2025/03/11 10:18:07 by breda-si         ###   ########.fr       */
+/*   Updated: 2025/03/14 17:25:44 by breda-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ char	*ft_find_path(t_minishell *minishell, char *cmd)
 		}
 		return (ft_strdup(cmd));
 	}
-	path = ft_strdup(ft_getenv(minishell->envp, "PATH"));
+	path = ft_getenv(minishell->envp, "PATH");
 	if (!path)
 		return (NULL);
 	paths = ft_split(path, ':');

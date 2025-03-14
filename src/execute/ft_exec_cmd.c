@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exec_cmd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
+/*   By: breda-si <breda-si@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 23:40:14 by breda-si          #+#    #+#             */
-/*   Updated: 2025/03/13 01:23:37 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/03/14 17:41:43 by breda-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static	void	exec_child_process(t_minishell *minishell, t_exec *cmd)
 
 	signal(SIGINT, signal_handler);
 	path = ft_find_path(minishell, cmd->args[0]);
-	if (!path)
+	if (!path || cmd->args[0][0] == '\0')
 	{
 		ft_fprintf(STDERR_FILENO, "minishell: %s: command not found\n",
 			cmd->args[0]);

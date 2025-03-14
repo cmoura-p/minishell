@@ -6,7 +6,7 @@
 /*   By: breda-si <breda-si@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 11:48:17 by brendon           #+#    #+#             */
-/*   Updated: 2025/03/10 10:02:34 by breda-si         ###   ########.fr       */
+/*   Updated: 2025/03/14 12:17:16 by breda-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ t_token	*find_token_by_type(t_token *start, enum e_type type)
 void	*handle_command(t_token *start)
 {
 	t_exec	*root;
+
 
 	root = malloc(sizeof(t_exec));
 	if (!root)

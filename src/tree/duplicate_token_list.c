@@ -6,7 +6,7 @@
 /*   By: breda-si <breda-si@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 10:02:49 by breda-si          #+#    #+#             */
-/*   Updated: 2025/03/10 10:02:50 by breda-si         ###   ########.fr       */
+/*   Updated: 2025/03/14 17:24:17 by breda-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ t_token	*create_new_token(t_token *token)
 	new_token->status = token->status;
 	new_token->i = token->i;
 	new_token->name = ft_strdup(token->name);
+	new_token->env_null = ft_strdup(token->env_null);
 	new_token->expand = token->expand;
 	new_token->prev = NULL;
 	new_token->next = NULL;

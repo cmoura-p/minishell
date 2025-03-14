@@ -6,7 +6,7 @@
 /*   By: breda-si <breda-si@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 15:04:23 by brendon           #+#    #+#             */
-/*   Updated: 2025/03/12 22:17:51 by breda-si         ###   ########.fr       */
+/*   Updated: 2025/03/14 17:32:34 by breda-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,18 @@
 
 int	ft_check_args(t_minishell *bash, char **args)
 {
-	int	i;
+	int		i;
+	char	*path;
 
 	i = 0;
 	while (args[i])
 		i++;
 	if (i == 0)
 	{
+		path = ft_getenv(bash->envp, "HOME");
 		bash->exit_status = 0;
-		chdir(ft_getenv(bash->envp, "HOME"));
+		chdir(path);
+		free(path);
 		return (0);
 	}
 	if (i > 1)
@@ -71,7 +74,7 @@ void	ft_cd(t_minishell *minishell, char **args)
 	char	*path;
 
 	path = args[0];
-	oldpwd = ft_strdup(ft_getenv(minishell->envp, "PWD"));
+	oldpwd = ft_getenv(minishell->envp, "PWD");
 	if (!oldpwd)
 		oldpwd = getcwd(NULL, 0);
 	if (!args || !args[0])
