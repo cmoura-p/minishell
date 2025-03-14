@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 19:19:07 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/03/08 19:21:55 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/03/13 18:01:55 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ void	free_token(t_token *token)
 		return ;
 	if (token->name)
 		free(token->name);
+	if (token->env_null)
+		free(token->env_null);
 	free(token);
 	token = NULL;
 }

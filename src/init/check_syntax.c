@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 19:47:42 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/03/05 12:14:57 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/03/13 15:17:31 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static int	err_quotes(char *line)
 	}
 	if (quote != 0)
 	{
-		ft_printf("Syntax error: Unmatched '%c'\n", quote);
+		ft_printf("Minishell: syntax error Unclosed quotes '%c'\n", quote);
 		return (1);
 	}
 	return (0);
@@ -78,9 +78,9 @@ static int	err_redir(char *line)
 				if (line[i + 1] == line[i])
 					i++;
 				i = skip_blank(line, i + 1);
-				if (line[i] == '\0' || line[i] == '|')
+				if (line[i] == '\0' || line[i] == '<' || line[i] == '>')
 					return (1);
-				else if (line[i] == '<' || line[i] == '>')
+				if (check_pipe_in_redir(line, i) == 0)
 					return (1);
 			}
 			else
@@ -105,7 +105,7 @@ static int	err_special_char(char *line)
 		{
 			if (ft_strchr(special, line[i]))
 			{
-				ft_printf("Syntax error: special char '%c'\n", line[i]);
+				ft_printf("Minishell: syntax error special char '%c'\n", line[i]);
 				return (1);
 			}
 		}
@@ -123,12 +123,12 @@ char	*check_syntax(char *cmd_line)
 		return (NULL);
 	if (err_pipes(cmd_line))
 	{
-		ft_printf("Syntax error: wrong use of pipes\n");
+		ft_printf("Minishell: syntax error wrong use of pipes\n");
 		return (NULL);
 	}
 	if (err_redir(cmd_line))
 	{
-		ft_printf("Syntax error: wrong use of redirection\n");
+		ft_printf("Minishell: syntax error near unexpected token `newline'\n");
 		return (NULL);
 	}
 	if (err_special_char(cmd_line))

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: breda-si <breda-si@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 10:51:43 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/03/12 01:36:53 by breda-si         ###   ########.fr       */
+/*   Updated: 2025/03/13 16:01:17 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,7 @@ typedef struct s_token
 	enum e_status	status;
 	int				i;
 	char			*name;
+	char			*env_null;
 	int				expand;
 	struct s_token	*prev;
 	struct s_token	*next;
@@ -209,6 +210,7 @@ int			redir_in(char *line, int i, t_minishell *bash);
 int			redir_out(char *line, int i, t_minishell *bash);
 int			redir_app(char *line, int i, t_minishell *bash);
 int			handle_blank(char *line, int i, t_minishell *bash);
+int			check_pipe_in_redir(char *line, int i);
 void		add_tokenlst(t_minishell **bash, char *name, \
 				enum e_type type, enum e_status status_q);
 void		add_tokenlst_dq(t_minishell *bash, t_token **aux, \
@@ -248,6 +250,8 @@ void		newtoken_after_parsing(t_token **aux, char *a_var);
 void		join_exitcode(t_minishell *bash);
 void		join_fw(t_minishell *bash, t_token **aux);
 void		join_bw(t_token **aux);
+char		*envp_trimmed(const char *str);
+void		check_exp_null(t_token *aux, char *exp_var, char *env_var);
 
 //heredoc
 void		heredoc(t_minishell *bash);
@@ -360,6 +364,6 @@ char		*ft_find_path(t_minishell *minishell, char *cmd);
 void		ft_execute(t_minishell *minishell, void *root);
 void		free_args(char **args);
 void		free_exit(t_minishell **minishell, int status);
-//void		print_token_list(t_token *token);
+void		print_token_list(t_token *token);
 
 #endif

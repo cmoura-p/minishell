@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_organizing.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmoura-p <cmoura-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 20:59:59 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/03/01 21:03:39 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/03/13 18:06:40 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,8 @@ void	remove_blank(t_minishell *bash)
 				aux->next->prev = aux->prev;
 			if (aux->name)
 				free(aux->name);
+			if (aux->env_null)
+				free(aux->env_null);
 			free(aux);
 		}
 		aux = aux_next;

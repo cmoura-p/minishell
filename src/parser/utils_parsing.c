@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 21:39:01 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/03/01 21:22:00 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/03/13 17:56:19 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,13 +50,17 @@ void	joinnext(t_token **token, char *name)
 	aux_next = (*token)->next;
 	free(aux->name);
 	aux->name = name;
-	aux->status = aux_next->status;
+    if ((checked_for_hd(aux) == 1) && (aux->status == DOUBLE_Q))
+        aux_next->status = DOUBLE_Q;
+    aux->status = aux_next->status;
 	aux->type = aux->next->type;
 	aux->next = aux_next->next;
 	if (aux_next->next != NULL)
 		aux_next->next->prev = aux_next->prev;
 	if (aux_next->name)
 		free(aux_next->name);
+	if (aux_next->env_null)
+		free(aux_next->env_null);
 	free(aux_next);
 }
 
@@ -76,6 +80,8 @@ void	joinprev(t_token **token, char *name)
 		aux->next->prev = aux->prev;
 	if (aux->name)
 		free(aux->name);
+	if (aux->env_null)
+		free(aux->env_null);
 	free(aux);
 	(*token) = aux_prev;
 }
@@ -104,6 +110,8 @@ void	joinexpand(t_token **token, char *name, char *name_exp)
 		aux_next->next->prev = aux_next->prev;
 	if (aux_next->name)
 		free(aux_next->name);
+	if (aux_next->env_null)
+		free(aux_next->env_null);
 	free(aux_next);
 }
 
@@ -113,7 +121,7 @@ void	remove_exp_null(t_minishell *bash)
 	t_token	*aux_next;
 
 	aux = bash->token;
-	while (aux->next)
+	while (aux)
 	{
 		aux_next = aux->next;
 		if (aux->type == EXP_NULL)
@@ -126,6 +134,8 @@ void	remove_exp_null(t_minishell *bash)
 				aux->next->prev = aux->prev;
 			if (aux->name)
 				free(aux->name);
+			if (aux->env_null)
+				free(aux->env_null);
 			free(aux);
 		}
 		aux = aux_next;

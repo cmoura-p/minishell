@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 19:44:40 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/03/11 11:45:09 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/03/13 11:14:00 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,11 @@ void	clean_tokens(t_minishell *bash)
 		{
 			free(aux->name);
 			aux->name = NULL;
+		}
+		if (aux->env_null)
+		{
+			free(aux->env_null);
+			aux->env_null = NULL;
 		}
 		if (aux)
 			free(aux);

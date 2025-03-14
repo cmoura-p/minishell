@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 19:59:28 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/03/09 14:30:36 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/03/13 10:54:24 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,5 +112,6 @@ void	ft_expande(t_help_recursion *aux_hr, t_envp *aux_exp)
 		ft_strlen(aux_hr->after) - ft_strlen(aux_hr->env_var));
 	expand = ft_getenv(aux_exp, aux_hr->env_var);
 	join_sobra_in(aux_hr, expand, &aux_hr->temp_after);
+	free(expand);
 	aux_hr->after = aux_hr->temp_after;
 }

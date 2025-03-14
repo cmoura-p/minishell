@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 11:03:44 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/03/01 20:44:02 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/03/13 15:36:34 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,4 +60,22 @@ int	redir_out(char *line, int i, t_minishell *bash)
 		return (0);
 	add_tokenlst(&bash, redir, REDIR_OUT, NO_QUOTE);
 	return (i);
+}
+
+int	check_pipe_in_redir(char *line, int i)
+{
+	if (ft_isword(line[i+1]))
+		return (1);
+	if (line[i+1] != ' ')
+		return (0);
+	else
+	{
+		i++;
+		while (line[i] == ' ')
+			i++;
+		if (ft_isword(line[i]))
+			return (1);
+		else
+			return (0);
+	}
 }
