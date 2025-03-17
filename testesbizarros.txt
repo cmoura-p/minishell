@@ -1,5 +1,4 @@
 
-
 echo $USER+este do brasil<cat cat
 	cmoura-p+este do brasil cat
 
@@ -56,87 +55,129 @@ echo $ ?
 	$ ?
 
 
-DANIMUR			echo "GG$?"				//ERRO
+echo "GG$?"
 
-P
-							com a primeira alteracao			original
+echo $USER"teste"
+echo "$USER"teste
+echo "$USERteste"
 
-ERROS PARA CORRIGIR
-echo $USER"teste"		funciona mas nao ta colando				seg fault
-echo "$USER"teste		funciona mas nao ta colando				loop infinito
-echo "$USERteste"		funciona no parsing mas					funciona
-						tras uma word vazia da tokenizacao		mas nao expande
+echo "$USER teste"
 
-echo "$USER teste"		funciona no parsing mas					funciona
-						tras uma word vazia da tokenizacao		mas nao expande
+echo "$USER""teste"
+echo "$USER" "teste"
+echo $USER teste
+echo $USER "teste"
+echo "$USER" teste
 
-echo "$USER""teste"		entra em loop depois de tokenizar		loop infinito
-echo "$USER" "teste"	entra em loop depois de tokenizar		nao da erro mas
-																nao faz nada
-echo $USER teste 	X	funciona 								funciona
-echo $USER "teste" 	X	funciona								funciona
-echo "$USER" teste 		funciona								funciona
+echo $USER'$USER'$usre"$USER"
 
-multiplos $ funcionou
+echo abc$123
 
-Hoje, dia 20 de janeiro terminei o dia com 2 consideracoes grandes
-	. o set_argument nao esta legal
-	. ainda preciso trabalhar na expansao entre aspas
+echo "$USER{abc}"
 
-Hoje 22 de janeiro
-	. arranjei o set_arguments
-	. tenho que fazer o parsing_redir
-	. tenho que voltar a expansao entre aspas duplas
+cat << $USER (esse $USER tem que ser tratado como literal)
 
+cat << eof
+	> $USER
+	> eof
 
-informacoes importantes do projeto
-	. nao ha expansao quando isto for fim de heredoc, exemplo:
-			cat << $USER (esse $USER tem que ser tratado como literal)
+	resultado no terminal
+	cmoura-p
 
-	. cat << eof                    DEU O MAIOR ERRO AQUI !!!!!
-		> $USER
-		> eof
+cat << "eof"
+	> $USER
+	> eof
 
-		resultado no terminal
-		cmoura-p
+	resultado no terminal
+	$USER
 
-	. cat << "eof"
-		> $USER
-		> eof
-
-		resultado no terminal
-		$USER
-
-	. cat << eof"$USER"eof
-		> teste de heredoc
-		> eof
-		> eof"$USER"eof
-		> eofcmoura-peof
-		> eof$USEReof			so sai assim!!!
-
-	. teste da Dani que esta tirando meu juizo
-		echo $USER'$USER'$usre"$USER"
-
-	. testar com $ puro no final
-	. testar com "$USER{abc}"
-
-	. NOVO ERRO
-		echo abc$123 nao junta
+cat << eof"$USER"eof
+	> teste de heredoc
+	> eof
+	> eof"$USER"eof
+	> eofcmoura-peof
+	> eof$USEReof			so sai assim!!!
 
 
-Dia 03 marco
-- sobre exit_status
-    - readline
-    - revisar saida de malloc
 
-SEQUNCIA DE ERROS INTERMITENTES
+HOJE EH DIA 15 DE MARCO - ULTIMOS TESTES DO MINISHELL
 
-cmoura-p@Latitude-E7270:~/minishell$ ./minishell
-/home/cmoura-p/minishell: echo $[?
-$[?
-/home/cmoura-p/minishell: echo $ ?
-$ ?
-/home/cmoura-p/minishell: echo "GG$?"
-�k9�X
-free(): double free detected in tcache 2
-Aborted (core dumped)
+DEPOIS SO VOLTO AQUI QUANDO BRENDON VOLTAR DO BRASIL
+
+cat <<a <<b <<c														//CLAUDIA
+	ta dando erro de sintaxe			JA ESTA FUNCIONANO
+
+ls >|out															//BRENDON
+	aqui dava erro de sintaxe pq depois do > nao vinha uma letra
+	agora ele funciona ate o parsing. Fica:
+		ls			command
+		>			redir out
+		|			pipe
+		out			file out
+	o problema eh que esta tentando executar o out. Mensagem:
+		minishell: out: command not found
+
+	problema ainda maior eh quando tem "<", REDIR_IN
+	depois do parsing fica:
+		ls			command
+		<			redir in
+		|			pipe
+		out			file in
+	esta dando segmantation fault
+
+$oi																	//BRENDON
+	parece que esta funcionando falta execucao para retornar:
+	"$oi: ambiguos redirect"
+
+export asa="Oi       teste"			funciona - depois:
+export bsb="hello $asa fim"			resultado estranho:				//CLAUDIA
+	NA tokenizacao
+		export			word
+		( )				blank
+		bsb=			word
+		Hello $asa fim	word	double
+		aqui esta correto. deveria expardir o $asa e depois
+		seguir para juntar as partes. Resultado:
+
+		export			word							<
+		( )				blank						<	.
+		bsb=Hello oi	word					<	<	<	<	<	<	<
+		( )				blank						<	.
+		teste fim		word	double					<
+		AQUI ESTA ERRADO!!!!!!
+		RESULTADO FINAL:
+
+		export			command					houve 2 situacoes diferentes
+		bsb=Hello oi	argument				com mesnsagem de erro
+		teste fim		argument	double		e sem mensagemde erro
+												export bsb="hello $asa"
+
+		minishell: export: `teste fim': not a valid identifier
+
+		o que eu pude perceber eh que a ultima "palavra" nao esta sendo tratada
+		na verdade eh o ultimo token, ultimo argument: "teste fim" ou "teste"
+		nao esta juntando ao conteudo da expansao
+
+
+observacoes sobre os testes de expansao
+BSB="hello Oi         teste fim"
+	TOKENIZACAO
+	echo				word
+	( )					blank
+	$					exp var
+	bsb					word
+
+	PARSING
+	echo				word
+	( )					blank
+	hello				word
+	( )					blank
+	Oi teste fim		word
+
+	DEPOIS DE JOIN
+	echo				command
+	hello				argument
+	Oi teste fim		argument
+
+	A RESPOSTA FOI CORRETA, POIS COMANDO ECHO FUNCIONANO
+	O PARSING NAO FUNCIONA PARA A EXPORTACAO

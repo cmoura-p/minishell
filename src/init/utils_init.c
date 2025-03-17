@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 11:34:58 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/03/12 23:18:42 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/03/16 11:01:10 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ char	*ft_minitrim(char *line, int i, int j)
 	if (!result)
 		return (strdup(""));
 	ft_strlcpy(result, line + i, size + 1);
-	strncpy(result, line + i, size);
+//	strncpy(result, line + i, size);
 	result[size] = '\0';
 	free(line);
 	return (result);
