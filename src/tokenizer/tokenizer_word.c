@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 16:44:48 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/03/01 20:36:01 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/03/17 15:59:05 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,4 +35,15 @@ int	ft_isword(char s)
 		|| s == '<')
 		return (0);
 	return (1);
+}
+
+int	is_export(t_token *token)
+{
+	while (token)
+	{
+		if (token->name && ft_strcmp(token->name, "export") == 0)
+			return (1);
+		token = token->prev;
+	}
+	return (0);
 }

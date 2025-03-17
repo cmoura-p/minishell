@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 21:17:10 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/03/13 10:55:33 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/03/17 15:59:18 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,8 @@ int	blank_in_expand(t_token *token, char *exp_var, char	*before, char *after)
 {
 	t_token	*newtoken;
 
-	before = NULL;
-	after = NULL;
+	if (is_export(token))
+		return (0);
 	if (split_string(exp_var, &before, &after, ' '))
 	{
 		free(token->name);

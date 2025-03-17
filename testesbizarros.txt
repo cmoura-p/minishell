@@ -181,3 +181,24 @@ BSB="hello Oi         teste fim"
 
 	A RESPOSTA FOI CORRETA, POIS COMANDO ECHO FUNCIONANO
 	O PARSING NAO FUNCIONA PARA A EXPORTACAO
+
+
+HOJE EH SEGUNDA DIA 17 DE MARCO
+
+	Continuo no erro da expansao
+	So que agora descobri que o erro esta em
+		if (!blank_in_expand((*aux), exp_var, "", ""))
+	TENHO QUE OLHAR ESSA FUNCAO PORQUE
+		quando mandei
+		export def="Eu sou $USER, $abc. Esse eh um teste mais arrojado"
+		deu segmentation fault
+
+		export def="Eu sou $USER, $abc" nao da seg fault
+			export								word	single
+			( )									blank	single
+			def=								word	single
+			Eu sou cmoura-p						word	single
+			, OI OI								word	single
+			. Esse eh um teste mais arrojado	word	double
+
+		estoura no parsing

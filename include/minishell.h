@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 10:51:43 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/03/17 08:57:15 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/03/17 15:40:30 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -250,6 +250,7 @@ void		newtoken_after_parsing(t_token **aux, char *a_var);
 void		join_exitcode(t_minishell *bash);
 void		join_fw(t_minishell *bash, t_token **aux);
 void		join_bw(t_token **aux);
+int			is_export(t_token *token);
 char		*envp_trimmed(const char *str);
 void		check_exp_null(t_token *aux, char *exp_var, char *env_var);
 
