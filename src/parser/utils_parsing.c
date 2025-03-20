@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 21:39:01 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/03/13 17:56:19 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/03/19 17:09:58 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,7 @@ void	remove_exp_null(t_minishell *bash)
 	while (aux)
 	{
 		aux_next = aux->next;
-		if (aux->type == EXP_NULL)
+		if ((aux->type == EXP_NULL) && (ok_with_redir(aux)))
 		{
 			if (!aux->prev)
 				bash->token = aux->next;

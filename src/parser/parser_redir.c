@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 16:19:54 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/03/13 16:15:18 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/03/19 17:30:22 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,4 +78,16 @@ void	check_exp_null(t_token *aux, char *exp_var, char *env_var)
 		free(aux->env_null);
 		aux->env_null = ft_strjoin("$", env_var);
 	}
+}
+
+int	ok_with_redir(t_token *token)
+{
+	if (!token->prev)
+		return (1);
+	if (token->prev->type == BLANK)
+		token = token->prev;
+	if (token->prev->type == REDIR_IN || token->prev->type == REDIR_OUT || token->prev->type == REDIR_APP)
+		return (0);
+	else
+		return (1);
 }
