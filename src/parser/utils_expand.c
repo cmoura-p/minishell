@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 21:17:10 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/03/17 15:59:18 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/03/22 17:06:30 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,14 +49,13 @@ char	*ft_getenv(t_envp *aux, char *var)
 	}
 	return (ft_strdup(""));
 }
-
-int	blank_in_expand(t_token *token, char *exp_var, char	*before, char *after)
+int	blank_in_expand(t_token *token, char *exp_pieces, char	*before, char *after)
 {
 	t_token	*newtoken;
 
 	if (is_export(token))
 		return (0);
-	if (split_string(exp_var, &before, &after, ' '))
+	if (split_string(exp_pieces, &before, &after, ' '))
 	{
 		free(token->name);
 		token->name = before;
@@ -69,10 +68,34 @@ int	blank_in_expand(t_token *token, char *exp_var, char	*before, char *after)
 		newtoken->status = NO_QUOTE;
 		newtoken->prev = token;
 		newtoken->next = token->next;
-		token->next->prev = newtoken;
 		token->next = newtoken;
-		free(newtoken->next->name);
-		newtoken->next->name = after;
+		if (newtoken->next && ft_more_space(after))
+		{
+			newtoken->next->prev = newtoken;
+			free(newtoken->next->name);
+			newtoken->next->name = after;
+			newtoken->next->type = WORD;
+			newtoken->next->status = NO_QUOTE;
+			token = newtoken->next;
+			exp_pieces = after;
+			if (!blank_in_expand(token, exp_pieces, "", ""))
+				return (1);
+		}
+		else
+		{
+			token = newtoken;
+			newtoken = ft_calloc(1, sizeof(t_token));
+			if (!newtoken)
+				return (0);
+			newtoken->name = after;
+			newtoken->type = WORD;
+			newtoken->status = NO_QUOTE;
+			newtoken->prev = token;
+			newtoken->next = token->next;
+			if (token->next)
+				token->next->prev = newtoken;
+			token->next = newtoken;
+		}
 		return (1);
 	}
 	return (0);
