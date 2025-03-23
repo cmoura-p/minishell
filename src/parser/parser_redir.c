@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 16:19:54 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/03/19 17:30:22 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/03/23 09:30:30 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ void	set_redir(t_minishell *bash)
 t_token	*set_redir_file(t_token *token, enum e_type type)
 {
 	token = token->next;
-	if (!token)					// AQUI
-		return (token);			// AQUI
+	if (!token)
+		return (token);
 	if (token->type == BLANK || token->type == PIPE)
 		token = token->next;
 	while (token && token->type == WORD)
@@ -44,6 +44,7 @@ t_token	*set_redir_file(t_token *token, enum e_type type)
 	}
 	return (token);
 }
+
 char	*envp_trimmed(const char *str)
 {
 	char	*cleaned;
@@ -86,7 +87,8 @@ int	ok_with_redir(t_token *token)
 		return (1);
 	if (token->prev->type == BLANK)
 		token = token->prev;
-	if (token->prev->type == REDIR_IN || token->prev->type == REDIR_OUT || token->prev->type == REDIR_APP)
+	if (token->prev->type == REDIR_IN || token->prev->type == REDIR_OUT
+		|| token->prev->type == REDIR_APP)
 		return (0);
 	else
 		return (1);

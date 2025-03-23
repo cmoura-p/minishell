@@ -6,7 +6,7 @@
 #    By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/16 21:43:02 by cmoura-p          #+#    #+#              #
-#    Updated: 2025/03/12 19:47:35 by cmoura-p         ###   ########.fr        #
+#    Updated: 2025/03/23 00:35:03 by cmoura-p         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,6 +42,7 @@ SRC =		main.c \
 			src/parser/parser_expand.c \
 			src/parser/parser_redir.c \
 			src/parser/parser_organizing.c \
+			src/parser/parser_special.c \
 			src/parser/utils_expand.c \
 			src/parser/utils_parsing.c \
 			src/heredoc/heredoc.c \

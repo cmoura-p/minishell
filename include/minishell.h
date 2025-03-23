@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 10:51:43 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/03/22 16:47:04 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/03/23 09:20:05 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -245,6 +245,9 @@ void		remove_exp_null(t_minishell *bash);
 void		find_a_pipe(t_token **aux);
 int			blank_in_expand(t_token *token, char *exp_var, \
 				char *before, char *after);
+void		special_before(t_token **token, t_token **newtoken, char *before);
+void		special_after(t_token **token, char *after);
+void		special_last(t_token **token, t_token **newtoken, char *after);
 void		get_sobra(t_token **aux, char *a_var, char *env_var);
 int			not_redirection(t_token *token);
 void		newtoken_after_parsing(t_token **aux, char *a_var);

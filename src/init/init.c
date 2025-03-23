@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 13:42:58 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/03/12 19:31:55 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/03/23 09:26:57 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	init_signals(void)
 {
 	signal(SIGINT, signal_handler);
 	signal(SIGQUIT, SIG_IGN);
-    signal(SIGTSTP, SIG_IGN);
+	signal(SIGTSTP, SIG_IGN);
 }
 
 void	signal_handler(int signum)
