@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 18:46:17 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/03/17 15:24:41 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/04/03 22:34:16 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void	expand_var(t_token **aux, t_envp *aux_envp)
 	}
 	exp_var = ft_getenv(aux_envp, env_var);
 	check_exp_null((*aux), exp_var, env_var);
-	if (!blank_in_expand((*aux), exp_var, "", ""))
+	if (!blank_in_expand(&(*aux), exp_var, "", ""))
 		joinexpand(aux, env_var, exp_var);
 	if (((*aux)->prev != NULL) && ((*aux)->prev->type == WORD))
 	{
