@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 10:51:43 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/04/04 00:44:02 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/04/04 22:01:12 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -243,11 +243,10 @@ t_token		*set_redir_file(t_token *token, enum e_type type);
 void		remove_blank(t_minishell *bash);
 void		remove_exp_null(t_minishell *bash);
 void		find_a_pipe(t_token **aux);
-int			blank_in_expand(t_token **token, char *exp_var, \
+int			blank_in_expand(t_token **token, char **exp_var, \
 				char *before, char *after, t_minishell *bash);
-void		special_before(t_token **token, t_token **newtoken, char *before, int flag);
-//void		special_after(t_token **token, char *after);
-void		special_last(t_token **token, t_token **newtoken, char *after);
+void		special_before(t_token **newtoken, char *before, int flag);
+void		special_last(t_token **newtoken, char *after);
 void		special_clean(t_token **token, t_token **newtoken, t_minishell *bash);
 void		get_sobra(t_token **aux, char *a_var, char *env_var);
 int			not_redirection(t_token *token);

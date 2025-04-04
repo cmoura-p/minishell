@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 18:46:17 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/04/04 00:29:08 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/04/04 21:46:32 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void	expand_var(t_token **aux, t_envp *aux_envp, t_minishell *bash)
 	}
 	exp_var = ft_getenv(aux_envp, env_var);
 	check_exp_null((*aux), exp_var, env_var);
-	if (!blank_in_expand(&(*aux), exp_var, "", "", bash))
+	if (!blank_in_expand(&(*aux), &exp_var, NULL, NULL, bash))
 		joinexpand(aux, env_var, exp_var);
 	if (((*aux)->prev != NULL) && ((*aux)->prev->type == WORD))
 	{

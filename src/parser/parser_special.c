@@ -6,46 +6,47 @@
 /*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/23 00:10:04 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/04/04 02:02:30 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/04/04 21:59:49 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int	blank_in_expand(t_token **token, char *exp_pieces, \
+int	blank_in_expand(t_token **token, char **exp_pieces, \
 	char	*before, char *after, t_minishell *bash)
 {
 	t_token	*newtoken;
-	t_token	*tokenaux;
 	int		flag;
 
 	flag = 0;
-	tokenaux = NULL;
 	if (is_export((*token)))
 		return (flag);
-	while (ft_more_space(exp_pieces))
+	while (ft_more_space(*exp_pieces))
 	{
-		if (split_string(exp_pieces, &before, &after, ' '))
+		if (after)
+			free(after);
+		if (split_string(*exp_pieces, &before, &after, ' '))
 		{
-			special_before(&tokenaux, &newtoken, before, flag);
-			ft_strcpy(exp_pieces, after);
+			special_before(&newtoken, before, flag);
+			free(*exp_pieces);
+			(*exp_pieces) = ft_strdup(after);
 		}
-		tokenaux = newtoken;
 		flag = 1;
 	}
 	if (flag)
 	{
-		special_last(&tokenaux, &newtoken, after);
+		special_last(&newtoken, after);
 		special_clean(&(*token), &newtoken, bash);
 		(*token) = newtoken;
 	}
 	return (flag);
 }
 
-void	special_before(t_token **token, t_token **newtoken, char *before, int flag)
+void	special_before(t_token **newtoken, char *before, int flag)
 {
-	t_token *newaux;
+	t_token *tokenaux;
 
+	tokenaux = (*newtoken);
 	*newtoken = ft_calloc(1, sizeof(t_token));
 	if (!*newtoken)
 		return ;
@@ -56,33 +57,36 @@ void	special_before(t_token **token, t_token **newtoken, char *before, int flag)
 	(*newtoken)->next = NULL;
 	if (flag == 1)
 	{
-		(*newtoken)->prev = (*token);
-		(*token)->next = (*newtoken);
+		(*newtoken)->prev = tokenaux;
+		tokenaux->next = (*newtoken);
 	}
-	newaux = (*newtoken);
+	tokenaux = (*newtoken);
 	*newtoken = ft_calloc(1, sizeof(t_token));
 	if (!*newtoken)
 		return ;
 	(*newtoken)->name = ft_strdup(" ");
 	(*newtoken)->type = BLANK;
 	(*newtoken)->status = NO_QUOTE;
-	(*newtoken)->prev = newaux;
-	newaux->next = (*newtoken);
+	(*newtoken)->prev = tokenaux;
+	tokenaux->next = (*newtoken);
 }
 
-void	special_last(t_token **token, t_token **newtoken, char *after)
+void	special_last(t_token **newtoken, char *after)
 {
+	t_token	*tokenaux;
+
+	tokenaux = (*newtoken);
 	*newtoken = ft_calloc(1, sizeof(t_token));
 	if (!*newtoken)
 		return ;
 	(*newtoken)->name = after;
 	(*newtoken)->type = WORD;
 	(*newtoken)->status = NO_QUOTE;
-	(*newtoken)->prev = (*token);
-	(*newtoken)->next = (*token)->next;
-	if ((*token)->next)
-		(*token)->next->prev = (*newtoken);
-	(*token)->next = (*newtoken);
+	(*newtoken)->prev = tokenaux;
+	(*newtoken)->next = tokenaux->next;
+	if (tokenaux->next)
+		tokenaux->next->prev = (*newtoken);
+	tokenaux->next = (*newtoken);
 }
 
 void	special_clean(t_token **token, t_token **newtoken, t_minishell *bash)
