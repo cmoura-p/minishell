@@ -6,14 +6,14 @@
 /*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/23 00:10:04 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/04/03 22:44:21 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/04/04 02:02:30 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
 int	blank_in_expand(t_token **token, char *exp_pieces, \
-	char	*before, char *after)
+	char	*before, char *after, t_minishell *bash)
 {
 	t_token	*newtoken;
 	t_token	*tokenaux;
@@ -28,7 +28,7 @@ int	blank_in_expand(t_token **token, char *exp_pieces, \
 		if (split_string(exp_pieces, &before, &after, ' '))
 		{
 			special_before(&tokenaux, &newtoken, before, flag);
-			exp_pieces = after;
+			ft_strcpy(exp_pieces, after);
 		}
 		tokenaux = newtoken;
 		flag = 1;
@@ -36,7 +36,7 @@ int	blank_in_expand(t_token **token, char *exp_pieces, \
 	if (flag)
 	{
 		special_last(&tokenaux, &newtoken, after);
-		special_clean(&(*token), &newtoken);
+		special_clean(&(*token), &newtoken, bash);
 		(*token) = newtoken;
 	}
 	return (flag);
@@ -70,22 +70,6 @@ void	special_before(t_token **token, t_token **newtoken, char *before, int flag)
 	newaux->next = (*newtoken);
 }
 
-void	special_after(t_token **newaux, char *after)
-{
-	t_token *newtoken;
-
-	newtoken = ft_calloc(1, sizeof(t_token));
-	if (!newtoken)
-		return ;
-	newtoken->name = after;
-	newtoken->type = WORD;
-	newtoken->status = NO_QUOTE;
-	newtoken->prev = (*newaux);
-	newtoken->next = NULL;
-	(*newaux)->next = newtoken;
-	(*newaux) = newtoken;
-}
-
 void	special_last(t_token **token, t_token **newtoken, char *after)
 {
 	*newtoken = ft_calloc(1, sizeof(t_token));
@@ -101,14 +85,18 @@ void	special_last(t_token **token, t_token **newtoken, char *after)
 	(*token)->next = (*newtoken);
 }
 
-void	special_clean(t_token **token, t_token **newtoken)
+void	special_clean(t_token **token, t_token **newtoken, t_minishell *bash)
 {
 	t_token	*auxtoken;
 
 	(*newtoken)->next = (*token)->next->next;
 	while ((*newtoken)->prev)
-	(*newtoken) = (*newtoken)->prev;
+		(*newtoken) = (*newtoken)->prev;
 	(*newtoken)->prev = (*token)->prev;
+	if ((*token)->prev)
+		(*token)->prev->next = (*newtoken);
+	else
+		bash->token = (*newtoken);
 	auxtoken = (*token)->next;
 	free_token(* token);
 	(*token) = NULL;
