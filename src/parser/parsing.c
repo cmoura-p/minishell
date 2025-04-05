@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 13:58:23 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/03/17 15:27:48 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/03/23 09:27:41 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	parsing(t_minishell *bash)
 	{
 		signal(SIGINT, SIG_IGN);
 		signal(SIGQUIT, SIG_IGN);
-        signal(SIGTSTP, SIG_IGN);
+		signal(SIGTSTP, SIG_IGN);
 		heredoc(bash);
 		init_signals();
 	}

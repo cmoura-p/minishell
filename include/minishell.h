@@ -6,7 +6,7 @@
 /*   By: breda-si <breda-si@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 10:51:43 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/04/05 17:39:16 by breda-si         ###   ########.fr       */
+/*   Updated: 2025/04/05 18:01:23 by breda-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -230,7 +230,7 @@ void		joinnext(t_token **token, char *name);
 void		joinprev(t_token **token, char *name);
 void		expandtokens(t_minishell *bash);
 void		joinexpand(t_token **token, char *name, char *name_exp);
-void		expand_var(t_token **aux, t_envp *aux_envp);
+void		expand_var(t_token **aux, t_envp *aux_envp, t_minishell *bash);
 void		expand_exit(t_minishell *bash, t_token **token);
 void		expand_in_dq(t_minishell *bash, t_token **aux, \
 				char *b_var, char *a_var);
@@ -244,8 +244,11 @@ t_token		*set_redir_file(t_token *token, enum e_type type);
 void		remove_blank(t_minishell *bash);
 void		remove_exp_null(t_minishell *bash);
 void		find_a_pipe(t_token **aux);
-int			blank_in_expand(t_token *token, char *exp_var, \
-				char *before, char *after);
+int			blank_in_expand(t_token **token, char **exp_var, \
+				char *before, char *after, t_minishell *bash);
+void		special_before(t_token **newtoken, char *before, int flag);
+void		special_last(t_token **newtoken, char *after);
+void		special_clean(t_token **token, t_token **newtoken, t_minishell *bash);
 void		get_sobra(t_token **aux, char *a_var, char *env_var);
 int			not_redirection(t_token *token);
 void		newtoken_after_parsing(t_token **aux, char *a_var);

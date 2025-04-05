@@ -6,7 +6,7 @@
 #    By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/11 20:20:52 by joseoliv          #+#    #+#              #
-#    Updated: 2025/03/01 18:24:56 by cmoura-p         ###   ########.fr        #
+#    Updated: 2025/03/22 16:46:48 by cmoura-p         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ SRC = char/ft_isalpha.c char/ft_isdigit.c char/ft_isalnum.c char/ft_toupper.c\
 	memory/ft_bzero.c memory/ft_calloc.c memory/ft_memset.c \
 	string/ft_split.c string/ft_strchr.c string/ft_strdup.c string/ft_strjoin.c \
 	string/ft_strlcpy.c string/ft_strlen.c string/ft_strncmp.c string/ft_substr.c \
-	string/ft_strcmp.c string/ft_strcpy.c \
+	string/ft_strcmp.c string/ft_strcpy.c string/ft_more_space.c \
 	utility/ft_atoi_int.c utility/ft_itoa.c utility/ft_pow.c
 
 OBJ = $(SRC:.c=.o)

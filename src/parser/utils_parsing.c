@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 21:39:01 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/03/19 17:09:58 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/03/23 09:31:35 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,9 @@ void	joinnext(t_token **token, char *name)
 	aux_next = (*token)->next;
 	free(aux->name);
 	aux->name = name;
-    if ((checked_for_hd(aux) == 1) && (aux->status == DOUBLE_Q))
-        aux_next->status = DOUBLE_Q;
-    aux->status = aux_next->status;
+	if ((checked_for_hd(aux) == 1) && (aux->status == DOUBLE_Q))
+		aux_next->status = DOUBLE_Q;
+	aux->status = aux_next->status;
 	aux->type = aux->next->type;
 	aux->next = aux_next->next;
 	if (aux_next->next != NULL)

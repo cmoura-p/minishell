@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 19:47:42 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/03/13 15:17:31 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/03/23 09:36:50 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,8 @@ static int	err_special_char(char *line)
 		{
 			if (ft_strchr(special, line[i]))
 			{
-				ft_printf("Minishell: syntax error special char '%c'\n", line[i]);
+				ft_printf("Minishell: syntax error special char '%c'\n", \
+					line[i]);
 				return (1);
 			}
 		}

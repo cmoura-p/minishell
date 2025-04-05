@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 16:57:20 by joseoliv          #+#    #+#             */
-/*   Updated: 2025/03/01 18:25:08 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/03/22 16:46:10 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void	ft_bzero(void *s, size_t n);
 size_t	ft_strlcpy(char *dest, const char *src, size_t n);
 char	*ft_strcpy(char *dest, char *src);
 int		ft_toupper(int c);
+int		ft_more_space(char *str);
 char	*ft_strchr(const char *s, int c);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 int		ft_strcmp(char *s1, char *s2);
