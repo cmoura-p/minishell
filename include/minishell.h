@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: breda-si <breda-si@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 10:51:43 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/04/05 18:01:23 by breda-si         ###   ########.fr       */
+/*   Updated: 2025/04/05 20:11:14 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -184,7 +184,7 @@ int			split_string(char *line, char **before, char **after, char c);
 void		load_expo(t_minishell *minishell, char **args);
 char		**ft_arraydup(char **array);
 
-//signals
+//signalschar	*before, char *after,
 void		signal_handler(int signum);
 void		set_heredoc_signals(void);
 void		heredoc_ctrl_c(t_minishell *bash);
@@ -221,7 +221,6 @@ void		add_tokenlst_back(t_token **newtoken, t_token *lst);
 void		del_tokenlst(t_minishell *bash, t_token **token);
 int			ft_isword(char s);
 int			expand_is_hd_eof(char *line, int i, int j, char **redir);
-void		print_token_list(t_token *token);
 void		fix_a_var(char **a_var);
 
 //parsing
@@ -244,11 +243,13 @@ t_token		*set_redir_file(t_token *token, enum e_type type);
 void		remove_blank(t_minishell *bash);
 void		remove_exp_null(t_minishell *bash);
 void		find_a_pipe(t_token **aux);
-int			blank_in_expand(t_token **token, char **exp_var, \
-				char *before, char *after, t_minishell *bash);
+int			blank_in_expand(t_token **token, char **exp_var, t_minishell *bash);
 void		special_before(t_token **newtoken, char *before, int flag);
 void		special_last(t_token **newtoken, char *after);
-void		special_clean(t_token **token, t_token **newtoken, t_minishell *bash);
+void		special_clean(t_token **token, t_token **newtoken, \
+			t_minishell *bash);
+void		special_final(t_token **newtoken, char *after, t_token **token, \
+			t_minishell *bash);
 void		get_sobra(t_token **aux, char *a_var, char *env_var);
 int			not_redirection(t_token *token);
 void		newtoken_after_parsing(t_token **aux, char *a_var);
@@ -375,6 +376,5 @@ char		*ft_find_path(t_minishell *minishell, char *cmd);
 void		ft_execute(t_minishell *minishell, void *root);
 void		free_args(char **args);
 void		free_exit(t_minishell **minishell, int status);
-//void		print_token_list(t_token *token);
 
 #endif
