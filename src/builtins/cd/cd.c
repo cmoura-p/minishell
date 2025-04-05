@@ -6,7 +6,7 @@
 /*   By: breda-si <breda-si@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 15:04:23 by brendon           #+#    #+#             */
-/*   Updated: 2025/03/14 17:32:34 by breda-si         ###   ########.fr       */
+/*   Updated: 2025/04/03 18:25:18 by breda-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ int	ft_check_args(t_minishell *bash, char **args)
 		bash->exit_status = 0;
 		chdir(path);
 		free(path);
-		return (0);
 	}
 	if (i > 1)
 	{
@@ -56,10 +55,15 @@ void	att_pwdold(t_minishell *minishell, char *oldpwd)
 
 void	handle_cd_error(t_minishell *minishell, char **args, char *oldpwd)
 {
+	struct stat	path_stat;
+
 	if (!args || !args[0])
 		ft_fprintf(STDERR_FILENO, "minishell: cd: HOME not set\n");
 	else if (ft_strcmp(args[0], "-") == 0)
 		ft_fprintf(STDERR_FILENO, "minishell: cd: OLDPWD not set\n");
+	else if (stat(args[0], &path_stat) == 0 && !S_ISDIR(path_stat.st_mode))
+		ft_fprintf(STDERR_FILENO, "minishell: cd: %s: Not a directory\n",
+			args[0]);
 	else
 		ft_fprintf(STDERR_FILENO,
 			"minishell: cd: %s: No such file or directory\n",
@@ -81,7 +85,7 @@ void	ft_cd(t_minishell *minishell, char **args)
 		path = ft_getenv(minishell->envp, "HOME");
 	if (!path[0])
 		path = getcwd(NULL, 0);
-	else if (ft_strcmp(args[0], "-") == 0)
+	else if (args && args[0] && (ft_strcmp(args[0], "-") == 0))
 	{
 		path = ft_getenv(minishell->envp, "OLDPWD");
 		if (!path)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
+/*   By: breda-si <breda-si@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 10:51:43 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/03/19 17:20:30 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/04/05 17:39:16 by breda-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # include <stdbool.h>
 # include <sys/wait.h>
 # include <errno.h>
+# include <sys/stat.h>
 
 extern int	g_signal;
 
@@ -328,6 +329,10 @@ void		*ft_pipe(t_token *start, t_token *aux, t_minishell *bash);
 void		*handle_command(t_token *start);
 t_token		*find_token_by_type(t_token *start, enum e_type type);
 
+//redir_util
+int			ft_ambiguous_redir(t_token *aux, t_minishell *bash);
+t_redir		*ft_init_redir(enum e_type type, t_token *aux);
+
 //tree_util
 void		ft_remove_tokens(t_token *aux);
 char		**tokken_to_args(t_token *start);
@@ -358,6 +363,7 @@ void		ft_exec_redir(t_minishell *minishell, t_redir *redir);
 
 //ft_execute.c
 void		ft_execute(t_minishell *minishell, void *root);
+void		fork_siginal(int mode);
 
 //ft_find_path.c
 char		*ft_find_path(t_minishell *minishell, char *cmd);

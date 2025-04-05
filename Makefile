@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+         #
+#    By: breda-si <breda-si@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/16 21:43:02 by cmoura-p          #+#    #+#              #
-#    Updated: 2025/03/12 19:47:35 by cmoura-p         ###   ########.fr        #
+#    Updated: 2025/04/05 14:26:16 by breda-si         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -61,6 +61,7 @@ SRC =		main.c \
 			src/tree/ft_redir_in.c \
 			src/tree/ft_redir_out.c \
 			src/tree/ft_redir_app.c \
+			src/tree/redir_util.c \
 			src/tree/tree_util.c \
 			src/tree/duplicate_token_list.c \
 			src/execute/ft_env_args.c \

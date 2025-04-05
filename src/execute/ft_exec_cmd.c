@@ -6,7 +6,7 @@
 /*   By: breda-si <breda-si@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 23:40:14 by breda-si          #+#    #+#             */
-/*   Updated: 2025/03/14 17:41:43 by breda-si         ###   ########.fr       */
+/*   Updated: 2025/04/05 17:53:58 by breda-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,18 +16,6 @@ void	ft_execperror(char *str, char *cmd)
 {
 	ft_fprintf(STDERR_FILENO, "%s: %s: ", str, cmd);
 	perror("");
-}
-
-void	fork_siginal(int mode)
-{
-	if (mode == 0)
-	{
-		signal(SIGINT, SIG_IGN);
-		signal(SIGQUIT, SIG_IGN);
-        signal(SIGTSTP, SIG_IGN);
-	}
-	else
-		signal(SIGINT, signal_handler);
 }
 
 void	ft_exit_status(t_minishell *minishell, int status)
@@ -48,6 +36,16 @@ void	ft_exit_status(t_minishell *minishell, int status)
 		minishell->exit_status = 1;
 }
 
+static void	handle_exec_error(t_minishell *minishell, char *path, char **env)
+{
+	ft_execperror("minishell", path);
+	free(path);
+	free_args(env);
+	if (errno == EACCES)
+		free_exit(&minishell, 126);
+	free_exit(&minishell, 127);
+}
+
 static	void	exec_child_process(t_minishell *minishell, t_exec *cmd)
 {
 	char	*path;
@@ -59,6 +57,8 @@ static	void	exec_child_process(t_minishell *minishell, t_exec *cmd)
 	{
 		ft_fprintf(STDERR_FILENO, "minishell: %s: command not found\n",
 			cmd->args[0]);
+		if (path)
+			free(path);
 		free_exit(&minishell, 127);
 	}
 	env = ft_env_args(minishell->envp);
@@ -69,12 +69,7 @@ static	void	exec_child_process(t_minishell *minishell, t_exec *cmd)
 		free_exit(&minishell, 1);
 	}
 	execve(path, cmd->args, env);
-	ft_execperror("minishell", cmd->args[0]);
-	free(path);
-	free_args(env);
-	if (errno == EACCES)
-		free_exit(&minishell, 126);
-	free_exit(&minishell, 127);
+	handle_exec_error(minishell, path, env);
 }
 
 void	ft_exec_cmd(t_minishell *minishell, t_exec *cmd)

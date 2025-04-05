@@ -6,7 +6,7 @@
 /*   By: breda-si <breda-si@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 10:01:40 by breda-si          #+#    #+#             */
-/*   Updated: 2025/03/20 15:34:57 by breda-si         ###   ########.fr       */
+/*   Updated: 2025/04/05 14:29:51 by breda-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,21 +16,11 @@ void	*ft_redir_out(t_token *start, t_token *aux, t_minishell *bash)
 {
 	t_redir	*redir;
 
-	if (!aux)
+	if (!aux || ft_ambiguous_redir(aux, bash))
 		return (free_null_redir(aux));
-	if (aux->next->type == EXP_NULL)
-	{
-		ft_fprintf(STDERR_FILENO, "minishell: %s: ambiguous redirect\n",
-			aux->next->env_null);
-		bash->exit_status = 1;
-		return (free_null_redir(aux));
-	}
-	redir = malloc(sizeof(t_redir));
+	redir = ft_init_redir(REDIR_OUT, aux);
 	if (!redir)
 		return (free_null_redir(aux));
-	redir->type = REDIR_OUT;
-	redir->file_name = ft_strdup(aux->next->name);
-	redir->fd = open(redir->file_name, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (redir->fd < 0)
 		return (handle_redir_error(redir, bash, start));
 	if (!aux->prev && aux->next->next)

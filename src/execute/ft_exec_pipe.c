@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exec_pipe.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
+/*   By: breda-si <breda-si@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 23:37:33 by brendon           #+#    #+#             */
-/*   Updated: 2025/03/12 19:31:16 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/04/03 18:26:54 by breda-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	ft_exec_pipe(t_minishell *minishell, t_pipe *pipeline)
 
 	signal(SIGINT, SIG_IGN);
 	signal(SIGQUIT, SIG_IGN);
-    signal(SIGTSTP, SIG_IGN);
+	signal(SIGTSTP, SIG_IGN);
 	if (pipe(fd) == -1)
 	{
 		perror("minishell: pipe");

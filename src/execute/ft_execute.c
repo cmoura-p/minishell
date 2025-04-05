@@ -6,11 +6,23 @@
 /*   By: breda-si <breda-si@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 23:38:51 by brendon           #+#    #+#             */
-/*   Updated: 2025/03/04 23:40:29 by breda-si         ###   ########.fr       */
+/*   Updated: 2025/04/05 17:38:25 by breda-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+
+void	fork_siginal(int mode)
+{
+	if (mode == 0)
+	{
+		signal(SIGINT, SIG_IGN);
+		signal(SIGQUIT, SIG_IGN);
+		signal(SIGTSTP, SIG_IGN);
+	}
+	else
+		signal(SIGINT, signal_handler);
+}
 
 void	ft_execute(t_minishell *minishell, void *root)
 {

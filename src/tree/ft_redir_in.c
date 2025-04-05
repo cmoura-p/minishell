@@ -6,7 +6,7 @@
 /*   By: breda-si <breda-si@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 10:02:22 by breda-si          #+#    #+#             */
-/*   Updated: 2025/03/14 12:07:14 by breda-si         ###   ########.fr       */
+/*   Updated: 2025/04/05 14:34:36 by breda-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,11 @@ void	*ft_redir_in(t_token *start, t_token *aux, t_minishell *bash)
 {
 	t_redir	*redir;
 
-	if (!aux)
+	if (!aux || ft_ambiguous_redir(aux, bash))
 		return (free_null_redir(aux));
-	redir = malloc(sizeof(t_redir));
+	redir = ft_init_redir(REDIR_IN, aux);
 	if (!redir)
-		return (NULL);
-	redir->type = REDIR_IN;
-	redir->file_name = ft_strdup(aux->next->name);
-	redir->fd = open(redir->file_name, O_RDONLY);
+		return (free_null_redir(aux));
 	if (redir->fd < 0)
 		return (handle_redir_error(redir, bash, start));
 	if (!aux->prev && aux->next->next)
