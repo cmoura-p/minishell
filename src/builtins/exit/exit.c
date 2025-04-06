@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
+/*   By: breda-si <breda-si@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 17:42:44 by brendon           #+#    #+#             */
-/*   Updated: 2025/03/11 18:36:52 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/04/06 01:11:02 by breda-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,20 @@ void	free_exit(t_minishell **minishell, int exit_code)
 	free_bash(*minishell);
 	rl_clear_history();
 	exit(exit_code);
+}
+
+int	verify_ll(char *str)
+{
+	if (ft_strlen(str) > 20 || (ft_strlen(str) == 20 && str[0] != '-'))
+		return (0);
+	if (ft_strlen(str) < 19)
+		return(1);
+	if (ft_strlen(str) == 19 && ft_strcmp(str, "9223372036854775807") <= 0)
+		return (1);
+	if (ft_strlen(str) == 20
+		&& ft_strcmp(str, "-9223372036854775808") <= 0)
+		return (1);
+	return (0);
 }
 
 static int	ft_strisdigit(char *str)
@@ -46,7 +60,7 @@ void	ft_exit(t_minishell *minishell, char **args)
 		free_exit(&minishell, 0);
 	}
 	exit_code = 0;
-	if (ft_strisdigit(args[0]) && !args[1])
+	if (ft_strisdigit(args[0]) && verify_ll(args[0]) && !args[1])
 	{
 		exit_code = ft_atoi_int(args[0]) % 256;
 		if (exit_code < 0)
@@ -54,10 +68,10 @@ void	ft_exit(t_minishell *minishell, char **args)
 		ft_fprintf(STDOUT_FILENO, "exit\n");
 		free_exit(&minishell, exit_code);
 	}
-	if (!ft_strisdigit(args[0]) && !args[1])
+	if ((!ft_strisdigit(args[0]) || !verify_ll(args[0])))
 	{
 		ft_fprintf(STDERR_FILENO,
-			"minishell: exit: %s: numeric argument required\n", args[0]);
+			"exit\nminishell: exit: %s: numeric argument required\n", args[0]);
 		free_exit(&minishell, 2);
 	}
 	minishell->exit_status = 1;
