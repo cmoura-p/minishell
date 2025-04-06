@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
+/*   By: breda-si <breda-si@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 17:42:44 by brendon           #+#    #+#             */
-/*   Updated: 2025/03/11 18:36:52 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/04/06 14:25:32 by breda-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	ft_exit(t_minishell *minishell, char **args)
 		ft_fprintf(STDOUT_FILENO, "exit\n");
 		free_exit(&minishell, exit_code);
 	}
-	if (!ft_strisdigit(args[0]) && !args[1])
+	if (!ft_strisdigit(args[0]))
 	{
 		ft_fprintf(STDERR_FILENO,
 			"minishell: exit: %s: numeric argument required\n", args[0]);
