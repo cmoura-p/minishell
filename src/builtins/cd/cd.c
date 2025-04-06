@@ -6,7 +6,7 @@
 /*   By: breda-si <breda-si@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 15:04:23 by brendon           #+#    #+#             */
-/*   Updated: 2025/04/06 16:15:23 by breda-si         ###   ########.fr       */
+/*   Updated: 2025/04/06 20:28:29 by breda-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ void	ft_cd(t_minishell *minishell, char **args)
 	char	*oldpwd;
 	char	*path;
 
-	path = args[0];
+	path = ft_strdup(args[0]);
 	oldpwd = ft_getenv(minishell->envp, "PWD");
 	if (!oldpwd)
 		oldpwd = getcwd(NULL, 0);

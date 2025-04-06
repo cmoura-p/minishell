@@ -6,7 +6,7 @@
 /*   By: breda-si <breda-si@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 13:58:23 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/04/06 15:37:40 by breda-si         ###   ########.fr       */
+/*   Updated: 2025/04/06 20:38:27 by breda-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	get_sobra(t_token **aux, char *a_var, char *env_var)
 	sobra = ft_substr(a_var, (ft_strlen(env_var)), (ft_strlen(a_var) - 1));
 	if (sobra && *sobra != '\0')
 	{
-		newtoken = (t_token *)ft_calloc(1,sizeof(t_token));
+		newtoken = (t_token *)ft_calloc(sizeof(t_token), 1);
 		if (!newtoken)
 			return ;
 		newtoken->name = sobra;
