@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
+/*   By: breda-si <breda-si@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 10:51:43 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/04/05 20:11:14 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/04/07 10:33:01 by breda-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -375,6 +375,6 @@ char		*ft_find_path(t_minishell *minishell, char *cmd);
 //testes
 void		ft_execute(t_minishell *minishell, void *root);
 void		free_args(char **args);
-void		free_exit(t_minishell **minishell, int status);
+void		free_exit(t_minishell **minishell, long long int status);
 
 #endif

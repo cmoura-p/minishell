@@ -6,13 +6,13 @@
 /*   By: breda-si <breda-si@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 17:42:44 by brendon           #+#    #+#             */
-/*   Updated: 2025/04/07 10:09:26 by breda-si         ###   ########.fr       */
+/*   Updated: 2025/04/07 10:32:29 by breda-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../include/minishell.h"
 
-void	free_exit(t_minishell **minishell, int exit_code)
+void	free_exit(t_minishell **minishell, long long int exit_code)
 {
 	if ((*minishell)->root)
 		ft_free_tree((*minishell)->root);
@@ -26,13 +26,35 @@ int	verify_ll(char *str)
 	if (ft_strlen(str) > 20 || (ft_strlen(str) == 20 && str[0] != '-'))
 		return (0);
 	if (ft_strlen(str) < 19)
-		return(1);
+		return (1);
 	if (ft_strlen(str) == 19 && ft_strcmp(str, "9223372036854775807") <= 0)
 		return (1);
 	if (ft_strlen(str) == 20
 		&& ft_strcmp(str, "-9223372036854775808") <= 0)
 		return (1);
 	return (0);
+}
+long long	ft_atoi_ll(char *str)
+{
+	long long	result;
+	int			sign;
+
+	result = 0;
+	sign = 1;
+	while (*str == ' ' || (*str >= 9 && *str <= 13))
+		str++;
+	if (*str == '-' || *str == '+')
+	{
+		if (*str == '-')
+			sign = -1;
+		str++;
+	}
+	while (ft_isdigit(*str))
+	{
+		result = result * 10 + (*str - '0');
+		str++;
+	}
+	return (result * sign);
 }
 
 static int	ft_strisdigit(char *str)
@@ -52,7 +74,7 @@ static int	ft_strisdigit(char *str)
 
 void	ft_exit(t_minishell *minishell, char **args)
 {
-	int	exit_code;
+	long long int	exit_code;
 
 	if (!args || !args[0] || !args[0][0])
 	{
