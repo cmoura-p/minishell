@@ -6,18 +6,21 @@
 /*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/23 00:10:04 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/04/04 21:59:49 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/04/05 20:12:07 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int	blank_in_expand(t_token **token, char **exp_pieces, \
-	char	*before, char *after, t_minishell *bash)
+int	blank_in_expand(t_token **token, char **exp_pieces, t_minishell *bash)
 {
 	t_token	*newtoken;
 	int		flag;
+	char	*after;
+	char	*before;
 
+	after = NULL;
+	before = NULL;
 	flag = 0;
 	if (is_export((*token)))
 		return (flag);
@@ -34,17 +37,13 @@ int	blank_in_expand(t_token **token, char **exp_pieces, \
 		flag = 1;
 	}
 	if (flag)
-	{
-		special_last(&newtoken, after);
-		special_clean(&(*token), &newtoken, bash);
-		(*token) = newtoken;
-	}
+		special_final(&newtoken, after, &(*token), bash);
 	return (flag);
 }
 
 void	special_before(t_token **newtoken, char *before, int flag)
 {
-	t_token *tokenaux;
+	t_token	*tokenaux;
 
 	tokenaux = (*newtoken);
 	*newtoken = ft_calloc(1, sizeof(t_token));
@@ -102,8 +101,16 @@ void	special_clean(t_token **token, t_token **newtoken, t_minishell *bash)
 	else
 		bash->token = (*newtoken);
 	auxtoken = (*token)->next;
-	free_token(* token);
+	free_token(*token);
 	(*token) = NULL;
 	free_token(auxtoken);
 	auxtoken = NULL;
+}
+
+void	special_final(t_token **newtoken, char *after, t_token **token, \
+		t_minishell *bash)
+{
+	special_last(&(*newtoken), after);
+	special_clean(&(*token), &(*newtoken), bash);
+	(*token) = (*newtoken);
 }

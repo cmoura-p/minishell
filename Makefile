@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: breda-si <breda-si@student.42.fr>          +#+  +:+       +#+         #
+#    By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/16 21:43:02 by cmoura-p          #+#    #+#              #
-#    Updated: 2025/04/05 18:00:57 by breda-si         ###   ########.fr        #
+#    Updated: 2025/04/05 19:30:53 by cmoura-p         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,6 @@ SRC =		main.c \
 			src/clear/free_funcs_c.c \
 			src/clear/free_funcs_o.c \
 			src/tokenizer/tokenizer.c \
-			src/tokenizer/token_prints.c \
 			src/tokenizer/tokenizer_quotes.c \
 			src/tokenizer/tokenizer_metachar.c \
 			src/tokenizer/tokenizer_heredoc.c \
