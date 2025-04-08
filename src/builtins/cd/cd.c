@@ -6,7 +6,7 @@
 /*   By: breda-si <breda-si@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 15:04:23 by brendon           #+#    #+#             */
-/*   Updated: 2025/04/06 21:21:40 by breda-si         ###   ########.fr       */
+/*   Updated: 2025/04/08 18:12:43 by breda-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,10 +71,7 @@ void	handle_cd_error(t_minishell *minishell, char **args, char *oldpwd,
 			args[0]);
 	minishell->exit_status = 1;
 	if (path)
-	{
 		free(path);
-		path = NULL;
-	}
 	free(oldpwd);
 }
 
@@ -83,7 +80,6 @@ void	ft_cd(t_minishell *minishell, char **args)
 	char	*oldpwd;
 	char	*path;
 
-	path = ft_strdup(args[0]);
 	oldpwd = ft_getenv(minishell->envp, "PWD");
 	if (!oldpwd)
 		oldpwd = getcwd(NULL, 0);
@@ -97,6 +93,8 @@ void	ft_cd(t_minishell *minishell, char **args)
 	}
 	else if (ft_check_args(minishell, args))
 		return (free(oldpwd));
+	else
+		path = ft_strdup(args[0]);
 	if (!path || !path[0] || chdir(path) == -1)
 		return (handle_cd_error(minishell, args, oldpwd, path));
 	minishell->exit_status = 0;
