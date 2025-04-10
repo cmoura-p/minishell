@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: breda-si <breda-si@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 13:58:23 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/04/06 20:38:27 by breda-si         ###   ########.fr       */
+/*   Updated: 2025/04/09 15:06:43 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,11 @@ void	get_sobra(t_token **aux, char *a_var, char *env_var)
 		newtoken->name = sobra;
 		newtoken->type = WORD;
 		newtoken->status = DOUBLE_Q;
-		add_tokenlst_back(&newtoken, *aux);
-		newtoken->next = NULL;
+		newtoken->prev = (*aux);
+		newtoken->next = (*aux)->next;
+		if ((*aux)->next != NULL)
+			(*aux)->next->prev = newtoken;
+		(*aux)->next = newtoken;
 	}
 	else
 		free(sobra);
