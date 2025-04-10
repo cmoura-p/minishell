@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 19:29:38 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/03/12 21:25:10 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/04/10 18:51:27 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,8 @@ int	checked_for_hd(t_token *token)
 {
 	t_token	*aux;
 
+	if (!token)
+		return (0);
 	aux = token;
 	while (aux && aux->prev)
 	{
