@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 13:58:23 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/04/09 15:06:43 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/04/10 09:07:55 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,22 @@
 void	parsing(t_minishell *bash)
 {
 	expandtokens(bash);
+	ft_printf("Expands\n");
+	print_token_list(bash->token);
 	if (bash->flag_exp_exit)
 		join_exitcode(bash);
 	remove_exp_null(bash);
 	jointokens(bash);
+	ft_printf("Remove NULL and Join\n");
+	print_token_list(bash->token);
 	set_redir(bash);
 	set_commands(bash);
+	ft_printf("Commands\n");
+	print_token_list(bash->token);
 	remove_blank(bash);
 	set_arguments(bash);
+	ft_printf("Final CALL\n");
+	print_token_list(bash->token);
 	if (bash->heredoc)
 	{
 		signal(SIGINT, SIG_IGN);
