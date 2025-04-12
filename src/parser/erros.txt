@@ -21,6 +21,13 @@ Novas verificacoes:
 			aqui nao da vasamento mas deixa o espaco em branco
 		no teste com echo aparecem 3 brancos entre o ultimo OI e o :testando
 
+		mudancas:
+		ls $teste :testando		OK
+
+		ls $teste $USER			OK
+
+
+
 		ls "$teste :testando"
 			entre a "tokenizacao" e o "parsing" da um monte de erro de Invalid Read
 			a resposta do erro tinha que ser tudo numa linha e nao eh (ERRADO)
@@ -39,7 +46,7 @@ Novas verificacoes:
 
 			OK
 
-			
+
 	- expansao sem espacos (SOZINHO OU ACOMPANHADO)
 		ls $PWD
 		ls $PWD $USER

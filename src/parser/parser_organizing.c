@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 20:59:59 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/04/12 11:27:24 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/04/12 16:06:51 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,12 +85,6 @@ void	remove_blank(t_minishell *bash)
 				aux->next->prev = aux->prev;
 			free_token(aux);
 			aux = NULL;
-/* 			if (aux->name)
-				free(aux->name);
-			if (aux->env_null)
-				free(aux->env_null);
-			free(aux);
- */
 		}
 		aux = aux_next;
 	}

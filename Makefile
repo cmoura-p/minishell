@@ -6,7 +6,7 @@
 #    By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/16 21:43:02 by cmoura-p          #+#    #+#              #
-#    Updated: 2025/04/10 09:01:33 by cmoura-p         ###   ########.fr        #
+#    Updated: 2025/04/12 16:14:00 by cmoura-p         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,6 @@ SRC =		main.c \
 			src/tokenizer/tokenizer_heredoc.c \
 			src/tokenizer/tokenizer_redir.c \
 			src/tokenizer/tokenizer_word.c \
-			src/tokenizer/token_prints.c \
 			src/tokenizer/utils_tokenizer.c \
 			src/parser/parsing.c \
 			src/parser/parser_expand.c \

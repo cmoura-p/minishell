@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 23:00:17 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/04/10 09:04:48 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/04/12 16:16:27 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@ void	run(t_minishell *bash)
 	t_token	*aux;
 
 	tokenizer(bash);
-	ft_printf("Tokenizer\n");
-	print_token_list(bash->token);
 	parsing(bash);
 	if (!bash->token)
 		return ;

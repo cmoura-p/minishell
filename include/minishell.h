@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 10:51:43 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/04/12 14:08:06 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/04/12 16:14:40 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -244,7 +244,7 @@ t_token		*set_redir_file(t_token *token, enum e_type type);
 void		remove_blank(t_minishell *bash);
 void		remove_exp_null(t_minishell *bash);
 void		find_a_pipe(t_token **aux);
-void		blank_in_expand(t_token **token, char **exp_var, t_minishell *bash);
+int			blank_in_expand(t_token **token, char **exp_var, t_minishell *bash);
 void		special_before(t_token **newtoken, char *before, int flag);
 void		special_last(t_token **newtoken, char *after);
 void		special_clean(t_token **token, t_token **newtoken, \
@@ -377,6 +377,5 @@ char		*ft_find_path(t_minishell *minishell, char *cmd);
 void		ft_execute(t_minishell *minishell, void *root);
 void		free_args(char **args);
 void		free_exit(t_minishell **minishell, int status);
-void	print_token_list(t_token *token);
 
 #endif

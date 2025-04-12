@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 18:46:17 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/04/12 14:05:47 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/04/12 16:11:01 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,8 @@ void	expandtokens(t_minishell *bash)
 		else
 		{
 			if ((aux->type == EXP_ENVP) && (checked_for_hd(aux) == 0))
-			{
-				ft_printf("Expand_var\n");
-				print_token_list(bash->token);
 				expand_var(&aux, aux_envp, bash);
-//				expand_var(&aux, aux_envp);
-			}
-				else
+			else
 			{
 				if ((aux->type == WORD && aux->status == DOUBLE_Q)
 					&& (checked_for_hd(aux) == 0))
@@ -58,7 +53,7 @@ void	expand_exit(t_minishell *bash, t_token **token)
 	(*token) = (*token)->next;
 	return ;
 }
-//void	expand_var(t_token **aux, t_envp *aux_envp)
+
 void	expand_var(t_token **aux, t_envp *aux_envp, t_minishell *bash)
 {
 	char	*env_var;
@@ -79,7 +74,10 @@ void	expand_var(t_token **aux, t_envp *aux_envp, t_minishell *bash)
 	if ((*aux)->next && ((*aux)->next->status == SINGLE_Q))
 		joinexpand(aux, env_var, exp_var);
 	else
-		blank_in_expand(&(*aux), &exp_var, bash);
+	{
+		if (!blank_in_expand(&(*aux), &exp_var, bash))
+			joinexpand(aux, env_var, exp_var);
+	}
 	if (((*aux)->prev != NULL) && ((*aux)->prev->type == WORD))
 	{
 		newname = ft_strjoin((*aux)->prev->name, (*aux)->name);

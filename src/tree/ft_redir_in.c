@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_redir_in.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: breda-si <breda-si@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 10:02:22 by breda-si          #+#    #+#             */
-/*   Updated: 2025/04/10 01:19:23 by breda-si         ###   ########.fr       */
+/*   Updated: 2025/04/12 16:10:13 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void	*ft_redir_in(t_token *start, t_token *aux, t_minishell *bash)
 {
 	t_redir	*redir;
+
 	if (!aux || ft_ambiguous_redir(aux, bash))
 	{
 		free_token_list(start);
