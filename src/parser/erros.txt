@@ -1,0 +1,49 @@
+Novas verificacoes:
+	- expansao que tenha espaco em branco (SOZINHA) ls $teste ou ls "$teste"
+		em nenhum dos casos da vasamento de memoria
+		testei com e sem aspas
+		echo funciona normal pq nao da erro
+		ls e cat funcionam normal, mas como da erro,
+		 	a resposta do erro tem que ser
+			- sem aspas - uma linha pra cada token (OK)
+			- com aspas - uma unica linha pra tudo (ERRADO)
+
+			OK
+
+	- expansao que tenha espaco em branco (ACOMPANHADA)
+		ls $teste :testando    ou    ls $teste $USER
+			entre "commands" e "final call" da um monte de erro de Invalid Read
+			IMPORTANTE
+				apos a impressao do token blank e do :testando tambem da um monte de
+				Invalid Read
+			a resposta do erro ta ok mas tem um blank entre o OI e o :testando
+			que nao deveria existir (ERRADO)
+			aqui nao da vasamento mas deixa o espaco em branco
+		no teste com echo aparecem 3 brancos entre o ultimo OI e o :testando
+
+		ls "$teste :testando"
+			entre a "tokenizacao" e o "parsing" da um monte de erro de Invalid Read
+			a resposta do erro tinha que ser tudo numa linha e nao eh (ERRADO)
+			NAO TEM LEAK
+
+			OK
+
+		ls "$teste $USER"
+			LOUCURA TOTAL!!!!!
+			entre a tokenizacao e o parsing da um monte de erro de Invalid Read
+			no print do token da expansao nao imprime a expansao imprime USER,
+			perdeu o token $
+			a resposta tambem ta errada pq tem uma linha pra cada token
+
+			aqui tem vasamento de memoria
+
+			OK
+
+			
+	- expansao sem espacos (SOZINHO OU ACOMPANHADO)
+		ls $PWD
+		ls $PWD $USER
+		ls "$PWD $USER"
+		ls $PWD no meu computador
+		ls "$PWD no meu computador"
+			completamente normal sem vasamentos ou outros problemas de memoria

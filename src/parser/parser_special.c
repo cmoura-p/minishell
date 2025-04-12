@@ -6,13 +6,13 @@
 /*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/23 00:10:04 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/04/05 20:12:07 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/04/12 14:07:16 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int	blank_in_expand(t_token **token, char **exp_pieces, t_minishell *bash)
+void	blank_in_expand(t_token **token, char **exp_pieces, t_minishell *bash)
 {
 	t_token	*newtoken;
 	int		flag;
@@ -23,7 +23,7 @@ int	blank_in_expand(t_token **token, char **exp_pieces, t_minishell *bash)
 	before = NULL;
 	flag = 0;
 	if (is_export((*token)))
-		return (flag);
+		return ;
 	while (ft_more_space(*exp_pieces))
 	{
 		if (after)
@@ -38,7 +38,7 @@ int	blank_in_expand(t_token **token, char **exp_pieces, t_minishell *bash)
 	}
 	if (flag)
 		special_final(&newtoken, after, &(*token), bash);
-	return (flag);
+	return ;
 }
 
 void	special_before(t_token **newtoken, char *before, int flag)

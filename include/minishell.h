@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 10:51:43 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/04/10 09:00:53 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/04/12 14:08:06 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -230,6 +230,7 @@ void		joinprev(t_token **token, char *name);
 void		expandtokens(t_minishell *bash);
 void		joinexpand(t_token **token, char *name, char *name_exp);
 void		expand_var(t_token **aux, t_envp *aux_envp, t_minishell *bash);
+//void		expand_var(t_token **aux, t_envp *aux_envp);
 void		expand_exit(t_minishell *bash, t_token **token);
 void		expand_in_dq(t_minishell *bash, t_token **aux, \
 				char *b_var, char *a_var);
@@ -243,7 +244,7 @@ t_token		*set_redir_file(t_token *token, enum e_type type);
 void		remove_blank(t_minishell *bash);
 void		remove_exp_null(t_minishell *bash);
 void		find_a_pipe(t_token **aux);
-int			blank_in_expand(t_token **token, char **exp_var, t_minishell *bash);
+void		blank_in_expand(t_token **token, char **exp_var, t_minishell *bash);
 void		special_before(t_token **newtoken, char *before, int flag);
 void		special_last(t_token **newtoken, char *after);
 void		special_clean(t_token **token, t_token **newtoken, \
