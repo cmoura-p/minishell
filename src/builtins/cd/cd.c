@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: breda-si <breda-si@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 15:04:23 by brendon           #+#    #+#             */
-/*   Updated: 2025/04/08 18:12:43 by breda-si         ###   ########.fr       */
+/*   Updated: 2025/04/13 13:46:53 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,8 @@ void	ft_cd(t_minishell *minishell, char **args)
 		oldpwd = getcwd(NULL, 0);
 	if (!args || !args[0])
 		path = ft_getenv(minishell->envp, "HOME");
+	else if (args && args[0] && args[0][0] == '\0')			// eu que coloquei
+		path = ft_getenv(minishell->envp, "PWD");			// eu que coloquei
 	else if (args && args[0] && (ft_strcmp(args[0], "-") == 0))
 	{
 		path = ft_getenv(minishell->envp, "OLDPWD");

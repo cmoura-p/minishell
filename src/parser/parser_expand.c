@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 18:46:17 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/04/12 16:11:01 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/04/13 00:52:13 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,21 +64,14 @@ void	expand_var(t_token **aux, t_envp *aux_envp, t_minishell *bash)
 		return ;
 	env_var = envp_name((*aux)->next->name);
 	if (*env_var == '\0')
-	{
-		free(env_var);
-		(*aux) = (*aux)->next;
-		return ;
-	}
+		return (free(env_var), (*aux) = (*aux)->next, (void)0);
 	exp_var = ft_getenv(aux_envp, env_var);
 	check_exp_null((*aux), exp_var, env_var);
 	if ((*aux)->next && ((*aux)->next->status == SINGLE_Q))
 		joinexpand(aux, env_var, exp_var);
-	else
-	{
-		if (!blank_in_expand(&(*aux), &exp_var, bash))
-			joinexpand(aux, env_var, exp_var);
-	}
-	if (((*aux)->prev != NULL) && ((*aux)->prev->type == WORD))
+	else if (!blank_in_expand(&(*aux), &exp_var, bash))
+		joinexpand(aux, env_var, exp_var);
+	if ((*aux)->prev && (*aux)->prev->type == WORD)
 	{
 		newname = ft_strjoin((*aux)->prev->name, (*aux)->name);
 		joinprev(aux, newname);
