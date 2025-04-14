@@ -6,12 +6,11 @@
 /*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 15:04:23 by brendon           #+#    #+#             */
-/*   Updated: 2025/04/14 16:29:39 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/04/14 16:38:23 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../include/minishell.h"
-
 
 void	att_pwdold(t_minishell *minishell, char *oldpwd)
 {
@@ -55,13 +54,13 @@ void	ft_cd(t_minishell *minishell, char **args)
 	oldpwd = ft_getenv(minishell->envp, "PWD");
 	if (!oldpwd)
 		oldpwd = getcwd(NULL, 0);
-	if (args ==NULL  || args[0] == NULL)
+	if (args == NULL || args[0] == NULL)
 		path = ft_getenv(minishell->envp, "HOME");
 	else if (args[1])
 		return (handle_cd_error(minishell, args, oldpwd, NULL));
 	else if (ft_strcmp(args[0], "-") == 0)
 		path = ft_getenv(minishell->envp, "OLDPWD");
-	else if (args[0][0] == '-' && !args[0][1] == '\0' )
+	else if (args[0][0] == '-' && args[0][1] != '\0')
 		return (handle_cd_error(minishell, args, oldpwd, NULL));
 	else
 		path = ft_strdup(args[0]);

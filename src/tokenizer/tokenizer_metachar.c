@@ -6,7 +6,7 @@
 /*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 16:44:23 by cmoura-p          #+#    #+#             */
-/*   Updated: 2025/04/14 16:26:52 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/04/14 18:56:39 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,9 @@ int	token_dollar(char *line, int i, t_minishell *bash)
 	}
 	if (line[i + 1] == '_' || ft_isalpha(line[i + 1]))
 		add_tokenlst(&bash, redir, EXP_ENVP, NO_QUOTE);
-	else if ((line[i + 1] != '\"') && (line[i + 1] != '\''))
+	else if (line[i + 1] == '\"' || line[i + 1] == '\'' )
+			free(redir);
+	else
 		add_tokenlst(&bash, redir, WORD, NO_QUOTE);
 	return (i);
 }
