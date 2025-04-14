@@ -54,3 +54,15 @@ Novas verificacoes:
 		ls $PWD no meu computador
 		ls "$PWD no meu computador"
 			completamente normal sem vasamentos ou outros problemas de memoria
+
+
+	- export test="    abc"
+		echo kkk$test kkk
+			kkk abc kkk			/		kkkabc kkk
+
+	- export user=oi$"U"S"E"R
+		echo $user
+			oiUSER				/		oi$USER
+
+	- echo hi $'' $""
+		hi						/ 		hi $ $
