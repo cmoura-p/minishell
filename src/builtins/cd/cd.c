@@ -6,40 +6,12 @@
 /*   By: cmoura-p <cmoura-p@students.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 15:04:23 by brendon           #+#    #+#             */
-/*   Updated: 2025/04/14 10:37:35 by cmoura-p         ###   ########.fr       */
+/*   Updated: 2025/04/14 16:29:39 by cmoura-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../include/minishell.h"
 
-int	ft_check_args(t_minishell *bash, char **args)
-{
-	int		i;
-	char	*path;
-
-	i = 0;
-	while (args[i])
-		i++;
-	if (i == 0)
-	{
-		path = ft_getenv(bash->envp, "HOME");
-		bash->exit_status = 0;
-		chdir(path);
-		free(path);
-	}
-	if (i > 1)
-	{
-		bash->exit_status = 1;
-		if (args[0][0] == '-' && (args[0][1] != '\0' ||
-			(args[0][1] == '-' && args[0][2] == '\0')))
-			ft_fprintf(STDERR_FILENO,
-				"minishell: cd: %s: invalid option\n", args[0]);
-		else
-			ft_fprintf(STDERR_FILENO, "minishell: cd: too many arguments\n");
-		return (1);
-	}
-	return (0);
-}
 
 void	att_pwdold(t_minishell *minishell, char *oldpwd)
 {
@@ -83,25 +55,23 @@ void	ft_cd(t_minishell *minishell, char **args)
 	oldpwd = ft_getenv(minishell->envp, "PWD");
 	if (!oldpwd)
 		oldpwd = getcwd(NULL, 0);
-	if (!args || !args[0])
+	if (args ==NULL  || args[0] == NULL)
 		path = ft_getenv(minishell->envp, "HOME");
-//	else if (args && args[0] && args[0][0] == '\0')			// eu que coloquei
-//		path = ft_getenv(minishell->envp, "PWD");			// eu que coloquei
-	else if (args && args[0] && (ft_strcmp(args[0], "-") == 0))
-	{
+	else if (args[1])
+		return (handle_cd_error(minishell, args, oldpwd, NULL));
+	else if (ft_strcmp(args[0], "-") == 0)
 		path = ft_getenv(minishell->envp, "OLDPWD");
-		if (!path)
-			handle_cd_error(minishell, args, oldpwd, NULL);
-	}
-	else if (ft_check_args(minishell, args))
-		return (free(oldpwd));
+	else if (args[0][0] == '-' && !args[0][1] == '\0' )
+		return (handle_cd_error(minishell, args, oldpwd, NULL));
 	else
 		path = ft_strdup(args[0]);
-	if (!path || !path[0] || chdir(path) == -1)
+	if (!path || chdir(path) == -1)
 		return (handle_cd_error(minishell, args, oldpwd, path));
 	minishell->exit_status = 0;
 	att_pwdold(minishell, oldpwd);
+	if (args && args[0] && ft_strcmp(args[0], "-") == 0)
+		ft_printf("%s\n", path);
+	free(oldpwd);
 	if (path)
 		free(path);
-	free(oldpwd);
 }
